@@ -1,38 +1,45 @@
+import { useState } from 'react'
+import CategorySection from '../components/CategorySection'
+import Navbar from '../components/Navbar'
 import RestaurantCard from '../components/RestaurantCard'
 import { restaurants } from '../data/restaurants'
 import '../styles/Home.css'
 
 export default function Home() {
-  return (
-    <div>
 
-      <section className="hero">
+  const [selectedCategory, setSelectedCategory] = useState('Todos')
+  const filteredRestaurants =
 
-        <div className="hero-content">
+  selectedCategory === 'Todos'
 
-          <h1>
-            Descubre restaurantes en Honduras
-          </h1>
+    ? restaurants
 
-          <p>
-            Menús • Fotos • WhatsApp • Ubicación
-          </p>
+    : restaurants.filter(
 
-          <button>
-            Ver Restaurantes
-          </button>
+        (restaurant) =>
 
-        </div>
+          restaurant.category === selectedCategory
 
-      </section>
+      )
+      return (
+        <>
+
+<Navbar />
+
+      
+
+      <CategorySection
+  selectedCategory={selectedCategory}
+  setSelectedCategory={setSelectedCategory}
+/>
 
       <section className="restaurants">
 
-  <h2>Restaurantes Populares</h2>
+  
 
   <div className="restaurants-grid">
 
-    {restaurants.map((restaurant) => (
+  {filteredRestaurants.map((restaurant) => (
 
       <RestaurantCard
         key={restaurant.id}
@@ -45,6 +52,6 @@ export default function Home() {
 
 </section>
 
-    </div>
+</>
   )
 }
