@@ -1,8 +1,26 @@
 
+import PremiumMenu
+from '../components/restaurant/PremiumMenu'
+
+
+
+
+import RestaurantHeader
+from '../components/restaurant/RestaurantHeader'
+
+
+import CartModal
+from '../components/restaurant/CartModal'
+
+
+import CartBar
+from '../components/restaurant/CartBar'
+
+
 import { useState } from 'react'
 
 import MenuSection
-from '../components/MenuSection'
+from '../components/restaurant/MenuSection'
 
 export default function PremiumLayout({
 
@@ -124,251 +142,57 @@ export default function PremiumLayout({
 
     <>
 
-      <div
 
-        className="restaurant-header"
+<RestaurantHeader
 
-        style={{
+  restaurant={restaurant}
 
-          color: theme?.colors?.primary,
+  theme={theme}
 
-        }}
+/>
 
-      >
 
-        <h1
 
-          style={{
+      
 
-            color: theme?.colors?.primary,
+ 
+<CartBar
 
-            fontFamily:
+  cart={cart}
 
-              theme?.fonts?.heading,
+  setShowCart={setShowCart}
 
-          }}
+/>
 
-        >
 
-          {restaurant.name}
 
-        </h1>
+<CartModal
 
-      </div>
+  cart={cart}
 
-      <div className="restaurant-menu">
+  setShowCart={setShowCart}
 
-        {
+  decreaseQuantity={decreaseQuantity}
 
-          restaurant.menu.map((section) => (
+  increaseQuantity={increaseQuantity}
 
-            <MenuSection
+  restaurant={restaurant}
 
-              key={section.category}
+/>
 
-              section={section}
 
-              addToCart={addToCart}
+<PremiumMenu
 
-              theme={theme}
+  restaurant={restaurant}
 
-            />
+  theme={theme}
 
-          ))
+  addToCart={addToCart}
 
-        }
+/>
 
-      </div>
 
-      {
-
-        cart.length > 0 && (
-
-          <div className="cart-bar">
-
-            <div>
-
-              🛒 {cart.length} productos
-
-            </div>
-
-            <button
-
-              onClick={() =>
-
-                setShowCart(true)
-
-              }
-
-            >
-
-              Ver Pedido
-
-            </button>
-
-          </div>
-
-        )
-
-      }
-
-      {
-
-        showCart && (
-
-          <div className="cart-modal">
-
-            <div className="cart-content">
-
-              <div className="cart-header">
-
-                <h2>
-
-                  Tu Pedido
-
-                </h2>
-
-                <button
-
-                  onClick={() =>
-
-                    setShowCart(false)
-
-                  }
-
-                >
-
-                  ✕
-
-                </button>
-
-              </div>
-
-              <div className="cart-items">
-
-                {
-
-                  cart.map((item, index) => (
-
-                    <div
-
-                      key={index}
-
-                      className="cart-item"
-
-                    >
-
-                      <div>
-
-                        <span>
-
-                          {item.name}
-
-                        </span>
-
-                        <p>
-
-                          x{item.quantity}
-
-                        </p>
-
-                      </div>
-
-                      <div className="cart-controls">
-
-                        <button
-
-                          onClick={() =>
-
-                            decreaseQuantity(item.name)
-
-                          }
-
-                        >
-
-                          −
-
-                        </button>
-
-                        <span>
-
-                          L {
-
-                            item.price *
-
-                            item.quantity
-
-                          }
-
-                        </span>
-
-                        <button
-
-                          onClick={() =>
-
-                            increaseQuantity(item.name)
-
-                          }
-
-                        >
-
-                          +
-
-                        </button>
-
-                      </div>
-
-                    </div>
-
-                  ))
-
-                }
-
-              </div>
-
-              <div className="cart-total">
-
-                Total: L {
-
-                  cart.reduce(
-
-                    (total, item) =>
-
-                      total +
-
-                      item.price *
-
-                      item.quantity,
-
-                    0
-
-                  )
-
-                }
-
-              </div>
-
-              <a
-
-                href={`https://wa.me/${restaurant.whatsapp}`}
-
-                target="_blank"
-
-                className="whatsapp-order"
-
-              >
-
-                Enviar por WhatsApp
-
-              </a>
-
-            </div>
-
-          </div>
-
-        )
-
-      }
+      
 
     </>
 

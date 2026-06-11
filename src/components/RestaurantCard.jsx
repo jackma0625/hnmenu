@@ -15,7 +15,7 @@ const cardContent = (
         </h3>
 
         <p className="restaurant-category">
-          {restaurant.category}
+        {restaurant.category.name}
         </p>
         
       </div>

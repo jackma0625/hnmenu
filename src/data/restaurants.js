@@ -1,4 +1,8 @@
 
+import { categories }
+from './categories'
+
+
 import { chineseTheme }
 from './themes/chinese'
 
@@ -25,7 +29,7 @@ export const restaurants = [
 
     theme: sushiTheme,
 
-    category: 'Comida Asia',
+    category: categories[0],
 
     image:
       '/images/restaurants/sushi-yamato.webp',
@@ -60,7 +64,7 @@ export const restaurants = [
 
     theme: chineseTheme,
 
-    category: 'Comida Asia',
+    category: categories[0],
 
     image:
       '/images/restaurants/hongkong.webp',
@@ -94,7 +98,7 @@ export const restaurants = [
 
     theme: basicTheme,
 
-    category: 'Pollo Frito y Asado',
+    category: categories[4],
 
     image:
       '/images/restaurants/asado.webp',
