@@ -354,7 +354,7 @@ export const restaurants = [
 
   menu: [],
 
-  menuImages: [],
+  menuImages: ['/images/menus/carnitas1.webp'],
 
 },
 
