@@ -9,6 +9,18 @@ export default function BasicLayout({
 
     <>
 
+<a
+
+  href="/"
+
+  className="back-button"
+
+>
+
+  ← Volver
+
+</a>
+
       <img
 
         className="restaurant-banner"

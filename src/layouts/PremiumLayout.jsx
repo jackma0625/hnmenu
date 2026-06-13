@@ -142,6 +142,18 @@ export default function PremiumLayout({
 
     <>
 
+<a
+
+  href="/"
+
+  className="back-button"
+
+>
+
+  ← Volver
+
+</a>
+
 
 <RestaurantHeader
 
