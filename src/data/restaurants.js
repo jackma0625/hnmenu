@@ -155,7 +155,7 @@ export const restaurants = [
 
   menu: [],
 
-  menuImages: [],
+  menuImages: [ '/images/menus/rancho1.webp', '/images/menus/rancho2.webp'],
 
 },
 
