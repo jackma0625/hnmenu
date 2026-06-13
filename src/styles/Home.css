@@ -53,7 +53,7 @@
 }
 
 .filter-bar {
-  padding: 6px 16px;
+  padding: 4px 16px;
 }
 
 .filter-btn {
@@ -62,7 +62,7 @@
   font-size: 16px;    /* 原来是 18px，稍微小一点 */
   font-weight: 600;   /* 原来是 700，稍微轻一点 */
   cursor: pointer;
-  padding: 6px 0;     /* 新增：减少上下内边距 */
+  padding: 4px 0;     /* 新增：减少上下内边距 */
 }
 
 .dropdown-menu {
