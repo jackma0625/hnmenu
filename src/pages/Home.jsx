@@ -1,4 +1,3 @@
-
 import { filterRestaurants } from '../utils/filterRestaurants'
 import { useState } from 'react'
 import CategorySection from '../components/CategorySection'
@@ -8,40 +7,30 @@ import { restaurants } from '../data/restaurants'
 import '../styles/Home.css'
 
 export default function Home() {
-
   const [selectedCategory, setSelectedCategory] = useState('all')
-  const filteredRestaurants = filterRestaurants( restaurants, selectedCategory )
-      return (
-        <>
-
-<Navbar />
-
-      
-
-      <CategorySection
-  selectedCategory={selectedCategory}
-  setSelectedCategory={setSelectedCategory}
-/>
-
-      <section className="restaurants">
-
+  const filteredRestaurants = filterRestaurants(restaurants, selectedCategory)
   
+  return (
+    <>
+      <Navbar />
+      
+      <div className="main-content">
+        <CategorySection
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+        />
 
-  <div className="restaurants-grid">
-
-  {filteredRestaurants.map((restaurant) => (
-
-      <RestaurantCard
-        key={restaurant.id}
-        restaurant={restaurant}
-      />
-
-    ))}
-
-  </div>
-
-</section>
-
-</>
+        <section className="restaurants">
+          <div className="restaurants-grid">
+            {filteredRestaurants.map((restaurant) => (
+              <RestaurantCard
+                key={restaurant.id}
+                restaurant={restaurant}
+              />
+            ))}
+          </div>
+        </section>
+      </div>
+    </>
   )
 }
