@@ -298,31 +298,12 @@ body {
 
 }
 
-.restaurant-banner {
+.restaurant-banner
+ { width: 100%; height: 280px; object-fit: cover; display: block; }
 
-  width: 100%;
+ .restaurant-details { padding: 28px 20px 10px; text-align: center; }
 
-  height: 240px;
-
-  object-fit: cover;
-
-}
-
-.restaurant-details {
-
-  background: white;
-
-  padding: 20px 16px;
-
-}
-
-.restaurant-details h1 {
-
-  font-size: 32px;
-
-  margin-bottom: 8px;
-
-}
+ .restaurant-details h1 { font-size: 34px; font-weight: 700; margin-bottom: 10px; color: #111; }
 
 .restaurant-type {
 
@@ -384,31 +365,9 @@ body {
 
 }
 
-.restaurant-info {
+.restaurant-info { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; font-size: 14px; color: #666; }
 
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 10px;
-
-  color: #555;
-
-  font-size: 15px;
-
-}
-
-.menu-images {
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 16px;
-
-  padding: 16px;
-
-}
+.menu-images { padding: 20px; }
 
 .menu-images img {
 

@@ -27,27 +27,7 @@ export default function BasicLayout({
 
         </h1>
 
-        <div className="restaurant-actions">
-
-          <a
-
-            href={`https://wa.me/${restaurant.whatsapp}`}
-
-            target="_blank"
-
-            rel="noopener noreferrer"
-
-          >
-
-            <button>
-
-              WhatsApp
-
-            </button>
-
-          </a>
-
-        </div>
+        
 
         <div className="restaurant-info">
 
@@ -81,7 +61,7 @@ export default function BasicLayout({
 
         {
 
-          restaurant.menuImages.map((image) => (
+          restaurant.menuImages?.map((image) => (
 
             <img
 
@@ -111,7 +91,7 @@ export default function BasicLayout({
 
       >
 
-        WhatsApp
+Ordenar por WhatsApp
 
       </a>
 
