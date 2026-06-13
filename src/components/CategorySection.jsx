@@ -1,29 +1,20 @@
+
 import { useState } from 'react'
+
+import { categories }
+from '../data/categories.js'
 
 export default function CategorySection({
 
   selectedCategory,
+
   setSelectedCategory,
 
 }) {
 
-  const [showMenu, setShowMenu] = useState(false)
+  const [showMenu, setShowMenu]
 
-  const categories = [
-
-    'Todos',
-
-    'Comida Asia',
-
-    'Cafetería',
-
-    'Pizza y Hamburguesa',
-
-    'Baleadas',
-
-    'Pollo Frito y Asado',
-
-  ]
+    = useState(false)
 
   return (
 
@@ -32,13 +23,34 @@ export default function CategorySection({
       <div className="filter-bar">
 
         <button
+
           className="filter-btn"
+
           onClick={() =>
+
             setShowMenu(!showMenu)
+
           }
+
         >
 
-          {selectedCategory} ▼
+          {
+
+            selectedCategory === 'all'
+
+              ? 'Todos'
+
+              : categories.find(
+
+                  (category) =>
+
+                    category.slug ===
+
+                    selectedCategory
+
+                )?.name
+
+          } ▼
 
         </button>
 
@@ -50,23 +62,59 @@ export default function CategorySection({
 
           <div className="dropdown-menu">
 
+            <button
+
+              className={
+
+                selectedCategory === 'all'
+
+                  ? 'active-dropdown'
+
+                  : ''
+
+              }
+
+              onClick={() => {
+
+                setSelectedCategory('all')
+
+                setShowMenu(false)
+
+              }}
+
+            >
+
+              Todos
+
+            </button>
+
             {
 
               categories.map((category) => (
 
                 <button
 
-                  key={category}
+                  key={category.id}
 
                   className={
-                    selectedCategory === category
+
+                    selectedCategory ===
+
+                    category.slug
+
                       ? 'active-dropdown'
+
                       : ''
+
                   }
 
                   onClick={() => {
 
-                    setSelectedCategory(category)
+                    setSelectedCategory(
+
+                      category.slug
+
+                    )
 
                     setShowMenu(false)
 
@@ -74,7 +122,11 @@ export default function CategorySection({
 
                 >
 
-                  {category}
+                  {category.icon}
+
+                  {' '}
+
+                  {category.name}
 
                 </button>
 
@@ -91,4 +143,5 @@ export default function CategorySection({
     </section>
 
   )
+
 }

@@ -1,3 +1,5 @@
+
+import { filterRestaurants } from '../utils/filterRestaurants'
 import { useState } from 'react'
 import CategorySection from '../components/CategorySection'
 import Navbar from '../components/Navbar'
@@ -7,20 +9,8 @@ import '../styles/Home.css'
 
 export default function Home() {
 
-  const [selectedCategory, setSelectedCategory] = useState('Todos')
-  const filteredRestaurants =
-
-  selectedCategory === 'Todos'
-
-    ? restaurants
-
-    : restaurants.filter(
-
-        (restaurant) =>
-
-          restaurant.category === selectedCategory
-
-      )
+  const [selectedCategory, setSelectedCategory] = useState('all')
+  const filteredRestaurants = filterRestaurants( restaurants, selectedCategory )
       return (
         <>
 
