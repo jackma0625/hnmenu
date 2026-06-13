@@ -7,63 +7,104 @@ export default function CategorySection({
 }) {
   const [showMenu, setShowMenu] = useState(false)
   const [isSticky, setIsSticky] = useState(false)
-  const sectionRef = useRef(null)
-  const placeholderRef = useRef(null)
+  const sentinelRef = useRef(null)
+  const ticking = useRef(false)
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (sectionRef.current) {
-        const rect = sectionRef.current.getBoundingClientRect()
-        // 当分类栏顶部到达 navbar 底部（88px）时，变成固定
-        setIsSticky(rect.top <= 88)
+    const sentinel = sentinelRef.current
+    if (!sentinel) return
+
+    // 用 IntersectionObserver，手机兼容性好，不震动
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // 使用 requestAnimationFrame 防抖，避免手机震动
+        if (!ticking.current) {
+          requestAnimationFrame(() => {
+            setIsSticky(!entry.isIntersecting)
+            ticking.current = false
+          })
+          ticking.current = true
+        }
+      },
+      {
+        threshold: 0,
+        rootMargin: '-88px 0px 0px 0px',
       }
-    }
-    
-    window.addEventListener('scroll', handleScroll)
-    handleScroll() // 初始化检查
-    
-    return () => window.removeEventListener('scroll', handleScroll)
+    )
+
+    observer.observe(sentinel)
+
+    return () => observer.disconnect()
   }, [])
+
+  // 获取当前显示的分类名称
+  const getCurrentCategoryName = () => {
+    if (selectedCategory === 'all') return 'Todos'
+    const cat = categories.find(c => c.slug === selectedCategory)
+    return cat ? `${cat.icon} ${cat.name}` : 'Todos'
+  }
 
   return (
     <>
-      {/* 占位符：当分类栏固定时，保持高度防止跳动 */}
-      <div ref={placeholderRef} style={{ display: isSticky ? 'block' : 'none', height: '60px' }} />
-      
-      <div 
-        ref={sectionRef}
-        className={`categories ${isSticky ? 'sticky-fixed' : ''}`}
-        style={isSticky ? {
-          position: 'fixed',
-          top: '88px',
+      {/* 哨兵元素 - 放在分类栏原本位置的上方 */}
+      <div ref={sentinelRef} style={{ height: '1px' }} />
+
+      <div
+        className="categories"
+        style={{
+          position: isSticky ? 'fixed' : 'relative',
+          top: isSticky ? '88px' : 'auto',
           left: 0,
           right: 0,
           zIndex: 999,
           background: 'white',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-        } : {}}
+          borderBottom: '1px solid #eee',
+          boxShadow: isSticky ? '0 2px 8px rgba(0,0,0,0.1)' : 'none',
+          transition: isSticky ? 'box-shadow 0.2s' : 'none'
+        }}
       >
         <div className="filter-bar">
           <button
             className="filter-btn"
             onClick={() => setShowMenu(!showMenu)}
+            style={{
+              width: '100%',
+              textAlign: 'center',
+              padding: '12px 16px'
+            }}
           >
-            {selectedCategory === 'all'
-              ? 'Todos'
-              : categories.find(
-                  (category) => category.slug === selectedCategory
-                )?.name
-            } ▼
+            {getCurrentCategoryName()} ▼
           </button>
         </div>
 
         {showMenu && (
-          <div className="dropdown-menu">
+          <div 
+            className="dropdown-menu"
+            style={{
+              position: 'absolute',
+              top: '100%',
+              left: 0,
+              right: 0,
+              background: 'white',
+              zIndex: 1000,
+              maxHeight: '300px',
+              overflowY: 'auto',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+            }}
+          >
             <button
               className={selectedCategory === 'all' ? 'active-dropdown' : ''}
               onClick={() => {
                 setSelectedCategory('all')
                 setShowMenu(false)
+              }}
+              style={{
+                width: '100%',
+                padding: '16px 20px',
+                border: 'none',
+                background: selectedCategory === 'all' ? '#f5f5f5' : 'white',
+                textAlign: 'left',
+                borderBottom: '1px solid #eee'
               }}
             >
               Todos
@@ -75,6 +116,14 @@ export default function CategorySection({
                 onClick={() => {
                   setSelectedCategory(category.slug)
                   setShowMenu(false)
+                }}
+                style={{
+                  width: '100%',
+                  padding: '16px 20px',
+                  border: 'none',
+                  background: selectedCategory === category.slug ? '#f5f5f5' : 'white',
+                  textAlign: 'left',
+                  borderBottom: '1px solid #eee'
                 }}
               >
                 {category.icon} {category.name}
