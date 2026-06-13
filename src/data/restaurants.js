@@ -124,4 +124,40 @@ export const restaurants = [
 
   },
 
+
+{
+
+  id: 4,
+
+  slug: 'rancho-grande',
+
+  name: 'Rancho Grande',
+
+  template: 'basic',
+
+  theme: basicTheme,
+
+  category: categories[4],
+
+  image:
+    '/images/restaurants/rancho-grande.webp',
+
+  location: 'La Entrada, Copán',
+
+  whatsapp: '50431797421',
+
+  maps:
+    'https://maps.google.com',
+
+  hours: '7AM - 10PM',
+
+  website: '',
+
+  menu: [],
+
+  menuImages: [],
+
+},
+
+
 ]
