@@ -812,6 +812,7 @@ body {
 }
 
 
+
 .back-button {
 
   position: fixed;
@@ -840,4 +841,15 @@ body {
 
     0 2px 10px rgba(0,0,0,0.08);
 
+  -webkit-tap-highlight-color:
+
+    transparent;
+
 }
+
+.back-button:focus {
+
+  outline: none;
+
+}
+
