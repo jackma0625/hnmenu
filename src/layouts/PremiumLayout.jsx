@@ -1,4 +1,7 @@
 
+import { Link }
+from 'react-router-dom'
+
 import PremiumMenu
 from '../components/restaurant/PremiumMenu'
 
@@ -142,9 +145,10 @@ export default function PremiumLayout({
 
     <>
 
-<a
 
-  href="/"
+<Link
+
+  to="/"
 
   className="back-button"
 
@@ -152,7 +156,8 @@ export default function PremiumLayout({
 
   ← Volver
 
-</a>
+</Link>
+
 
 
 <RestaurantHeader

@@ -1,4 +1,7 @@
 
+import { Link }
+from 'react-router-dom'
+
 export default function BasicLayout({
 
   restaurant,
@@ -9,9 +12,10 @@ export default function BasicLayout({
 
     <>
 
-<a
 
-  href="/"
+<Link
+
+  to="/"
 
   className="back-button"
 
@@ -19,7 +23,8 @@ export default function BasicLayout({
 
   ← Volver
 
-</a>
+</Link>
+
 
       <img
 
