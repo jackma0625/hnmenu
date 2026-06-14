@@ -170,7 +170,7 @@
 /* ================= RESTAURANT PAGE ================= */
 .restaurant-page {
   background: #f5f5f5;
-  min-height: 100vh;
+  
 }
 
 .restaurant-banner {
@@ -250,7 +250,7 @@
 
 /* ================= MENU ================= */
 .restaurant-menu {
-  padding: 20px 16px 80px;
+  padding: 20px 16px 70px;
   background: #f5f1ea;
 }
 
@@ -312,7 +312,7 @@
 /* ================= CART ================= */
 .cart-bar {
   position: fixed;
-  bottom: 20px;
+  bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% - 32px);
@@ -574,7 +574,7 @@
   display: flex;
   gap: 12px;
   overflow-x: auto;
-  padding: 16px;
+  padding: 5px 5px;
   position: sticky;
   top: 0;
   background: white;
@@ -584,7 +584,7 @@
 .premium-categories button {
   border: none;
   background: #f3f3f3;
-  padding: 10px 18px;
+  padding: 8px 10px;
   border-radius: 999px;
   white-space: nowrap;
   font-weight: 600;
