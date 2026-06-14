@@ -1,13 +1,24 @@
 // components/restaurant/CartModal.jsx
 import { useEffect, useRef } from 'react';
 
-export default function CartModal({ 
-  cart, 
-  setShowCart, 
-  decreaseQuantity, 
-  increaseQuantity, 
-  restaurant 
-}) {
+
+export default function CartModal({
+
+  cart,
+
+  showCart,
+
+  setShowCart,
+
+  decreaseQuantity,
+
+  increaseQuantity,
+
+  restaurant
+
+})
+
+ {
   const modalRef = useRef(null);
 
   // 计算总金额
@@ -43,7 +54,7 @@ export default function CartModal({
   }, [setShowCart]);
 
   // 如果没有购物车数据或没传 setShowCart，不渲染
-  if (!setShowCart) return null;
+  
 
   // 生成 WhatsApp 订单消息
   const generateWhatsAppMessage = () => {

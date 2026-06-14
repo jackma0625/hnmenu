@@ -95,13 +95,31 @@ export default function PremiumLayout({ restaurant }) {
         />
       )}
 
-      <CartModal
-        cart={cart}
-        setShowCart={setShowCart}
-        decreaseQuantity={decreaseQuantity}
-        increaseQuantity={increaseQuantity}
-        restaurant={restaurant}
-      />
+
+{
+
+  showCart && (
+
+    <CartModal
+
+      cart={cart}
+
+      showCart={showCart}
+
+      setShowCart={setShowCart}
+
+      decreaseQuantity={decreaseQuantity}
+
+      increaseQuantity={increaseQuantity}
+
+      restaurant={restaurant}
+
+    />
+
+  )
+
+}
+
 
       <PremiumMenu restaurant={restaurant} theme={theme} addToCart={addToCart} />
     </>
