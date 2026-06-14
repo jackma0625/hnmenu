@@ -1,96 +1,173 @@
-
 export const hongkongMenu = [
-
-    {
-  
-      category: 'MAS PEDIDO',
-  
-      items: [
-  
-        {
-          name: 'Pollo Agridulce',
-          price: 220,
-        },
-  
-        {
-          name: 'Arroz Frito Especial',
-          price: 250,
-        },
-  
-      ],
-  
-    },
-  
-    {
-  
-      category: 'ENTRADAS',
-  
-      items: [
-  
-        {
-          name: 'Rollitos Primavera',
-          price: 120,
-        },
-  
-        {
-          name: 'Wantán Frito',
-          price: 140,
-        },
-  
-      ],
-  
-    },
-  
-    {
-  
-      category: 'SOPAS',
-  
-      items: [
-  
-        {
-          name: 'Sopa Wantán',
-          price: 180,
-        },
-  
-        {
-          name: 'Sopa de Pollo',
-          price: 160,
-        },
-  
-      ],
-  
-    },
-  
-    {
-  
-      category: 'ARROZ',
-  
-      items: [
-  
-        {
-          name: 'Arroz con Pollo',
-          price: 190,
-        },
-  
-        {
-          name: 'Arroz Especial',
-  
-          price: 240,
-  
-          options: [
-  
-            'Pollo',
-            'Res',
-            'Mixto',
-            'Camarón',
-  
-          ],
-  
-        },
-  
-      ],
-  
-    },
-  
-  ]
-  
+  {
+    category: 'MAS PEDIDO',
+    items: [
+      { name: 'Pollo Agridulce', price: 220 },
+      { name: 'Pollo Agridulce', price: 220 },
+      { name: 'Pollo Agridulce', price: 220 },
+      { name: 'Pollo Agridulce', price: 220 },
+      { name: 'Pollo Agridulce', price: 220 },
+    ],
+  },
+  {
+    category: 'ENTRADA',
+    items: [
+      { name: 'Wantan Frito (18)', price: 160 },
+      { name: 'Medio Wantan Frito (10)', price: 100 },
+      { name: 'Tacos Chinos (4)', price: 180 },
+      { name: 'Wantan al Vapor (15)', price: 180 },
+      { name: 'Papas Fritas', price: 110 },
+      { name: 'Albondiga de Camaron (6)', price: 280 },
+      { name: 'Ensalada de Pollo', price: 170 },
+      { name: 'Ensalada de Camaron', price: 220 },
+      { name: 'Alitas a la Barbacoa', price: 240 },
+    ],
+  },
+  {
+    category: 'SOPA',
+    items: [
+      { name: 'Sopa Hong Kong', price: 150 },
+      { name: 'Sopa Wantan', price: 150 },
+      { name: 'Sopa Wantan (con Tallarin de Arroz)', price: 180 },
+      { name: 'Sopa de Pollo', price: 140 },
+      { name: 'Sopa de Pollo (Crema Maiz y Huevo)', price: 170 },
+      { name: 'Sopa de Res', price: 150 },
+      { name: 'Sopa de Camaron (con Verduras)', price: 190 },
+      { name: 'Sopa de Camaron (con Leche Coco)', price: 190 },
+      { name: 'Sopa de Caracol', price: 210 },
+      { name: 'Sopa de Filete de pescado', price: 210 },
+      { name: 'Sopa de Marinera', price: 230 },
+    ],
+  },
+  {
+    category: 'ARROZ',
+    items: [
+      { name: 'Arroz Hong Kong Familia', price: 260 },
+      { name: 'Arroz Hong Kong Normal', price: 200 },
+      { name: 'Arroz con Camaron Familia', price: 380 },
+      { name: 'Arroz con Camaron Normal', price: 240 },
+      { name: 'Arroz con Pollo y Camaron', price: 240 },
+      { name: 'Arroz con Pollo', price: 200 },
+      { name: 'Arroz con Pollo y Res', price: 200 },
+      { name: 'Arroz con Camaron y Res', price: 250 },
+      { name: 'Arroz con Mariscos', price: 290 },
+      { name: 'Arroz con Pollo en Salsa Curry', price: 230 },
+      { name: 'Arroz Hong Kong Picante con Jalapeno', price: 220 },
+      { name: 'Arroz Blanco con Camaron extra Cebollina y Huevos', price: null },
+    ],
+  },
+  {
+    category: 'CHAP SUEY',
+    items: [
+      { name: 'Chap Suey Hong Kong Familia', price: 260 },
+      { name: 'Chap Suey Hong Kong Normal', price: 200 },
+      { name: 'Chap Suey Camaron Familia', price: 380 },
+      { name: 'Chap Suey Camaron Normal', price: 240 },
+      { name: 'Chap Suey Pollo y Camaron', price: 240 },
+      { name: 'Chap Suey con Pollo', price: 200 },
+      { name: 'Chap Suey con Pollo y Res', price: 200 },
+      { name: 'Chap Suey Camaron y Res', price: 250 },
+      { name: 'Chap Suey con Mariscos', price: 290 },
+      { name: 'Chap Suey Hong Kong Picante con Jalapeno', price: 220 },
+      { name: 'Chap Suey Hong Kong con Tallarin de Arroz Familia', price: 330 },
+      { name: 'Chap Suey Hong Kong con Tallarin de Arroz Normal', price: null },
+    ],
+  },
+  {
+    category: 'CAMARON',
+    items: [
+      { name: 'Camaron Vegetales Familia', price: 400 },
+      { name: 'Camaron Vegetales Normal', price: 240 },
+      { name: 'Camaron con Brocoli Familia', price: 400 },
+      { name: 'Camaron con Brocoli Normal', price: 240 },
+      { name: 'Camaron Empanizado', price: 230 },
+      { name: 'Camaron Plancha', price: 230 },
+      { name: 'Camarones Al Ajillo', price: 230 },
+      { name: 'Camarones Picante', price: 240 },
+      { name: 'Camarones Al Vapor', price: 240 },
+      { name: 'Camarones en Salsa Curry', price: 240 },
+      { name: 'Camarones Agridulce', price: 250 },
+      { name: 'Camarones Encobollados', price: 250 },
+      { name: 'Camarones Semilla Marañón', price: 270 },
+      { name: 'Camarones con Champiñones y Hongo Chino', price: 280 },
+      { name: 'Vegetables Mixto (con camarón, pollo, res)', price: 280 },
+    ],
+  },
+  {
+    category: 'POLLO',
+    items: [
+      { name: 'Pollo Vegetales Familia', price: 370 },
+      { name: 'Pollo Vegetales Normal', price: 230 },
+      { name: 'Pollo con Brocoli Familia', price: 370 },
+      { name: 'Pollo con Brocoli Normal', price: 230 },
+      { name: 'Pollo Empanizado', price: 170 },
+      { name: 'Pollo Plancha', price: 170 },
+      { name: 'Pollo Agridulce Familia', price: 390 },
+      { name: 'Pollo Agridulce Normal', price: 250 },
+      { name: 'Pollo Kung Pao Familia', price: 400 },
+      { name: 'Pollo Kung Pao Normal', price: 250 },
+      { name: 'Pollo con Semillas Marañón', price: 250 },
+      { name: 'Pollo en Salsa Curry', price: 260 },
+      { name: 'Pollo con Champiñones y Hongo Chino', price: 260 },
+    ],
+  },
+  {
+    category: 'RES',
+    items: [
+      { name: 'Res Vegetales Familia', price: 400 },
+      { name: 'Res Vegetales Normal', price: 240 },
+      { name: 'Res con Brocoli Familia', price: 400 },
+      { name: 'Res con Brocoli Normal', price: 240 },
+      { name: 'Res Plancha', price: 220 },
+      { name: 'Res Picante', price: 220 },
+      { name: 'Res Agridulce Familia', price: 400 },
+      { name: 'Res Agridulce Normal', price: 250 },
+      { name: 'Res Kung Pao Familia', price: 400 },
+      { name: 'Res Kung Pao Normal', price: 250 },
+      { name: 'Res en Salsa Curry', price: 250 },
+      { name: 'Res con Champiñones y Hongo Chino', price: 270 },
+    ],
+  },
+  {
+    category: 'CERDO',
+    items: [
+      { name: 'Cerdo Vegetales Familia', price: 380 },
+      { name: 'Cerdo Vegetales Normal', price: 250 },
+      { name: 'Cerdo con Brocoli Familia', price: 380 },
+      { name: 'Cerdo con Brocoli Normal', price: 250 },
+      { name: 'Costilla Agridulce', price: 250 },
+      { name: 'Costilla Frita (papa, arroz, ensalada)', price: 270 },
+      { name: 'Chuleta Empanizada', price: 240 },
+      { name: 'Chuleta Encebollada y Entomatada', price: 240 },
+      { name: 'Cerdo con Semillas Marañón', price: 270 },
+      { name: 'Cerdo con Champiñones y Hongo Chino', price: 270 },
+    ],
+  },
+  {
+    category: 'PLATOS PERSONAL',
+    items: [
+      { name: 'Arroz Personal', price: 110 },
+      { name: 'Chap Suey Personal', price: 110 },
+      { name: 'Mixto Personal', price: 110 },
+      { name: 'Arroz o Chap suey con pollo', price: 110 },
+      { name: 'Arroz o Chap suey camarones', price: 200 },
+      { name: 'Arroz o Chap suey Camaron y Pollo Personal', price: 200 },
+      { name: 'Arroz Blanco con Camarones', price: 220 },
+      { name: 'Cebollina y huevo Personal', price: null },
+      { name: 'Camaron Vegetales Personal', price: 210 },
+      { name: 'Camaron Agridulce Personal', price: 210 },
+      { name: 'Camaron Marañón Personal', price: 220 },
+      { name: 'Vegetales Mixto Personal', price: 230 },
+      { name: 'Pollo Vegetales Personal', price: 190 },
+      { name: 'Pollo Kunpao Personal', price: 210 },
+      { name: 'Pollo Agridulce Personal', price: 210 },
+      { name: 'Pollo Marañón Personal', price: 210 },
+      { name: 'Res Vegetales Personal', price: 210 },
+      { name: 'Res Agridulce Personal', price: 210 },
+      { name: 'Res Marañón Personal', price: 220 },
+      { name: 'Tallarin de Arroz Personal', price: 210 },
+      { name: 'Tallarin de Arroz con Camarón Personal', price: 230 },
+      { name: 'Tallarin de Arroz con Pollo Personal', price: 210 },
+    ],
+  },
+];

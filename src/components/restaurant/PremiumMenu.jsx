@@ -1,4 +1,7 @@
 
+import { useState }
+from 'react'
+
 import MenuSection
 from './MenuSection'
 
@@ -12,31 +15,101 @@ export default function PremiumMenu({
 
 }) {
 
+  const [selectedCategory,
+
+    setSelectedCategory]
+
+    = useState(
+
+      restaurant.menu[0]?.category
+
+    )
+
+  const filteredMenu =
+
+    restaurant.menu.filter(
+
+      (section) =>
+
+        section.category ===
+
+        selectedCategory
+
+    )
+
   return (
 
-    <div className="restaurant-menu">
+    <>
 
-      {
+      <div className="premium-categories">
 
-        restaurant.menu.map((section) => (
+        {
 
-          <MenuSection
+          restaurant.menu.map((section) => (
 
-            key={section.category}
+            <button
 
-            section={section}
+              key={section.category}
 
-            addToCart={addToCart}
+              className={
 
-            theme={theme}
+                selectedCategory ===
 
-          />
+                section.category
 
-        ))
+                  ? 'active-category'
 
-      }
+                  : ''
 
-    </div>
+              }
+
+              onClick={() =>
+
+                setSelectedCategory(
+
+                  section.category
+
+                )
+
+              }
+
+            >
+
+              {section.category}
+
+            </button>
+
+          ))
+
+        }
+
+      </div>
+
+      <div className="restaurant-menu">
+
+        {
+
+          filteredMenu.map((section) => (
+
+            <MenuSection
+
+              key={section.category}
+
+              section={section}
+
+              addToCart={addToCart}
+
+              theme={theme}
+
+            />
+
+          ))
+
+        }
+
+      </div>
+
+    </>
 
   )
 
