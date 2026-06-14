@@ -1,218 +1,109 @@
+import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import PremiumMenu from '../components/restaurant/PremiumMenu';
+import RestaurantHeader from '../components/restaurant/RestaurantHeader';
+import CartModal from '../components/restaurant/CartModal';
+import CartBar from '../components/restaurant/CartBar';
 
-import { Link }
-from 'react-router-dom'
+export default function PremiumLayout({ restaurant }) {
+  const theme = restaurant.theme;
+  const [cart, setCart] = useState([]);
+  const [showCart, setShowCart] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [lastAddedItem, setLastAddedItem] = useState(null);
 
-import PremiumMenu
-from '../components/restaurant/PremiumMenu'
+  // 从 localStorage 加载购物车
+  useEffect(() => {
+    const savedCart = localStorage.getItem(`cart_${restaurant.id}`);
+    if (savedCart) {
+      try {
+        setCart(JSON.parse(savedCart));
+      } catch (e) {
+        console.error('Failed to load cart:', e);
+      }
+    }
+  }, [restaurant.id]);
 
-
-
-
-import RestaurantHeader
-from '../components/restaurant/RestaurantHeader'
-
-
-import CartModal
-from '../components/restaurant/CartModal'
-
-
-import CartBar
-from '../components/restaurant/CartBar'
-
-
-import { useState } from 'react'
-
-import MenuSection
-from '../components/restaurant/MenuSection'
-
-export default function PremiumLayout({
-
-  restaurant,
-
-}) {
-
-  const theme = restaurant.theme
-
-  const [cart, setCart] = useState([])
-
-  const [showCart, setShowCart] = useState(false)
+  // 保存购物车到 localStorage
+  useEffect(() => {
+    localStorage.setItem(`cart_${restaurant.id}`, JSON.stringify(cart));
+  }, [cart, restaurant.id]);
 
   function addToCart(item) {
-
     setCart((prev) => {
-
-      const existingItem = prev.find(
-
-        (cartItem) =>
-
-          cartItem.name === item.name
-
-      )
-
+      const existingItem = prev.find((cartItem) => cartItem.name === item.name);
       if (existingItem) {
-
         return prev.map((cartItem) =>
-
           cartItem.name === item.name
-
-            ? {
-
-                ...cartItem,
-
-                quantity:
-
-                  cartItem.quantity + 1,
-
-              }
-
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
             : cartItem
-
-        )
-
+        );
       }
+      return [...prev, { ...item, quantity: 1 }];
+    });
 
-      return [
-
-        ...prev,
-
-        {
-
-          ...item,
-
-          quantity: 1,
-
-        },
-
-      ]
-
-    })
-
+    setLastAddedItem(item.name);
+    setShowToast(true);
+    setTimeout(() => {
+      setShowToast(false);
+      setLastAddedItem(null);
+    }, 2000);
   }
 
   function increaseQuantity(name) {
-
     setCart((prev) =>
-
       prev.map((item) =>
-
-        item.name === name
-
-          ? {
-
-              ...item,
-
-              quantity: item.quantity + 1,
-
-            }
-
-          : item
-
+        item.name === name ? { ...item, quantity: item.quantity + 1 } : item
       )
-
-    )
-
+    );
   }
 
   function decreaseQuantity(name) {
-
     setCart((prev) =>
-
       prev
-
         .map((item) =>
-
-          item.name === name
-
-            ? {
-
-                ...item,
-
-                quantity: item.quantity - 1,
-
-              }
-
-            : item
-
+          item.name === name ? { ...item, quantity: item.quantity - 1 } : item
         )
-
         .filter((item) => item.quantity > 0)
-
-    )
-
+    );
   }
 
+  const cartTotal = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+  const cartItemCount = cart.reduce((count, item) => count + item.quantity, 0);
+
   return (
-
     <>
+      {showToast && (
+        <div className="toast-notification">
+          <span className="toast-icon">✅</span>
+          <span className="toast-text">{lastAddedItem} agregado al carrito</span>
+        </div>
+      )}
 
+      <Link to="/" className="back-button">
+        ← Volver
+      </Link>
 
-<Link
+      <RestaurantHeader restaurant={restaurant} theme={theme} />
 
-  to="/"
+      {cart.length > 0 && (
+        <CartBar
+          cart={cart}
+          setShowCart={setShowCart}
+          cartItemCount={cartItemCount}
+          cartTotal={cartTotal}
+        />
+      )}
 
-  className="back-button"
+      <CartModal
+        cart={cart}
+        setShowCart={setShowCart}
+        decreaseQuantity={decreaseQuantity}
+        increaseQuantity={increaseQuantity}
+        restaurant={restaurant}
+      />
 
->
-
-  ← Volver
-
-</Link>
-
-
-
-<RestaurantHeader
-
-  restaurant={restaurant}
-
-  theme={theme}
-
-/>
-
-
-
-      
-
- 
-<CartBar
-
-  cart={cart}
-
-  setShowCart={setShowCart}
-
-/>
-
-
-
-<CartModal
-
-  cart={cart}
-
-  setShowCart={setShowCart}
-
-  decreaseQuantity={decreaseQuantity}
-
-  increaseQuantity={increaseQuantity}
-
-  restaurant={restaurant}
-
-/>
-
-
-<PremiumMenu
-
-  restaurant={restaurant}
-
-  theme={theme}
-
-  addToCart={addToCart}
-
-/>
-
-
-      
-
+      <PremiumMenu restaurant={restaurant} theme={theme} addToCart={addToCart} />
     </>
-
-  )
-
+  );
 }

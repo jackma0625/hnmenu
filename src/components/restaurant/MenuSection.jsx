@@ -17,15 +17,15 @@ export default function MenuSection({
 
       <div className="menu-items">
         {section.items.map((item, index) => (
-          <div
-            key={index}
-            className="menu-item"
-            style={{
-              background: theme?.colors?.cardBackground,
-              borderRadius: theme?.radius?.card,
-              boxShadow: theme?.shadow?.card,
-            }}
-          >
+         
+<div
+
+  key={index}
+
+  className="menu-item"
+
+>
+
             <div>
               <h3>{item.name}</h3>
               {item.options && (
