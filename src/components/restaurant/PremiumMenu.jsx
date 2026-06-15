@@ -6,7 +6,6 @@ export default function PremiumMenu({ restaurant, addToCart }) {
   const [isSticky, setIsSticky] = useState(false)
   const sentinelRef = useRef(null)
 
-  // 监听滚动，实现固定效果
   useEffect(() => {
     const sentinel = sentinelRef.current
     if (!sentinel) return
@@ -40,7 +39,7 @@ export default function PremiumMenu({ restaurant, addToCart }) {
       {/* 哨兵元素 */}
       <div ref={sentinelRef} style={{ height: '1px' }} />
 
-      {/* 分类栏 - 统一样式，不依赖 theme */}
+      {/* 分类栏 - 橙色背景 */}
       <div
         className="premium-categories"
         style={{
@@ -49,13 +48,13 @@ export default function PremiumMenu({ restaurant, addToCart }) {
           left: 0,
           right: 0,
           zIndex: 999,
-          background: '#f5f1ea',
+          background: '#ffb300',  // 和 Navbar 一样橙色
           display: 'flex',
           gap: '12px',
           overflowX: 'auto',
           padding: '12px 16px',
           scrollbarWidth: 'none',
-          borderBottom: '1px solid #eee',
+          borderBottom: 'none',
           boxShadow: isSticky ? '0 2px 8px rgba(0,0,0,0.1)' : 'none',
         }}
       >
@@ -65,14 +64,15 @@ export default function PremiumMenu({ restaurant, addToCart }) {
             onClick={() => setActiveCategory(section.category)}
             style={{
               border: 'none',
-              background: activeCategory === section.category ? '#000' : '#f3f3f3',
-              color: activeCategory === section.category ? '#fff' : '#000',
+              background: activeCategory === section.category ? '#ffffff' : '#fff3e0',  // 选中白色，未选中浅橙
+              color: activeCategory === section.category ? '#e65100' : '#e65100',  // 深橙色文字
               padding: '8px 16px',
               borderRadius: '999px',
               whiteSpace: 'nowrap',
               fontWeight: '600',
               cursor: 'pointer',
               fontSize: '14px',
+              transition: 'all 0.2s ease',
             }}
           >
             {section.category}
@@ -83,15 +83,18 @@ export default function PremiumMenu({ restaurant, addToCart }) {
       {/* 占位符 */}
       {isSticky && <div style={{ height: '52px' }} />}
 
-      {/* 菜单区域 */}
-      <div className="restaurant-menu">
+      {/* 菜单区域 - 白色背景 */}
+      <div className="restaurant-menu" style={{
+        padding: '20px 16px 80px',
+        background: '#ffffff',
+      }}>
         {filteredMenu.map((section) => (
           <div key={section.category} className="menu-section">
             <h2 style={{
               fontSize: '22px',
               marginBottom: '18px',
-              color: '#8B0000',
-              borderLeft: '5px solid #D4AF37',
+              color: '#e65100',  // 深橙色标题
+              borderLeft: '5px solid #ff9800',  // 橙色边框
               paddingLeft: '10px',
               fontWeight: '700',
             }}>
@@ -99,31 +102,41 @@ export default function PremiumMenu({ restaurant, addToCart }) {
             </h2>
             <div className="menu-items">
               {section.items.map((item, index) => (
-                <div key={index} className="menu-item">
+                <div key={index} className="menu-item" style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding: '12px 0',
+                  borderBottom: '1px solid #f0f0f0',
+                }}>
                   <div className="menu-left">
-                    <h3 style={{ fontSize: '16px', margin: 0 }}>{item.name}</h3>
+                    <h3 style={{ fontSize: '16px', margin: 0, color: '#333' }}>{item.name}</h3>
                     {item.description && (
-                      <p style={{ fontSize: '12px', color: '#888', marginTop: '4px' }}>
+                      <p style={{ fontSize: '12px', color: '#999', marginTop: '4px' }}>
                         {item.description}
                       </p>
                     )}
                   </div>
-                  <div className="menu-right">
-                    <span style={{ fontWeight: '700', color: '#8B0000' }}>
+                  <div className="menu-right" style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                  }}>
+                    <span style={{ fontWeight: '700', color: '#ff9800', fontSize: '16px' }}>
                       L {item.price}
                     </span>
                     <button
-                      className={`add-to-cart-btn ${addingItem === item.name ? 'adding' : ''}`}
                       onClick={() => handleAddToCart(item)}
                       style={{
                         width: '36px',
                         height: '36px',
                         borderRadius: '999px',
                         border: 'none',
-                        background: addingItem === item.name ? '#4CAF50' : '#8B0000',
+                        background: addingItem === item.name ? '#4CAF50' : '#ff9800',
                         color: 'white',
                         fontSize: '20px',
                         cursor: 'pointer',
+                        transition: 'all 0.2s ease',
                       }}
                     >
                       {addingItem === item.name ? '✓' : '+'}

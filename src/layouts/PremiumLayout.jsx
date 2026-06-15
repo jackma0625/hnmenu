@@ -82,29 +82,73 @@ export default function PremiumLayout({ restaurant }) {
         ← Volver
       </Link>
 
-      {/* 餐馆名字 - 直接写在这里 */}
-      <div className="restaurant-header" style={{
-        padding: '20px 20px 10px 20px',
-        background: '#f5f1ea',
-      }}>
-        <h1 style={{
-          fontSize: '28px',
-          fontWeight: '700',
-          margin: 0,
-          color: '#000',
-        }}>
-          {restaurant.name}
-        </h1>
-      </div>
-
-      {cart.length > 0 && (
-        <CartBar
-          cart={cart}
-          setShowCart={setShowCart}
-          cartItemCount={cartItemCount}
-          cartTotal={cartTotal}
-        />
-      )}
+      {/* 餐馆名字 */}
+<div className="restaurant-header" style={{
+  padding: '20px 20px 10px 60px',
+  background: 'white',
+  borderBottom: '1px solid #eee',
+}}>
+  <h1 style={{
+    fontSize: '28px',
+    fontWeight: '700',
+    margin: 0,
+    color: '#000',
+  }}>
+    {restaurant.name}
+  </h1>
+  
+  {/* 链接区域 */}
+  <div style={{
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '10px',
+    marginTop: '12px',
+  }}>
+    {/* 地图链接 */}
+    {restaurant.maps && (
+      <a 
+        href={restaurant.maps}
+        target="_blank"
+        rel="noreferrer"
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '6px',
+          fontSize: '14px',
+          color: '#ff9800',
+          textDecoration: 'none',
+          background: '#fff3e0',
+          padding: '6px 12px',
+          borderRadius: '20px',
+        }}
+      >
+        📍 Google Maps
+      </a>
+    )}
+    
+    {/* Instagram 链接 */}
+    {restaurant.instagram && (
+      <a 
+        href={restaurant.instagram}
+        target="_blank"
+        rel="noreferrer"
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '6px',
+          fontSize: '14px',
+          color: '#ff9800',
+          textDecoration: 'none',
+          background: '#fff3e0',
+          padding: '6px 12px',
+          borderRadius: '20px',
+        }}
+      >
+        📷 Instagram
+      </a>
+    )}
+  </div>
+</div>
 
       {showCart && (
         <CartModal
