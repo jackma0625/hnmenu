@@ -14,7 +14,7 @@ export default function Navbar() {
           </div>
 
           <div className="navbar-subtitle">
-            Menús y restaurantes en La Entrada de Copán
+            Menús y restaurantes en Copán
           </div>
 
         </div>
