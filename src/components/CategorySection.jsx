@@ -63,7 +63,7 @@ export default function CategorySection({
           transition: isSticky ? 'box-shadow 0.2s' : 'none'
         }}
       >
-        <div className="filter-bar">
+        <div className="filter-bar" style={{ padding: '0' }}>
           <button
             className="filter-btn"
             onClick={() => setShowMenu(!showMenu)}
