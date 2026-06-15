@@ -58,7 +58,7 @@ export default function CategorySection({
           right: 0,
           zIndex: 999,
           background: 'white',
-          borderBottom: '1px solid #eee',
+          
           boxShadow: isSticky ? '0 2px 8px rgba(0,0,0,0.1)' : 'none',
           transition: isSticky ? 'box-shadow 0.2s' : 'none'
         }}
