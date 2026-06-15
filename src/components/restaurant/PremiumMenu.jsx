@@ -122,7 +122,7 @@ export default function PremiumMenu({ restaurant, addToCart }) {
                     alignItems: 'center',
                     gap: '12px',
                   }}>
-                    <span style={{ fontWeight: '700', color: '#ff9800', fontSize: '16px' }}>
+                    <span style={{ fontWeight: '700', color: '#333', fontSize: '16px' }}>
                       L {item.price}
                     </span>
                     <button
