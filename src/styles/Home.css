@@ -250,7 +250,7 @@
 
 /* ================= MENU ================= */
 .restaurant-menu {
-  padding: 20px 16px 70px;
+  padding: 50px 16px 70px;
   background: #f5f1ea;
 }
 
@@ -502,17 +502,29 @@
   font-size: 16px;
 }
 
+
 .restaurant-header {
-  padding: 28px 20px 10px;
+
+  padding: 14px 20px 4px;
+
   background: #f5f1ea;
+
 }
 
+
+
+
 .restaurant-header h1 {
-  font-size: 42px;
-  font-weight: 800;
-  color: #8B0000;
+
+  font-size: 28px;
+
+  font-weight: 700;
+
   margin: 0;
+
 }
+
+
 
 /* ================= THEMES ================= */
 .chinese {
@@ -570,16 +582,25 @@
   outline: none;
 }
 
+
+
+
+
 .premium-categories {
+  /* 删除 position: sticky; top: xxx; */
+  /* 只保留基础样式 */
   display: flex;
   gap: 12px;
   overflow-x: auto;
-  padding: 5px 5px;
-  position: sticky;
-  top: 0;
-  background: white;
-  z-index: 50;
+  padding: 12px 16px;
+  background: #f5f1ea;
+  scrollbar-width: none;
+  border-bottom: 1px solid #eee;
 }
+
+
+
+
 
 .premium-categories button {
   border: none;

@@ -1,12 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import PremiumMenu from '../components/restaurant/PremiumMenu';
-import RestaurantHeader from '../components/restaurant/RestaurantHeader';
 import CartModal from '../components/restaurant/CartModal';
 import CartBar from '../components/restaurant/CartBar';
 
 export default function PremiumLayout({ restaurant }) {
-  const theme = restaurant.theme;
   const [cart, setCart] = useState([]);
   const [showCart, setShowCart] = useState(false);
   const [showToast, setShowToast] = useState(false);
@@ -84,7 +82,20 @@ export default function PremiumLayout({ restaurant }) {
         ← Volver
       </Link>
 
-      <RestaurantHeader restaurant={restaurant} theme={theme} />
+      {/* 餐馆名字 - 直接写在这里 */}
+      <div className="restaurant-header" style={{
+        padding: '20px 20px 10px 20px',
+        background: '#f5f1ea',
+      }}>
+        <h1 style={{
+          fontSize: '28px',
+          fontWeight: '700',
+          margin: 0,
+          color: '#000',
+        }}>
+          {restaurant.name}
+        </h1>
+      </div>
 
       {cart.length > 0 && (
         <CartBar
@@ -95,33 +106,21 @@ export default function PremiumLayout({ restaurant }) {
         />
       )}
 
+      {showCart && (
+        <CartModal
+          cart={cart}
+          showCart={showCart}
+          setShowCart={setShowCart}
+          decreaseQuantity={decreaseQuantity}
+          increaseQuantity={increaseQuantity}
+          restaurant={restaurant}
+        />
+      )}
 
-{
-
-  showCart && (
-
-    <CartModal
-
-      cart={cart}
-
-      showCart={showCart}
-
-      setShowCart={setShowCart}
-
-      decreaseQuantity={decreaseQuantity}
-
-      increaseQuantity={increaseQuantity}
-
-      restaurant={restaurant}
-
-    />
-
-  )
-
-}
-
-
-      <PremiumMenu restaurant={restaurant} theme={theme} addToCart={addToCart} />
+      <PremiumMenu 
+        restaurant={restaurant} 
+        addToCart={addToCart} 
+      />
     </>
   );
 }
