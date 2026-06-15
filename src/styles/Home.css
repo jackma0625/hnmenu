@@ -420,7 +420,7 @@
   transform: translateX(-50%);
   width: calc(100% - 32px);
   max-width: 500px;
-  background: #ff9800;
+  background: #111;
   color: white;
   border-radius: 18px;
   padding: 16px 18px;
@@ -433,8 +433,8 @@
 
 .cart-bar button {
   border: none;
-  background: white;
-  color: #ff9800;
+  background: #ff9800;
+  color: #ffffff;
   font-weight: 700;
   padding: 10px 18px;
   border-radius: 999px;
@@ -631,4 +631,33 @@
 .category-section,
 .filter-bar {
   border-bottom: none !important;
+}
+
+/* ================= BASIC PAGE WHATSAPP BUTTON ================= */
+.floating-whatsapp {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25D366;
+  color: white;
+  padding: 14px 22px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  z-index: 999;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+/* 手机端适配 */
+@media (max-width: 768px) {
+  .floating-whatsapp {
+    bottom: 16px;
+    right: 16px;
+    padding: 12px 18px;
+    font-size: 13px;
+  }
 }
