@@ -7,6 +7,19 @@ export default function CartModal({
 }) {
   if (!cart || cart.length === 0) return null;
 
+  // 构建 WhatsApp 消息内容
+  const buildWhatsAppMessage = () => {
+    const itemsList = cart.map(item => 
+      `${item.quantity}x ${item.name} - L ${item.price * item.quantity}`
+    ).join('%0A');
+    
+    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    
+    return `Hola, quisiera ordenar:%0A%0A${itemsList}%0A%0ATotal: L ${total}`;
+  };
+
+  const whatsappUrl = `https://wa.me/${restaurant.whatsapp}?text=${buildWhatsAppMessage()}`;
+
   return (
     <div className="cart-modal">
       <div className="cart-content">
@@ -39,7 +52,7 @@ export default function CartModal({
         </div>
 
         <a
-          href={`https://wa.me/${restaurant.whatsapp}`}
+          href={whatsappUrl}
           target="_blank"
           rel="noreferrer"
           className="whatsapp-order"
