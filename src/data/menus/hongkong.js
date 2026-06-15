@@ -1,8 +1,15 @@
 export const hongkongMenu = [
   {
-    category: 'MAS PEDIDO',
+    category: 'MIXTO',
     items: [
-      { name: 'Pollo Agridulce', price: 220 },
+      { name: 'Mixto Personal', price: 120 },
+      { name: 'Mixto Normal', price: 220 },
+      { name: 'Mixto Familia', price: 260 },
+      { name: 'Arroz Personal', price: 120 },
+      { name: 'Arroz Normal', price: 220 },
+      { name: 'Arroz Familia', price: 260 },
+      
+      
 
     ],
   },
