@@ -68,7 +68,7 @@ export default function PremiumLayout({ restaurant }) {
 
   const cartTotal = cart.reduce((total, item) => total + item.price * item.quantity, 0);
   const cartItemCount = cart.reduce((count, item) => count + item.quantity, 0);
-
+  
   return (
     <>
       {showToast && (
@@ -83,72 +83,61 @@ export default function PremiumLayout({ restaurant }) {
       </Link>
 
       {/* 餐馆名字 */}
-<div className="restaurant-header" style={{
-  padding: '20px 20px 10px 60px',
-  background: 'white',
-  borderBottom: '1px solid #eee',
-}}>
-  <h1 style={{
-    fontSize: '28px',
-    fontWeight: '700',
-    margin: 0,
-    color: '#000',
-  }}>
-    {restaurant.name}
-  </h1>
-  
-  {/* 链接区域 */}
-  <div style={{
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '10px',
-    marginTop: '12px',
-  }}>
-    {/* 地图链接 */}
-    {restaurant.maps && (
-      <a 
-        href={restaurant.maps}
-        target="_blank"
-        rel="noreferrer"
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '6px',
-          fontSize: '14px',
-          color: '#ff9800',
-          textDecoration: 'none',
-          background: '#fff3e0',
-          padding: '6px 12px',
-          borderRadius: '20px',
-        }}
-      >
-        📍 Google Maps
-      </a>
-    )}
-    
-    {/* Instagram 链接 */}
-    {restaurant.instagram && (
-      <a 
-        href={restaurant.instagram}
-        target="_blank"
-        rel="noreferrer"
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '6px',
-          fontSize: '14px',
-          color: '#ff9800',
-          textDecoration: 'none',
-          background: '#fff3e0',
-          padding: '6px 12px',
-          borderRadius: '20px',
-        }}
-      >
-        📷 Instagram
-      </a>
-    )}
-  </div>
-</div>
+      <div className="restaurant-header" style={{
+        padding: '20px 20px 10px 20px',
+        background: 'white',
+        borderBottom: '1px solid #eee',
+        textAlign: 'center',
+      }}>
+        <h1 style={{
+          fontSize: '28px',
+          fontWeight: '700',
+          margin: 0,
+          color: '#000',
+        }}>
+          {restaurant.name}
+        </h1>
+
+        <div style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: '10px',
+          marginTop: '12px',
+          justifyContent: 'center',
+        }}>
+          {restaurant.maps && (
+            <a href={restaurant.maps} target="_blank" rel="noreferrer" style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              fontSize: '14px',
+              color: '#ff9800',
+              textDecoration: 'none',
+              background: '#fff3e0',
+              padding: '6px 12px',
+              borderRadius: '20px',
+            }}>
+              📍 Google Mapas
+            </a>
+          )}
+          
+          {restaurant.instagram && (
+            <a href={restaurant.instagram} target="_blank" rel="noreferrer" style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              fontSize: '14px',
+              color: '#ff9800',
+              textDecoration: 'none',
+              background: '#fff3e0',
+              padding: '6px 12px',
+              borderRadius: '20px',
+            }}>
+              📷 Instagram
+            </a>
+          )}
+        </div>
+      </div>
 
       {showCart && (
         <CartModal
@@ -158,6 +147,15 @@ export default function PremiumLayout({ restaurant }) {
           decreaseQuantity={decreaseQuantity}
           increaseQuantity={increaseQuantity}
           restaurant={restaurant}
+        />
+      )}
+
+      {cart.length > 0 && (
+        <CartBar
+          cart={cart}
+          setShowCart={setShowCart}
+          cartItemCount={cartItemCount}
+          cartTotal={cartTotal}
         />
       )}
 

@@ -3,10 +3,7 @@ export const hongkongMenu = [
     category: 'MAS PEDIDO',
     items: [
       { name: 'Pollo Agridulce', price: 220 },
-      { name: 'Pollo Agridulce', price: 220 },
-      { name: 'Pollo Agridulce', price: 220 },
-      { name: 'Pollo Agridulce', price: 220 },
-      { name: 'Pollo Agridulce', price: 220 },
+
     ],
   },
   {
