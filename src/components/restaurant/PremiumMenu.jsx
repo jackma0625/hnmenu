@@ -109,8 +109,11 @@ export default function PremiumMenu({ restaurant, addToCart }) {
                   padding: '12px 0',
                   borderBottom: '1px solid #f0f0f0',
                 }}>
-                  <div className="menu-left">
-                    <h3 style={{ fontSize: '16px', margin: 0, color: '#333' }}>{item.name}</h3>
+                  <div className="menu-left" style={{
+  flex: 1,
+  minWidth: 0,  // 允许收缩
+}}>
+                    <h3 style={{ fontSize: '16px', margin: 0, color: '#333',wordBreak: 'break-word',  }}>{item.name}</h3>
                     {item.description && (
                       <p style={{ fontSize: '12px', color: '#999', marginTop: '4px' }}>
                         {item.description}
@@ -121,8 +124,9 @@ export default function PremiumMenu({ restaurant, addToCart }) {
                     display: 'flex',
                     alignItems: 'center',
                     gap: '12px',
+                    flexShrink: 0,
                   }}>
-                    <span style={{ fontWeight: '700', color: '#333', fontSize: '16px' }}>
+                    <span style={{ fontWeight: '700', color: '#333', fontSize: '16px' ,whiteSpace: 'nowrap',}}>
                       L {item.price}
                     </span>
                     <button
