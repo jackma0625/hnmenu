@@ -64,8 +64,8 @@ export default function PremiumMenu({ restaurant, addToCart }) {
             onClick={() => setActiveCategory(section.category)}
             style={{
               border: 'none',
-              background: activeCategory === section.category ? '#000000' : '#fff3e0',  // 选中白色，未选中浅橙
-              color: activeCategory === section.category ? '#e65100' : '#e65100',  // 深橙色文字
+              background: activeCategory === section.category ? '#000000' : '#ffffff',  // 选中白色，未选中浅橙
+              color: activeCategory === section.category ? '#ffffff' : '#e65100',  // 深橙色文字
               padding: '8px 16px',
               borderRadius: '999px',
               whiteSpace: 'nowrap',
