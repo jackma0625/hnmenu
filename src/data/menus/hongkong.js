@@ -1,13 +1,28 @@
 export const hongkongMenu = [
   {
-    category: 'MIXTO',
+    category: 'MAS VENDIDO',
     items: [
       { name: 'Mixto Personal', price: 120 },
       { name: 'Mixto Normal', price: 220 },
       { name: 'Mixto Familia', price: 260 },
+      { name: 'Mixto 450 (para 7-8 personas)', price: 450 },
+      { name: 'Mixto 650 (para 12-15 personas)', price: 650 },
+      { name: 'Mixto 950 (para 20-23 personas)', price: 950 },
+      { name: 'Mixto 1200 (para 25-28 personas)', price: 1200 },
       { name: 'Arroz Personal', price: 120 },
       { name: 'Arroz Normal', price: 220 },
       { name: 'Arroz Familia', price: 260 },
+      { name: 'Arroz 450 (para 7-8 personas)', price: 450 },
+      { name: 'Arroz 650 (para 12-15 personas)', price: 650 },
+      { name: 'Arroz 950 (para 20-23 personas)', price: 950 },
+      { name: 'Arroz 1200 (para 25-28 personas)', price: 1200 },
+      { name: 'Chap Suey Personal', price: 120 },
+      { name: 'Chap Suey Normal', price: 220 },
+      { name: 'Chap Suey Familia', price: 260 },
+      { name: 'Chap Suey 450 (para 7-8 personas)', price: 450 },
+      { name: 'Chap Suey 650 (para 12-15 personas)', price: 650 },
+      { name: 'Chap Suey 950 (para 20-23 personas)', price: 950 },
+      { name: 'Chap Suey 1200 (para 25-28 personas)', price: 1200 },
       
       
 
@@ -32,12 +47,12 @@ export const hongkongMenu = [
     items: [
       { name: 'Sopa Hong Kong', price: 150 },
       { name: 'Sopa Wantan', price: 150 },
-      { name: 'Sopa Wantan (Tallarin de Arroz)', price: 180 },
+      { name: 'Sopa Wantan (con Tallarin de Arroz)', price: 180 },
       { name: 'Sopa de Pollo', price: 140 },
-      { name: 'Sopa de Pollo (Crema Maiz)', price: 170 },
+      { name: 'Sopa de Pollo (con Crema Maiz y Huevo)', price: 170 },
       { name: 'Sopa de Res', price: 150 },
-      { name: 'Sopa de Camaron (Verduras)', price: 190 },
-      { name: 'Sopa de Camaron (Leche Coco)', price: 190 },
+      { name: 'Sopa de Camaron (con Verduras)', price: 190 },
+      { name: 'Sopa de Camaron (con Leche Coco)', price: 190 },
       { name: 'Sopa de Caracol', price: 210 },
       { name: 'Sopa de Filete de pescado', price: 210 },
       { name: 'Sopa de Marinera', price: 230 },
@@ -57,7 +72,7 @@ export const hongkongMenu = [
       { name: 'Arroz con Mariscos', price: 290 },
       { name: 'Arroz con Pollo en Salsa Curry', price: 230 },
       { name: 'Arroz Picante con Jalapeno', price: 220 },
-      { name: 'Arroz Blanco con Camaron', price: 280 },
+      { name: 'Arroz Blanco con Camaron y extra cebollinas y huevos', price: 280 },
     ],
   },
   {
