@@ -25,3 +25,20 @@ body {
   width: 100%;
   min-height: 100vh;
 }
+
+*:focus,
+*:focus-visible,
+button:focus,
+button:focus-visible,
+.btn:focus,
+.btn:focus-visible,
+a:focus,
+a:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
