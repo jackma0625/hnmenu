@@ -205,8 +205,8 @@ export const hongkongMenu = [
       { name: 'Arroz o Chap suey con pollo', price: 110 },
       { name: 'Arroz o Chap suey camarones', price: 200 },
       { name: 'Arroz o Chap suey Camaron y Pollo Personal', price: 200 },
-      { name: 'Arroz Blanco con Camarones', price: 220 },
-      { name: 'Cebollina y huevo Personal', price: null },
+      { name: 'Arroz Blanco con Camarones Cebollina y huevo Personal', price: 220 },
+      
       { name: 'Camaron Vegetales Personal', price: 210 },
       { name: 'Camaron Agridulce Personal', price: 210 },
       { name: 'Camaron Marañón Personal', price: 220 },
