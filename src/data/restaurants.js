@@ -1,361 +1,173 @@
-
-import { categories }
-from './categories'
-
-
-import { chineseTheme }
-from './themes/chinese'
-
-import { basicTheme }
-from './themes/basic'
-
-import { sushiTheme }
-from './themes/sushi'
-
-import { hongkongMenu }
-from './menus/hongkong'
+import { categories } from './categories'
+import { chineseTheme } from './themes/chinese'
+import { basicTheme } from './themes/basic'
+import { sushiTheme } from './themes/sushi'
+import { hongkongMenu } from './menus/hongkong'
 
 export const restaurants = [
-
   {
-
     id: 1,
-
     slug: 'sushi-yamato',
-
     name: 'Sushi Yamato',
-
     template: 'custom',
-
     theme: sushiTheme,
-
     category: categories[0],
-
-    image:
-      '/images/restaurants/sushi-yamato.webp',
-
+    image: '/images/restaurants/sushi-yamato.webp',
     location: 'La Entrada, Copán',
-
     whatsapp: '50499999999',
-
-    maps:
-      'https://maps.google.com',
-
+    maps: 'https://maps.google.com',
     hours: '11AM - 9PM',
-
-    website:
-      'https://sushiyamatohn.com',
-
+    website: 'https://sushiyamatohn.com',
     menu: [],
-
     menuImages: [],
-
   },
-
   {
-
     id: 2,
-
     slug: 'hong-kong-palace',
-
     name: 'Hong Kong Palace',
-
     template: 'premium',
-
     theme: chineseTheme,
-
     category: categories[0],
-
-    image:
-      '/images/restaurants/hongkong.webp',
-
+    image: '/images/restaurants/hongkong.webp',
     location: 'La Entrada, Copán',
-
     whatsapp: '50499977489',
-
-    maps:
-      'https://maps.app.goo.gl/TE9RbkKkvJrtDL5h8',
-
+    maps: 'https://maps.app.goo.gl/TE9RbkKkvJrtDL5h8',
     hours: '10AM - 9PM',
-
     website: '',
-
     menu: hongkongMenu,
-
     menuImages: [],
-
   },
-
   {
-
     id: 3,
-
-    slug: 'los-asado',
-
-    name: 'Los Asado',
-
+    slug: 'juan-vidal',
+    name: 'Juan Vidal',
     template: 'basic',
-
     theme: basicTheme,
-
-    category: categories[4],
-
-    image:
-      '/images/restaurants/asado.webp',
-
+    category: categories[1],
+    image: '/images/restaurants/juan-vidal.webp',
     location: 'La Entrada, Copán',
-
-    whatsapp: '50499554602',
-
-    maps:
-      'https://maps.app.goo.gl/b2dAhUKJcuTo2MbM6',
-
+    whatsapp: '50433974781',
+    maps: 'https://maps.app.goo.gl/Fn2niLCnmviUh6dK9',
     hours: '7AM - 9PM',
-
     website: '',
-
     menu: [],
-
-    menuImages: [
-
-      '/images/menus/asado1.webp',
-
-    ],
-
+    menuImages: ['/images/menus/juan-vidal1.webp',
+                 '/images/menus/juan-vidal2.webp',
+                 '/images/menus/juan-vidal3.webp',
+                 '/images/menus/juan-vidal4.webp',
+                 '/images/menus/juan-vidal5.webp',
+                 '/images/menus/juan-vidal6.webp'],
   },
-
-
-{
-
-  id: 4,
-
-  slug: 'rancho-grande',
-
-  name: 'Rancho Grande',
-
-  template: 'basic',
-
-  theme: basicTheme,
-
-  category: categories[4],
-
-  image:
-    '/images/restaurants/rancho-grande.webp',
-
-  location: 'La Entrada, Copán',
-
-  whatsapp: '50431797421',
-
-  maps:
-    'https://maps.google.com',
-
-  hours: '7AM - 10PM',
-
-  website: '',
-
-  menu: [],
-
-  menuImages: [ '/images/menus/rancho1.webp', '/images/menus/rancho2.webp'],
-
-},
-
-
-{
-
-  id: 5,
-
-  slug: 'palacio-oriental',
-
-  name: 'Palacio Oriental',
-
-  template: 'basic',
-
-  theme: basicTheme,
-
-  category: categories[0],
-
-  image:
-    '/images/restaurants/palacio-oriental.webp',
-
-  location: 'La Entrada, Copán',
-
-  whatsapp: '',
-
-  maps: 'https://maps.google.com',
-
-  hours: '',
-
-  website: '',
-
-  menu: [],
-
-  menuImages: [ '/images/menus/palacio-oriental1.webp'],
-
-},
-
-{
-
-  id: 6,
-
-  slug: 'manas-bakery',
-
-  name: "Mana's Bakery",
-
-  template: 'basic',
-
-  theme: basicTheme,
-
-  category: categories[1],
-
-  image:
-    '/images/restaurants/mana.webp',
-
-  location: 'La Entrada, Copán',
-
-  whatsapp: '50432976843',
-
-  maps: 'https://maps.google.com',
-
-  hours: '',
-
-  website: '',
-
-  menu: [],
-
-  menuImages: ['/images/menus/mana1.webp'],
-
-},
-
-{
-
-  id: 7,
-
-  slug: 'le-fruitt-coffee-bistro',
-
-  name: 'Le Fruitt Coffee & Bistro',
-
-  template: 'basic',
-
-  theme: basicTheme,
-
-  category: categories[1],
-
-  image:
-    '/images/restaurants/le-fruitt.webp',
-
-  location: 'La Entrada, Copán',
-
-  whatsapp: '50494481270',
-
-  maps: 'https://maps.google.com',
-
-  hours: '',
-
-  website: '',
-
-  menu: [],
-
-  menuImages: ['/images/menus/le-fruitt1.webp','/images/menus/le-fruitt2.webp'],
-
-},
-
-{
-
-  id: 8,
-
-  slug: 'cerditos-rafael',
-
-  name: 'Cerditos Rafael',
-
-  template: 'basic',
-
-  theme: basicTheme,
-
-  category: categories[4],
-
-  image:
-    '/images/restaurants/cerditos-rafael.webp',
-
-  location: 'La Entrada, Copán',
-
-  whatsapp: '50498628729',
-
-  maps: 'https://maps.google.com',
-
-  hours: '',
-
-  website: '',
-
-  menu: [],
-
-  menuImages: ['/images/menus/cerditos-rafael1.webp'],
-
-},
-
-{
-
-  id: 9,
-
-  slug: 'la-terraza-grille-burguers',
-
-  name: 'La Terraza Grille Burguers',
-
-  template: 'basic',
-
-  theme: basicTheme,
-
-  category: categories[2],
-
-  image:
-    '/images/restaurants/la-terraza.webp',
-
-  location: 'La Entrada, Copán',
-
-  whatsapp: '',
-
-  maps: 'https://maps.google.com',
-
-  hours: '',
-
-  website: '',
-
-  menu: [],
-
-  menuImages: ['/images/menus/la-terraza1.webp'],
-
-},
-
-{
-
-  id: 10,
-
-  slug: 'carnitas-mi-negro-bello',
-
-  name: 'Carnitas Mi Negro Bello',
-
-  template: 'basic',
-
-  theme: basicTheme,
-
-  category: categories[4],
-
-  image:
-    '/images/restaurants/carnitas.webp',
-
-  location: 'La Entrada, Copán',
-
-  whatsapp: '',
-
-  maps: 'https://maps.google.com',
-
-  hours: '',
-
-  website: '',
-
-  menu: [],
-
-  menuImages: ['/images/menus/carnitas1.webp'],
-
-},
-
+  {
+    id: 4,
+    slug: 'rancho-grande',
+    name: 'Rancho Grande',
+    template: 'basic',
+    theme: basicTheme,
+    category: categories[4],
+    image: '/images/restaurants/rancho-grande.webp',
+    location: 'La Entrada, Copán',
+    whatsapp: '50431797421',
+    maps: 'https://maps.google.com',
+    hours: '7AM - 10PM',
+    website: '',
+    menu: [],
+    menuImages: ['/images/menus/rancho1.webp', '/images/menus/rancho2.webp'],
+  },
+  {
+    id: 5,
+    slug: 'palacio-oriental',
+    name: 'Palacio Oriental',
+    template: 'basic',
+    theme: basicTheme,
+    category: categories[0],
+    image: '/images/restaurants/palacio-oriental.webp',
+    location: 'La Entrada, Copán',
+    whatsapp: '',
+    maps: 'https://maps.google.com',
+    hours: '',
+    website: '',
+    menu: [],
+    menuImages: ['/images/menus/palacio-oriental1.webp'],
+  },
+  {
+    id: 6,
+    slug: 'manas-bakery',
+    name: "Mana's Bakery",
+    template: 'basic',
+    theme: basicTheme,
+    category: categories[1],
+    image: '/images/restaurants/mana.webp',
+    location: 'La Entrada, Copán',
+    whatsapp: '50432976843',
+    maps: 'https://maps.google.com',
+    hours: '',
+    website: '',
+    menu: [],
+    menuImages: ['/images/menus/mana1.webp'],
+  },
+  {
+    id: 7,
+    slug: 'le-fruitt-coffee-bistro',
+    name: 'Le Fruitt Coffee & Bistro',
+    template: 'basic',
+    theme: basicTheme,
+    category: categories[1],
+    image: '/images/restaurants/le-fruitt.webp',
+    location: 'La Entrada, Copán',
+    whatsapp: '50494481270',
+    maps: 'https://maps.google.com',
+    hours: '',
+    website: '',
+    menu: [],
+    menuImages: ['/images/menus/le-fruitt1.webp', '/images/menus/le-fruitt2.webp'],
+  },
+  {
+    id: 8,
+    slug: 'cerditos-rafael',
+    name: 'Cerditos Rafael',
+    template: 'basic',
+    theme: basicTheme,
+    category: categories[4],
+    image: '/images/restaurants/cerditos-rafael.webp',
+    location: 'La Entrada, Copán',
+    whatsapp: '50498628729',
+    maps: 'https://maps.google.com',
+    hours: '',
+    website: '',
+    menu: [],
+    menuImages: ['/images/menus/cerditos-rafael1.webp'],
+  },
+  {
+    id: 9,
+    slug: 'la-terraza-grille-burguers',
+    name: 'La Terraza Grille Burguers',
+    template: 'basic',
+    theme: basicTheme,
+    category: categories[2],
+    image: '/images/restaurants/la-terraza.webp',
+    location: 'La Entrada, Copán',
+    whatsapp: '',
+    maps: 'https://maps.google.com',
+    hours: '',
+    website: '',
+    menu: [],
+    menuImages: ['/images/menus/la-terraza1.webp'],
+  },
+  {
+    id: 10,
+    slug: 'carnitas-mi-negro-bello',
+    name: 'Carnitas Mi Negro Bello',
+    template: 'basic',
+    theme: basicTheme,
+    category: categories[4],
+    image: '/images/restaurants/carnitas.webp',
+    location: 'La Entrada, Copán',
+    whatsapp: '',
+    maps: 'https://maps.google.com',
+    hours: '',
+    website: '',
+    menu: [],
+    menuImages: ['/images/menus/carnitas1.webp'],
+  },
 ]
