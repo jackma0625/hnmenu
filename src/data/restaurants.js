@@ -106,6 +106,8 @@ export const restaurants = [
     menu: [],
     menuImages: ['/images/menus/mana1.webp'],
   },
+
+  /*
   {
     id: 7,
     slug: 'le-fruitt-coffee-bistro',
@@ -122,6 +124,9 @@ export const restaurants = [
     menu: [],
     menuImages: ['/images/menus/le-fruitt1.webp', '/images/menus/le-fruitt2.webp'],
   },
+},
+*/
+
   {
     id: 8,
     slug: 'cerditos-rafael',
