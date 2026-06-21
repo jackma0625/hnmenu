@@ -8,10 +8,20 @@ import '../styles/Home.css'
 export default function Restaurant() {
   const { slug } = useParams()
 
+ 
+
 const restaurant =
   restaurants.find(
     r => r.slug === slug
   )
+
+  if (!restaurant) {
+    return (
+      <div style={{ padding: '40px' }}>
+        Restaurant not found
+      </div>
+    )
+  }
 
   return (
     <div

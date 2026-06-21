@@ -55,7 +55,7 @@ return (
     : (
 
       <Link
-        to={`/restaurant/${restaurant.id}`}
+        to={`/restaurant/${restaurant.slug}`}
         className="restaurant-card"
       >
         {cardContent}
