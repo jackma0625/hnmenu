@@ -1,47 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
   <url>
     <loc>https://hnmenu.com/</loc>
-    <priority>1.0</priority>
   </url>
+
   <url>
-    <loc>https://hnmenu.com/restaurant/1</loc>
-    <priority>0.8</priority>
+    <loc>https://hnmenu.com/restaurant/sushi-yamato</loc>
   </url>
+
   <url>
-    <loc>https://hnmenu.com/restaurant/2</loc>
-    <priority>0.8</priority>
+    <loc>https://hnmenu.com/restaurant/hong-kong-palace</loc>
   </url>
+
   <url>
-    <loc>https://hnmenu.com/restaurant/3</loc>
-    <priority>0.8</priority>
+    <loc>https://hnmenu.com/restaurant/juan-vidal</loc>
   </url>
+
   <url>
-    <loc>https://hnmenu.com/restaurant/4</loc>
-    <priority>0.8</priority>
+    <loc>https://hnmenu.com/restaurant/cafeina</loc>
   </url>
+
   <url>
-    <loc>https://hnmenu.com/restaurant/5</loc>
-    <priority>0.8</priority>
+    <loc>https://hnmenu.com/restaurant/palacio-oriental</loc>
   </url>
+
   <url>
-    <loc>https://hnmenu.com/restaurant/6</loc>
-    <priority>0.8</priority>
+    <loc>https://hnmenu.com/restaurant/manas-bakery</loc>
   </url>
+
   <url>
-    <loc>https://hnmenu.com/restaurant/7</loc>
-    <priority>0.8</priority>
+    <loc>https://hnmenu.com/restaurant/cerditos-rafael</loc>
   </url>
+
   <url>
-    <loc>https://hnmenu.com/restaurant/8</loc>
-    <priority>0.8</priority>
+    <loc>https://hnmenu.com/restaurant/la-terraza-grille-burguers</loc>
   </url>
+
   <url>
-    <loc>https://hnmenu.com/restaurant/9</loc>
-    <priority>0.8</priority>
+    <loc>https://hnmenu.com/restaurant/carnitas-mi-negro-bello</loc>
   </url>
-  <url>
-    <loc>https://hnmenu.com/restaurant/10</loc>
-    <priority>0.8</priority>
-  </url>
+
 </urlset>
