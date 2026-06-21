@@ -6,9 +6,11 @@ import { restaurants } from '../data/restaurants'
 import '../styles/Home.css'
 
 export default function Restaurant() {
-  const { id } = useParams()
-  const restaurant = restaurants.find(
-    (r) => r.id === Number(id)
+  const { slug } = useParams()
+
+const restaurant =
+  restaurants.find(
+    r => r.slug === slug
   )
 
   return (

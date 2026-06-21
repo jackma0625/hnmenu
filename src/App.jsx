@@ -19,7 +19,7 @@ export default function App() {
 
 
 <Route
-  path="/restaurant/:id"
+  path="/restaurant/:slug"
   element={<Restaurant />}
 />
 
