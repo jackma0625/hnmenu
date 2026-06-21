@@ -61,7 +61,7 @@ export const restaurants = [
   {
     id: 4,
     slug: 'cafeina',
-    name: 'Cafeina',
+    name: 'Cafeína',
     template: 'basic',
     theme: basicTheme,
     category: categories[1],
