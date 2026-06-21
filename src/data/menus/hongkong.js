@@ -65,7 +65,7 @@ export const hongkongMenu = [
     category: 'ARROZ',
     items: [
       { name: 'Arroz Hong Kong Familia', price: 270 },
-      { name: 'Arroz Hong Kong Normal', price: 210 },
+      { name: 'Arroz Hong Kong Normal', price: 220 },
       { name: 'Arroz con Camaron Familia', price: 380 },
       { name: 'Arroz con Camaron Normal', price: 240 },
       { name: 'Arroz con Pollo y Camaron', price: 240 },
@@ -82,7 +82,7 @@ export const hongkongMenu = [
     category: 'CHAP SUEY',
     items: [
       { name: 'Chap Suey Hong Kong Familia', price: 270 },
-      { name: 'Chap Suey Hong Kong Normal', price: 210 },
+      { name: 'Chap Suey Hong Kong Normal', price: 220 },
       { name: 'Chap Suey Camaron Familia', price: 380 },
       { name: 'Chap Suey Camaron Normal', price: 240 },
       { name: 'Chap Suey Pollo y Camaron', price: 240 },
