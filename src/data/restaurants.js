@@ -83,7 +83,7 @@ export const restaurants = [
     category: categories[0],
     image: '/images/restaurants/palacio-oriental.webp',
     location: 'La Entrada, Copán',
-    whatsapp: '',
+    whatsapp: '50487955480',
     maps: 'https://maps.app.goo.gl/qdG4PAPvQBuHJxZSA',
     hours: '9AM - 9PM',
     website: '',
