@@ -12,7 +12,7 @@ export const cities = [
   },
   {
     id: 'santa-rosa',
-    name: 'Santa Rosa de Copán',
+    name: 'Santa Rosa',
     department: 'Copán'
   },
   {
