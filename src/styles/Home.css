@@ -230,40 +230,69 @@
   flex-direction: column;
 }
 
-/* ================= CARD ================= */
+/* ================= RESTAURANTS - 卡片式布局 ================= */
+.restaurants {
+  background: #f5f5f5;  /* 灰色背景衬托卡片 */
+  padding: 12px 16px;
+}
+
+.restaurants-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;  /* 卡片之间的间距 */
+}
+
+/* ================= CARD - 美团外卖风格 ================= */
 .restaurant-card {
   display: flex;
   gap: 14px;
-  padding: 16px;
+  padding: 14px;
+  background: white;
+  border-radius: 16px;  /* 圆角 */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);  /* 轻微阴影 */
   text-decoration: none;
   color: black;
-  border-bottom: 1px solid #eee;
-  background: white;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: none;  /* 去掉原来的底部边框 */
+}
+
+.restaurant-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+.restaurant-card:active {
+  transform: scale(0.98);
 }
 
 .restaurant-card img {
-  width: 110px;
-  height: 110px;
+  width: 100px;
+  height: 100px;
   object-fit: cover;
-  border-radius: 14px;
+  border-radius: 12px;
   flex-shrink: 0;
+  background: #f0f0f0;
 }
 
 .restaurant-content {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 2px 0;
 }
 
 .restaurant-content h3 {
-  font-size: 18px;
-  margin-bottom: 8px;
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+  color: #1a1a1a;
 }
 
 .restaurant-category {
-  color: #777;
-  margin-bottom: 12px;
+  color: #999;
+  font-size: 13px;
+  margin: 0 0 8px 0;
 }
 
 .restaurant-bottom {
@@ -274,18 +303,23 @@
 
 .restaurant-bottom span {
   color: #666;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .restaurant-bottom button {
   border: none;
-  background: #ff9800;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: bold;
+  background: #ffb300;
+  color: #1a1a1a;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
   cursor: pointer;
+  transition: background 0.2s;
+}
+
+.restaurant-bottom button:hover {
+  background: #e6a200;
 }
 
 /* ================= MOBILE ================= */
