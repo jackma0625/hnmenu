@@ -1,134 +1,119 @@
-import { useState, useEffect, useRef } from 'react'
-import { categories } from '../data/categories.js'
+
+import { useState, useEffect, useRef } from 'react';
+import { categories } from '../data/categories.js';
 
 export default function CategorySection({
   selectedCategory,
   setSelectedCategory,
+  showMenu,
+  setShowMenu,
 }) {
-  const [showMenu, setShowMenu] = useState(false)
-  const [isSticky, setIsSticky] = useState(false)
-  const sentinelRef = useRef(null)
-  const ticking = useRef(false)
+  // 删除 isSticky 和 sentinelRef 相关代码
+  // 因为固定逻辑由 Home.jsx 统一控制
 
-  useEffect(() => {
-    const sentinel = sentinelRef.current
-    if (!sentinel) return
-
-    // 用 IntersectionObserver，手机兼容性好，不震动
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        // 使用 requestAnimationFrame 防抖，避免手机震动
-        if (!ticking.current) {
-          requestAnimationFrame(() => {
-            setIsSticky(!entry.isIntersecting)
-            ticking.current = false
-          })
-          ticking.current = true
-        }
-      },
-      {
-        threshold: 0,
-        rootMargin: '-88px 0px 0px 0px',
-      }
-    )
-
-    observer.observe(sentinel)
-
-    return () => observer.disconnect()
-  }, [])
-
-  // 获取当前显示的分类名称
   const getCurrentCategoryName = () => {
-    if (selectedCategory === 'all') return 'Todos'
-    const cat = categories.find(c => c.slug === selectedCategory)
-    return cat ? `${cat.icon} ${cat.name}` : 'Todos'
-  }
+    if (selectedCategory === 'all') return 'Todos';
+    const cat = categories.find(c => c.slug === selectedCategory);
+    return cat ? `${cat.icon} ${cat.name}` : 'Todos';
+  };
+
+  const handleSelectCategory = (slug) => {
+    setSelectedCategory(slug);
+    setShowMenu();
+  };
 
   return (
-    <>
-      {/* 哨兵元素 - 放在分类栏原本位置的上方 */}
-      <div ref={sentinelRef} style={{ height: '1px' }} />
-
-      <div
-        className="categories"
-        style={{
-          position: isSticky ? 'fixed' : 'relative',
-          top: isSticky ? '88px' : 'auto',
-          left: 0,
-          right: 0,
-          zIndex: 999,
-          background: 'white',
-          
-          boxShadow: isSticky ? '0 2px 8px rgba(0,0,0,0.1)' : 'none',
-          transition: isSticky ? 'box-shadow 0.2s' : 'none',
-          display: 'flex',        // 新增
-    alignItems: 'center',   // 新增
-    height: '52px',         // 新增
-    boxSizing: 'border-box',// 新增
-
-        }}
-      >
-        <div className="filter-bar" style={{ padding: '0' }}>
-          <button
-            className="filter-btn"
-            onClick={() => setShowMenu(!showMenu)}
-            style={{
-              width: '100%',
-              textAlign: 'center',
-              padding: '12px 16px'
-            }}
-          >
-            {getCurrentCategoryName()} ▼
-          </button>
-        </div>
+    <div
+      className="categories"
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        height: '52px',
+        boxSizing: 'border-box',
+        width: '100%',
+        
+      }}
+    >
+      <div className="filter-bar" style={{ 
+        padding: '0', 
+        width: '100%', 
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
+        height: '100%',
+      }}>
+        <button
+          className="filter-btn"
+          onClick={setShowMenu}
+          style={{
+            width: '100%',
+            textAlign: 'center',
+            padding: '8px 16px',
+            height: '36px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '6px',
+            border: 'none',
+            background: '#f5f5f5',
+            borderRadius: '30px',
+            fontSize: '14px',
+            fontWeight: '600',
+            cursor: 'pointer',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          🍽️ {getCurrentCategoryName()} ▼
+        </button>
 
         {showMenu && (
-          <div 
+          <div
             className="dropdown-menu"
             style={{
               position: 'absolute',
-              top: '100%',
+              top: 'calc(100% + 8px)',
               left: 0,
               right: 0,
               background: 'white',
+              borderRadius: '12px',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
               zIndex: 1000,
               maxHeight: '300px',
               overflowY: 'auto',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
             }}
           >
             <button
-              className={selectedCategory === 'all' ? 'active-dropdown' : ''}
-              onClick={() => {
-                setSelectedCategory('all')
-                setShowMenu(false)
-              }}
+              onClick={() => handleSelectCategory('all')}
               style={{
                 width: '100%',
-                padding: '16px 20px',
+                padding: '12px 16px',
                 border: 'none',
                 background: selectedCategory === 'all' ? '#f5f5f5' : 'white',
                 textAlign: 'left',
-                borderBottom: '1px solid #eee'
+                borderBottom: '1px solid #eee',
+                cursor: 'pointer',
+                fontSize: '14px',
+                color: selectedCategory === 'all' ? '#ff9800' : '#333',
+                fontWeight: selectedCategory === 'all' ? '600' : '400',
               }}
             >
-              Todos
+              🍽️ Todos
             </button>
             {categories.map((category) => (
               <button
                 key={category.id}
-                className={selectedCategory === category.slug ? 'active-dropdown' : ''}
-                onClick={() => {
-                  setSelectedCategory(category.slug)
-                  setShowMenu(false)
-                }}
+                onClick={() => handleSelectCategory(category.slug)}
                 style={{
                   width: '100%',
-                  padding: '16px 20px',
+                  padding: '12px 16px',
                   border: 'none',
                   background: selectedCategory === category.slug ? '#f5f5f5' : 'white',
                   textAlign: 'left',
-                  borderBottom: '1px solid #eee'
+                  borderBottom: '1px solid #eee',
+                  cursor: 'pointer',
+                  fontSize: '14px',
+                  color: selectedCategory === category.slug ? '#ff9800' : '#333',
+                  fontWeight: selectedCategory === category.slug ? '600' : '400',
                 }}
               >
                 {category.icon} {category.name}
@@ -137,6 +122,6 @@ export default function CategorySection({
           </div>
         )}
       </div>
-    </>
-  )
+    </div>
+  );
 }
