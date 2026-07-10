@@ -1,6 +1,6 @@
 import { filterRestaurants } from '../utils/filterRestaurants';
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import RegionFilter from '../components/restaurant/RegionFilter';
 import CategorySection from '../components/CategorySection';
 import Navbar from '../components/restaurant/Navbar';
@@ -9,8 +9,13 @@ import { restaurants } from '../data/restaurants';
 import '../styles/Home.css';
 
 export default function Home() {
-  const [selectedCity, setSelectedCity] = useState('all');
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  // 从 URL 读取筛选状态
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialCity = searchParams.get('city') || 'all';
+  const initialCategory = searchParams.get('category') || 'all';
+
+  const [selectedCity, setSelectedCity] = useState(initialCity);
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [isSticky, setIsSticky] = useState(false);
   const [showCityMenu, setShowCityMenu] = useState(false);
   const [showCategoryMenu, setShowCategoryMenu] = useState(false);
@@ -20,6 +25,7 @@ export default function Home() {
   const ticking = useRef(false);
   const loaderRef = useRef(null);
 
+  // 滚动固定逻辑
   useEffect(() => {
     const sentinel = sentinelRef.current;
     if (!sentinel) return;
@@ -44,6 +50,7 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
+  // 按城市筛选
   const filteredByCity =
     selectedCity === 'all'
       ? restaurants
@@ -51,6 +58,7 @@ export default function Home() {
           restaurant => restaurant.city === selectedCity
         );
 
+  // 按分类筛选
   const filteredRestaurants = filterRestaurants(
     filteredByCity,
     selectedCategory
@@ -59,22 +67,19 @@ export default function Home() {
   const visibleRestaurants = filteredRestaurants.slice(0, visibleCount);
   const hasMore = visibleCount < filteredRestaurants.length;
 
-  // 加载更多（带最小延迟）
+  // 加载更多
   const loadMore = useCallback(() => {
     if (isLoading || !hasMore) return;
     
     setIsLoading(true);
     
-    // 至少显示 800ms 加载动画
-    const startTime = Date.now();
     const remaining = filteredRestaurants.length - visibleCount;
     const loadCount = Math.min(20, remaining);
     
-    // 模拟加载
     setTimeout(() => {
       setVisibleCount(prev => Math.min(prev + loadCount, filteredRestaurants.length));
       setIsLoading(false);
-    }, Math.max(800, 2000 - (Date.now() - startTime))); // 至少800ms
+    }, 800);
   }, [isLoading, hasMore, visibleCount, filteredRestaurants.length]);
 
   // 无限滚动检测
@@ -98,11 +103,19 @@ export default function Home() {
     return () => observer.disconnect();
   }, [hasMore, isLoading, loadMore]);
 
-  // 筛选变化时重置
+  // 筛选变化时重置显示数量
   useEffect(() => {
     setVisibleCount(20);
     setIsLoading(false);
   }, [selectedCity, selectedCategory]);
+
+  // ====== 当筛选变化时更新 URL ======
+  useEffect(() => {
+    const params = {};
+    if (selectedCity !== 'all') params.city = selectedCity;
+    if (selectedCategory !== 'all') params.category = selectedCategory;
+    setSearchParams(params, { replace: true });
+  }, [selectedCity, selectedCategory, setSearchParams]);
 
   const toggleCityMenu = () => {
     setShowCityMenu(!showCityMenu);
