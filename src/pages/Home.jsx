@@ -1,6 +1,6 @@
 import { filterRestaurants } from '../utils/filterRestaurants';
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import RegionFilter from '../components/restaurant/RegionFilter';
 import CategorySection from '../components/CategorySection';
 import Navbar from '../components/restaurant/Navbar';
@@ -9,13 +9,18 @@ import { restaurants } from '../data/restaurants';
 import '../styles/Home.css';
 
 export default function Home() {
-  // 从 URL 读取筛选状态
-  const [searchParams, setSearchParams] = useSearchParams();
-  const initialCity = searchParams.get('city') || 'all';
-  const initialCategory = searchParams.get('category') || 'all';
+  // 从 localStorage 读取筛选状态
+  const getSavedCity = () => {
+    const saved = localStorage.getItem('hnmenu_city');
+    return saved || 'all';
+  };
+  const getSavedCategory = () => {
+    const saved = localStorage.getItem('hnmenu_category');
+    return saved || 'all';
+  };
 
-  const [selectedCity, setSelectedCity] = useState(initialCity);
-  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
+  const [selectedCity, setSelectedCity] = useState(getSavedCity);
+  const [selectedCategory, setSelectedCategory] = useState(getSavedCategory);
   const [isSticky, setIsSticky] = useState(false);
   const [showCityMenu, setShowCityMenu] = useState(false);
   const [showCategoryMenu, setShowCategoryMenu] = useState(false);
@@ -103,19 +108,13 @@ export default function Home() {
     return () => observer.disconnect();
   }, [hasMore, isLoading, loadMore]);
 
-  // 筛选变化时重置显示数量
+  // 筛选变化时重置显示数量 并 保存到 localStorage
   useEffect(() => {
     setVisibleCount(20);
     setIsLoading(false);
+    localStorage.setItem('hnmenu_city', selectedCity);
+    localStorage.setItem('hnmenu_category', selectedCategory);
   }, [selectedCity, selectedCategory]);
-
-  // ====== 当筛选变化时更新 URL ======
-  useEffect(() => {
-    const params = {};
-    if (selectedCity !== 'all') params.city = selectedCity;
-    if (selectedCategory !== 'all') params.category = selectedCategory;
-    setSearchParams(params, { replace: true });
-  }, [selectedCity, selectedCategory, setSearchParams]);
 
   const toggleCityMenu = () => {
     setShowCityMenu(!showCityMenu);
