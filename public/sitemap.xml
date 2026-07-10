@@ -1,45 +1,179 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
   <url>
     <loc>https://hnmenu.com/</loc>
+    <priority>1.0</priority>
   </url>
-
   <url>
     <loc>https://hnmenu.com/restaurant/sushi-yamato</loc>
+    <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://hnmenu.com/restaurant/hong-kong-palace</loc>
+    <priority>0.8</priority>
   </url>
-
-  <url>
-    <loc>https://hnmenu.com/restaurant/juan-vidal</loc>
-  </url>
-
   <url>
     <loc>https://hnmenu.com/restaurant/cafeina</loc>
+    <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://hnmenu.com/restaurant/palacio-oriental</loc>
+    <priority>0.8</priority>
   </url>
-
   <url>
-    <loc>https://hnmenu.com/restaurant/manas-bakery</loc>
+    <loc>https://hnmenu.com/restaurant/juan-vidal</loc>
+    <priority>0.8</priority>
   </url>
-
+  <url>
+    <loc>https://hnmenu.com/restaurant/las-marias</loc>
+    <priority>0.8</priority>
+  </url>
   <url>
     <loc>https://hnmenu.com/restaurant/cerditos-rafael</loc>
+    <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://hnmenu.com/restaurant/la-terraza-grille-burguers</loc>
+    <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://hnmenu.com/restaurant/carnitas-mi-negro-bello</loc>
+    <priority>0.8</priority>
   </url>
-
+  <url>
+    <loc>https://hnmenu.com/restaurant/kaldis-koffee-shop</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/el-cafe-de-las-velas</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/restaurante-lenca-maya</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/weekends-pizza</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/zotz</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/las-brasas-steakhouse</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/jireth</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/the-wings-house</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/terra-de-fogo</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/oki-poki</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/restaurante-la-cabana</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/le-moulin</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/el-mirador-0401</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/restaurante-senderos</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/soja</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/la-gondola</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/santo-y-pecado</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/restaurante-la-finca</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/la-catrina</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/parmas-pizza</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/calitos-grill</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/restaurante-well</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/restaurante-el-cedron</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/restaurante-la-casa-de-dona-mirian</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/la-villa-0401</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/pronto-alegre-resto-cafe-bar</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/tipicos-el-gloton</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/restaurante-yin-fong</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/restaurante-chila</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/primos-restaurantes-mexicanos</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/asados-yonys</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/restaurante-xinyang</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/restaurante-chino-jiang</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hnmenu.com/restaurant/comida-china-baiyun</loc>
+    <priority>0.8</priority>
+  </url>
 </urlset>
