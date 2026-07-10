@@ -2,6 +2,9 @@ import Navbar from '../components/restaurant/Navbar';
 import { Link } from 'react-router-dom';
 
 export default function Pricing() {
+  // 你的 WhatsApp 号码（带国家码，不含 + 号）
+  const whatsappNumber = '50433514110'; // ← 改成你的号码
+
   return (
     <>
       <Navbar />
@@ -43,7 +46,14 @@ export default function Pricing() {
               <li>✅ Diseño exclusivo</li>
             </ul>
             <span className="pricing-tag">Ideal para restaurantes establecidos</span>
-            <button className="btn-premium">Contratar</button>
+            <a 
+              href={`https://wa.me/${whatsappNumber}?text=Hola%2C%20quiero%20contratar%20el%20plan%20Premium%20de%20HNMenu`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="plan-btn plan-btn-premium"
+            >
+              Contratar
+            </a>
           </div>
 
           {/* Custom版 */}
@@ -56,20 +66,27 @@ export default function Pricing() {
               <li>✅ Sitio web personalizado</li>
               <li>✅ Tu propio dominio (.com)</li>
               <li>✅ Identidad visual única</li>
+              
               <li>✅ SEO avanzado</li>
             </ul>
             <span className="pricing-tag">Ideal para marcas que destacan</span>
-            <button className="btn-custom">Contratar</button>
+            <a 
+              href={`https://wa.me/${whatsappNumber}?text=Hola%2C%20quiero%20contratar%20el%20plan%20Custom%20de%20HNMenu`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="plan-btn plan-btn-custom"
+            >
+              Contratar
+            </a>
           </div>
         </div>
 
         <div className="pricing-footer">
           <p>
             ¿Tienes dudas? Contáctame por{' '}
-            <a href="https://wa.me/50433514110" target="_blank" rel="noreferrer">
+            <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noopener noreferrer">
               WhatsApp
-            </a>{' '}
-           
+            </a>
           </p>
           <Link to="/" className="pricing-back">← Volver al inicio</Link>
         </div>

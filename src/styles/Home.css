@@ -972,40 +972,54 @@
   margin: 8px 0 16px;
 }
 
-.pricing-card button {
+/* ================= PLAN BUTTONS ================= */
+.plan-btn {
+  display: inline-block;
   border: none;
   padding: 10px 32px;
   border-radius: 30px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, transform 0.2s;
+  margin-top: auto;
+  text-decoration: none;
+  text-align: center;
   width: 100%;
   max-width: 200px;
 }
 
-.btn-free {
+/* Premium 按钮 */
+.plan-btn-premium {
+  background: #ffb300;
+  color: #1a1a1a;
+}
+
+.plan-btn-premium:hover {
+  background: #e6a200;
+  transform: scale(1.03);
+}
+
+/* Custom 按钮 */
+.plan-btn-custom {
+  background: #1a1a1a;
+  color: white;
+}
+
+.plan-btn-custom:hover {
+  background: #333;
+  transform: scale(1.03);
+}
+
+/* 免费版按钮（禁用状态） */
+.plan-free .plan-btn {
   background: #f0f0f0;
   color: #666;
   cursor: default;
 }
 
-.btn-premium {
-  background: #ffb300;
-  color: #1a1a1a;
-}
-
-.btn-premium:hover {
-  background: #e6a200;
-}
-
-.btn-custom {
-  background: #1a1a1a;
-  color: white;
-}
-
-.btn-custom:hover {
-  background: #333;
+.plan-free .plan-btn:hover {
+  transform: none;
 }
 
 .pricing-footer {
@@ -1042,6 +1056,9 @@
   .pricing-grid {
     grid-template-columns: 1fr;
     max-width: 340px;
+  }
+  .plan-btn {
+    max-width: 100%;
   }
 }
 
