@@ -50,13 +50,12 @@ export default function Pricing() {
           <div className="pricing-card custom">
             <div className="pricing-badge">DISEÑO</div>
             <h3>Custom</h3>
-            <div className="pricing-price">L 3,500 <span>/año</span></div>
+            <div className="pricing-price">L 4,999 <span>/año</span></div>
             <ul>
               <li>✅ Todo lo de Premium</li>
               <li>✅ Sitio web personalizado</li>
               <li>✅ Tu propio dominio (.com)</li>
               <li>✅ Identidad visual única</li>
-              <li>✅ Soporte 24/7</li>
               <li>✅ SEO avanzado</li>
             </ul>
             <span className="pricing-tag">Ideal para marcas que destacan</span>
@@ -67,11 +66,10 @@ export default function Pricing() {
         <div className="pricing-footer">
           <p>
             ¿Tienes dudas? Contáctame por{' '}
-            <a href="https://wa.me/504XXXXXXXX" target="_blank" rel="noreferrer">
+            <a href="https://wa.me/50433514110" target="_blank" rel="noreferrer">
               WhatsApp
             </a>{' '}
-            o{' '}
-            <a href="mailto:tuemail@example.com">email</a>
+           
           </p>
           <Link to="/" className="pricing-back">← Volver al inicio</Link>
         </div>

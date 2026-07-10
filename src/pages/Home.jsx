@@ -126,8 +126,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ====== 页脚 ====== */}
-        <footer className="site-footer">
+                {/* ====== 页脚 ====== */}
+                <footer className="site-footer">
           <div className="footer-content">
             <div className="footer-brand">
               <h3>🍽️ HNMenu</h3>
@@ -137,18 +137,12 @@ export default function Home() {
             <div className="footer-contact">
               <h4>Contacto</h4>
               <a 
-                href="https://wa.me/504XXXXXXXX" 
+                href="https://wa.me/50433514110" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer-whatsapp"
               >
                 📱 WhatsApp
-              </a>
-              <a 
-                href="mailto:tuemail@example.com"
-                className="footer-email"
-              >
-                ✉️ tuemail@example.com
               </a>
             </div>
 
@@ -156,7 +150,7 @@ export default function Home() {
               <h4>¿Tu restaurante no está aquí?</h4>
               <p>Contáctanos para agregarlo gratis</p>
               <Link to="/pricing" className="footer-pricing-link">
-                📊 Ver todos los planes
+                📊 Ver todos los planes →
               </Link>
             </div>
           </div>

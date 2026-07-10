@@ -698,74 +698,96 @@
 
 /* ================= FOOTER ================= */
 .site-footer {
-  background: #1a1a1a;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
   color: #ccc;
-  padding: 40px 20px 20px;
-  margin-top: 20px;
+  padding: 50px 20px 20px;
+  margin-top: 30px;
+  border-top: 4px solid #ffb300;
 }
 
 .footer-content {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 30px;
+  gap: 40px;
+  padding-bottom: 30px;
 }
 
 .footer-brand h3 {
   color: #ffb300;
-  font-size: 22px;
-  margin-bottom: 8px;
+  font-size: 24px;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
 }
 
 .footer-brand p {
   font-size: 14px;
   color: #999;
+  line-height: 1.6;
 }
 
 .footer-contact h4,
 .footer-info h4 {
   color: #fff;
   font-size: 16px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+  font-weight: 600;
 }
 
 .footer-contact a {
-  display: block;
-  color: #ccc;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #25D366;
   text-decoration: none;
-  padding: 6px 0;
-  font-size: 14px;
-  transition: color 0.2s;
+  padding: 10px 20px;
+  background: rgba(37, 211, 102, 0.12);
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
 
 .footer-contact a:hover {
-  color: #ffb300;
-}
-
-.footer-whatsapp {
-  color: #25D366 !important;
+  background: rgba(37, 211, 102, 0.25);
+  transform: translateX(4px);
 }
 
 .footer-info p {
   font-size: 14px;
   color: #999;
-  margin-bottom: 8px;
+  margin-bottom: 14px;
 }
 
-.footer-free {
+/* 重点：Ver todos los planes 按钮 */
+.footer-pricing-link {
   display: inline-block;
   background: #ffb300;
-  color: #1a1a1a;
-  padding: 4px 14px;
-  border-radius: 20px;
-  font-size: 13px;
+  color: #1a1a1a !important;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-size: 15px;
   font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 179, 0, 0.35);
+  letter-spacing: 0.5px;
+}
+
+.footer-pricing-link:hover {
+  background: #ffc107;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(255, 179, 0, 0.5);
+}
+
+.footer-pricing-link:active {
+  transform: scale(0.97);
 }
 
 .footer-bottom {
-  max-width: 800px;
-  margin: 30px auto 0;
+  max-width: 900px;
+  margin: 0 auto;
   padding-top: 20px;
   border-top: 1px solid #333;
   text-align: center;
@@ -778,9 +800,15 @@
   .footer-content {
     grid-template-columns: 1fr;
     text-align: center;
+    gap: 30px;
   }
 
   .footer-contact a {
+    justify-content: center;
+  }
+
+  .footer-pricing-link {
+    display: block;
     text-align: center;
   }
 }
