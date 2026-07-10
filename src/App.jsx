@@ -1,31 +1,14 @@
-import {
-  Routes,
-  Route,
-} from 'react-router-dom'
-
-import Home from './pages/Home'
-import Restaurant from './pages/Restaurant'
+import { Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Restaurant from './pages/Restaurant';
+import Pricing from './pages/Pricing';
 
 export default function App() {
-
   return (
-
     <Routes>
-
-      <Route
-        path="/"
-        element={<Home />}
-      />
-
-
-<Route
-  path="/restaurant/:slug"
-  element={<Restaurant />}
-/>
-
-
-
+      <Route path="/" element={<Home />} />
+      <Route path="/restaurant/:slug" element={<Restaurant />} />
+      <Route path="/pricing" element={<Pricing />} />
     </Routes>
-
-  )
+  );
 }

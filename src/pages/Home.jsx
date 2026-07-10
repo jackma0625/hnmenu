@@ -1,5 +1,6 @@
 import { filterRestaurants } from '../utils/filterRestaurants';
 import { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import RegionFilter from '../components/restaurant/RegionFilter';
 import CategorySection from '../components/CategorySection';
 import Navbar from '../components/restaurant/Navbar';
@@ -11,12 +12,11 @@ export default function Home() {
   const [selectedCity, setSelectedCity] = useState('all');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [isSticky, setIsSticky] = useState(false);
-  const [showCityMenu, setShowCityMenu] = useState(false);  // 城市下拉开关
-  const [showCategoryMenu, setShowCategoryMenu] = useState(false); // 分类下拉开关
+  const [showCityMenu, setShowCityMenu] = useState(false);
+  const [showCategoryMenu, setShowCategoryMenu] = useState(false);
   const sentinelRef = useRef(null);
   const ticking = useRef(false);
 
-  // 监听滚动
   useEffect(() => {
     const sentinel = sentinelRef.current;
     if (!sentinel) return;
@@ -41,7 +41,6 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
-  // 按城市筛选
   const filteredByCity =
     selectedCity === 'all'
       ? restaurants
@@ -49,25 +48,22 @@ export default function Home() {
           restaurant => restaurant.city === selectedCity
         );
 
-  // 按分类筛选
   const filteredRestaurants = filterRestaurants(
     filteredByCity,
     selectedCategory
   );
 
-  // 切换城市菜单
   const toggleCityMenu = () => {
     setShowCityMenu(!showCityMenu);
     if (!showCityMenu) {
-      setShowCategoryMenu(false); // 打开城市时关闭分类
+      setShowCategoryMenu(false);
     }
   };
 
-  // 切换分类菜单
   const toggleCategoryMenu = () => {
     setShowCategoryMenu(!showCategoryMenu);
     if (!showCategoryMenu) {
-      setShowCityMenu(false); // 打开分类时关闭城市
+      setShowCityMenu(false);
     }
   };
 
@@ -76,50 +72,47 @@ export default function Home() {
       <Navbar />
 
       <div className="main-content">
-        {/* 哨兵元素 */}
         <div ref={sentinelRef} style={{ height: '1px' }} />
 
-        {/* 整个筛选行 */}
         <div
-  className="filter-row"
-  style={{
-    position: isSticky ? 'fixed' : 'relative',
-    top: isSticky ? '88px' : 'auto',
-    left: 0,
-    right: 0,
-    zIndex: 999,
-    background: 'white',
-    boxShadow: isSticky ? '0 2px 8px rgba(0,0,0,0.1)' : 'none',
-    transition: 'box-shadow 0.2s',
-    display: 'flex',
-    gap: '12px',
-    padding: '8px 16px',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    height: '52px',
-    boxSizing: 'border-box',
-  }}
->
-  <div style={{ flex: 1, minWidth: 0 }}>
-    <RegionFilter
-      selectedCity={selectedCity}
-      setSelectedCity={setSelectedCity}
-      showMenu={showCityMenu}
-      setShowMenu={toggleCityMenu}
-    />
-  </div>
+          className="filter-row"
+          style={{
+            position: isSticky ? 'fixed' : 'relative',
+            top: isSticky ? '88px' : 'auto',
+            left: 0,
+            right: 0,
+            zIndex: 999,
+            background: 'white',
+            boxShadow: isSticky ? '0 2px 8px rgba(0,0,0,0.1)' : 'none',
+            transition: 'box-shadow 0.2s',
+            display: 'flex',
+            gap: '12px',
+            padding: '8px 16px',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            height: '52px',
+            boxSizing: 'border-box',
+          }}
+        >
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <RegionFilter
+              selectedCity={selectedCity}
+              setSelectedCity={setSelectedCity}
+              showMenu={showCityMenu}
+              setShowMenu={toggleCityMenu}
+            />
+          </div>
 
-  <div style={{ flex: 1, minWidth: 0 }}>
-    <CategorySection
-      selectedCategory={selectedCategory}
-      setSelectedCategory={setSelectedCategory}
-      showMenu={showCategoryMenu}
-      setShowMenu={toggleCategoryMenu}
-    />
-  </div>
-</div>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <CategorySection
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+              showMenu={showCategoryMenu}
+              setShowMenu={toggleCategoryMenu}
+            />
+          </div>
+        </div>
 
-        {/* 占位符 */}
         {isSticky && <div style={{ height: '52px' }} />}
 
         <section className="restaurants">
@@ -132,6 +125,46 @@ export default function Home() {
             ))}
           </div>
         </section>
+
+        {/* ====== 页脚 ====== */}
+        <footer className="site-footer">
+          <div className="footer-content">
+            <div className="footer-brand">
+              <h3>🍽️ HNMenu</h3>
+              <p>Menús digitales para restaurantes en Honduras</p>
+            </div>
+
+            <div className="footer-contact">
+              <h4>Contacto</h4>
+              <a 
+                href="https://wa.me/504XXXXXXXX" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-whatsapp"
+              >
+                📱 WhatsApp
+              </a>
+              <a 
+                href="mailto:tuemail@example.com"
+                className="footer-email"
+              >
+                ✉️ tuemail@example.com
+              </a>
+            </div>
+
+            <div className="footer-info">
+              <h4>¿Tu restaurante no está aquí?</h4>
+              <p>Contáctanos para agregarlo gratis</p>
+              <Link to="/pricing" className="footer-pricing-link">
+                📊 Ver todos los planes
+              </Link>
+            </div>
+          </div>
+
+          <div className="footer-bottom">
+            <p>© {new Date().getFullYear()} HNMenu - Hecho en 🇭🇳 Honduras</p>
+          </div>
+        </footer>
       </div>
     </>
   );
