@@ -91,7 +91,7 @@ export const restaurants = [
     location: 'La Entrada, Copán',
     whatsapp: '50433974781',
     maps: 'https://maps.app.goo.gl/Fn2niLCnmviUh6dK9',
-    hours: '7AM - 9PM',
+    hours: '8AM - 9PM',
     website: '',
     menu: [],
     menuImages: ['/images/menus/la-entrada/juan-vidal1.webp',
