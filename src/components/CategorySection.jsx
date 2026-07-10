@@ -60,7 +60,12 @@ export default function CategorySection({
           background: 'white',
           
           boxShadow: isSticky ? '0 2px 8px rgba(0,0,0,0.1)' : 'none',
-          transition: isSticky ? 'box-shadow 0.2s' : 'none'
+          transition: isSticky ? 'box-shadow 0.2s' : 'none',
+          display: 'flex',        // 新增
+    alignItems: 'center',   // 新增
+    height: '52px',         // 新增
+    boxSizing: 'border-box',// 新增
+
         }}
       >
         <div className="filter-bar" style={{ padding: '0' }}>
