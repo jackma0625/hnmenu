@@ -14,12 +14,12 @@ export default function Home() {
   const [isSticky, setIsSticky] = useState(false);
   const [showCityMenu, setShowCityMenu] = useState(false);
   const [showCategoryMenu, setShowCategoryMenu] = useState(false);
-  const [visibleCount, setVisibleCount] = useState(20); // 每次加载20家
+  const [visibleCount, setVisibleCount] = useState(20);
+  const [isLoading, setIsLoading] = useState(false);
   const sentinelRef = useRef(null);
   const ticking = useRef(false);
   const loaderRef = useRef(null);
 
-  // 滚动固定逻辑
   useEffect(() => {
     const sentinel = sentinelRef.current;
     if (!sentinel) return;
@@ -44,7 +44,6 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
-  // 按城市和分类筛选
   const filteredByCity =
     selectedCity === 'all'
       ? restaurants
@@ -57,34 +56,52 @@ export default function Home() {
     selectedCategory
   );
 
-  // 当前显示的数量
   const visibleRestaurants = filteredRestaurants.slice(0, visibleCount);
   const hasMore = visibleCount < filteredRestaurants.length;
 
-  // 无限滚动 - 用 IntersectionObserver 检测底部
+  // 加载更多（带最小延迟）
+  const loadMore = useCallback(() => {
+    if (isLoading || !hasMore) return;
+    
+    setIsLoading(true);
+    
+    // 至少显示 800ms 加载动画
+    const startTime = Date.now();
+    const remaining = filteredRestaurants.length - visibleCount;
+    const loadCount = Math.min(20, remaining);
+    
+    // 模拟加载
+    setTimeout(() => {
+      setVisibleCount(prev => Math.min(prev + loadCount, filteredRestaurants.length));
+      setIsLoading(false);
+    }, Math.max(800, 2000 - (Date.now() - startTime))); // 至少800ms
+  }, [isLoading, hasMore, visibleCount, filteredRestaurants.length]);
+
+  // 无限滚动检测
   useEffect(() => {
     const loader = loaderRef.current;
-    if (!loader || !hasMore) return;
+    if (!loader || !hasMore || isLoading) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && hasMore) {
-          setVisibleCount(prev => Math.min(prev + 20, filteredRestaurants.length));
+        if (entries[0].isIntersecting && hasMore && !isLoading) {
+          loadMore();
         }
       },
       {
-        rootMargin: '0px 0px 200px 0px', // 提前200px触发加载
+        rootMargin: '0px 0px 200px 0px',
         threshold: 0.1,
       }
     );
 
     observer.observe(loader);
     return () => observer.disconnect();
-  }, [hasMore, filteredRestaurants.length]);
+  }, [hasMore, isLoading, loadMore]);
 
-  // 当筛选条件变化时，重置显示数量
+  // 筛选变化时重置
   useEffect(() => {
     setVisibleCount(20);
+    setIsLoading(false);
   }, [selectedCity, selectedCategory]);
 
   const toggleCityMenu = () => {
@@ -159,9 +176,9 @@ export default function Home() {
             ))}
           </div>
 
-          {/* 加载更多触发器和加载状态 */}
+          {/* 加载状态 */}
           <div ref={loaderRef} className="loader-container">
-            {hasMore && (
+            {isLoading && (
               <div className="loader-spinner">
                 <span className="loader-dot"></span>
                 <span className="loader-dot"></span>
@@ -169,7 +186,12 @@ export default function Home() {
                 <span className="loader-text">Cargando más restaurantes...</span>
               </div>
             )}
-            {!hasMore && filteredRestaurants.length > 0 && (
+            {!isLoading && hasMore && (
+              <div className="loader-trigger">
+                <span>⬇️ Desliza para cargar más</span>
+              </div>
+            )}
+            {!isLoading && !hasMore && filteredRestaurants.length > 0 && (
               <div className="loader-end">
                 <span>🎉 ¡Has visto todos los restaurantes!</span>
               </div>
@@ -193,7 +215,7 @@ export default function Home() {
             <div className="footer-contact">
               <h4>Contacto</h4>
               <a 
-                href="https://wa.me/504XXXXXXXX" 
+                href="https://wa.me/50433514110" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer-whatsapp"
