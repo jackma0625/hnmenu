@@ -793,7 +793,7 @@ const renderResumenStep = () => {
         }
         .ff-card-price-sm {
           font-size: 15px;
-          font-weight: 100;
+          font-weight: 500;
           color: #888;
           margin-top: 4px;
         }
