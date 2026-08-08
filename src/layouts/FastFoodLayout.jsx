@@ -9,9 +9,9 @@ const combos = [
 ];
 
 const bases = [
-  { name: 'Arroz Frito', emoji: '🍚' },
-  { name: 'Chow Mein', emoji: '🍜' },
-  { name: 'Arroz Blanco', emoji: '🍚' },
+  { name: 'Arroz Frito' },
+  { name: 'Chow Mein' },
+  { name: 'Arroz Blanco' },
 ];
 
 const proteinas = [
@@ -31,10 +31,10 @@ const extras = [
 
 // ===== Bebidas 新增 =====
 const bebidas = [
-  { name: 'Pepsi 500ml', price: 25, emoji: '🥤' },
-  { name: '7Up 500ml', price: 25, emoji: '🥤' },
-  { name: 'Naranja 500ml', price: 25, emoji: '🧃' },
-  { name: 'Agua 500ml', price: 25, emoji: '💧' },
+  { name: 'Pepsi 500ml', price: 25 },
+  { name: '7Up 500ml', price: 25 },
+  { name: 'Naranja 500ml', price: 25 },
+  { name: 'Agua 500ml', price: 25 },
 ];
 
 export default function FastFoodLayout({ restaurant }) {
@@ -171,17 +171,16 @@ export default function FastFoodLayout({ restaurant }) {
       <h2 className="ff-title">Elige tu Base</h2>
       <p className="ff-subtitle">¿Con qué base prefieres tu combo?</p>
       <div className="ff-grid-3">
-        {bases.map((base) => (
-          <button
-            key={base.name}
-            onClick={() => selectBase(base)}
-            className={`ff-card ff-card-center ${selectedBase?.name === base.name ? 'ff-card-active' : ''}`}
-          >
-            <p className="ff-emoji">{base.emoji}</p>
-            <p className="ff-card-title">{base.name}</p>
-          </button>
-        ))}
-      </div>
+  {bases.map((base) => (
+    <button
+      key={base.name}
+      onClick={() => selectBase(base)}
+      className={`ff-card ff-card-center ${selectedBase?.name === base.name ? 'ff-card-active' : ''}`}
+    >
+      <p className="ff-card-title" style={{ fontSize: '14px' }}>{base.name}</p>
+    </button>
+  ))}
+</div>
     </div>
   );
 
@@ -271,24 +270,23 @@ export default function FastFoodLayout({ restaurant }) {
       <h2 className="ff-title">Elige tu Bebida (opcional)</h2>
       <p className="ff-subtitle">¿Qué quieres tomar con tu combo?</p>
       <div className="ff-grid-2">
-        {bebidas.map((bebida) => (
-          <button
-            key={bebida.name}
-            onClick={() => selectBebida(bebida)}
-            className={`ff-card ff-card-center ${selectedBebida?.name === bebida.name ? 'ff-card-active' : ''}`}
-          >
-            <p className="ff-emoji">{bebida.emoji}</p>
-            <p className="ff-card-title">{bebida.name}</p>
-            <p className="ff-card-price-sm">+L.{bebida.price}</p>
-          </button>
-        ))}
+      {bebidas.map((bebida) => (
+  <button
+    key={bebida.name}
+    onClick={() => selectBebida(bebida)}
+    className={`ff-card ff-card-center ${selectedBebida?.name === bebida.name ? 'ff-card-active' : ''}`}
+  >
+    <p className="ff-card-title" style={{ fontSize: '14px' }}>{bebida.name}</p>
+    <p className="ff-card-price-sm">+L.{bebida.price}</p>
+  </button>
+))}
         {/* 跳过 bebida 直接进入 Resumen */}
         <button
           onClick={() => setStep(6)}
           className="ff-card ff-card-center"
           style={{ borderStyle: 'dashed' }}
         >
-          <p className="ff-emoji">⏭️</p>
+          
           <p className="ff-card-title">Sin bebida</p>
           <p className="ff-card-price-sm" style={{ color: '#888' }}>L.0</p>
         </button>
@@ -447,7 +445,7 @@ const renderResumenStep = () => {
             {selectedExtras.map(e => (
               <div key={e.name} className="ff-resumen-row ff-resumen-extra">
                 <span className="ff-resumen-label">+ {e.name}</span>
-                <span className="ff-resumen-price">+L.{e.price}</span>
+                <span style={{ color: '#999', fontWeight: 500 }}>+L.{e.price}</span>
               </div>
             ))}
           </div>
@@ -455,7 +453,7 @@ const renderResumenStep = () => {
         {selectedBebida && (
           <div className="ff-resumen-row">
             <span className="ff-resumen-label">+ {selectedBebida.name}</span>
-            <span className="ff-resumen-price">+L.{selectedBebida.price}</span>
+            <span style={{ color: '#999', fontWeight: 500 }}>+L.{selectedBebida.price}</span>
           </div>
         )}
 
@@ -795,8 +793,8 @@ const renderResumenStep = () => {
         }
         .ff-card-price-sm {
           font-size: 15px;
-          font-weight: 700;
-          color: #C62828;
+          font-weight: 100;
+          color: #888;
           margin-top: 4px;
         }
         .ff-card-row {
@@ -926,7 +924,7 @@ const renderResumenStep = () => {
         .ff-resumen-price {
           font-weight: 600;
           font-size: 14px;
-          color: #1a1a1a;
+          color:#1a1a1a;
         }
         .ff-resumen-extras {
           border-top: 1px solid #eee;
