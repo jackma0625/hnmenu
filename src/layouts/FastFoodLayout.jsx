@@ -124,11 +124,11 @@ export default function FastFoodLayout({ restaurant }) {
     }
     msg += `\n📦 *Tipo de Entrega*\n`;
     if (deliveryInfo.tipo === 'delivery') {
-      msg += `   🛵 Delivery (pagar al repartidor)\n`;
+      msg += `   🛵 A DOMICILIO\n`;
       msg += `   📍 ${deliveryInfo.direccion}\n`;
     } else {
-      msg += `   🏃 Recoger en tienda (gratis)\n`;
-      msg += `   📍 Calle Principal, La Entrada\n`;
+      msg += `   🏃 RECOGER \n`;
+      
     }
     msg += `   👤 ${deliveryInfo.nombre}\n`;
     msg += `   📱 ${deliveryInfo.telefono}\n`;
@@ -459,26 +459,15 @@ const renderResumenStep = () => {
           </div>
         )}
 
-        {/* ===== 配送信息 ===== */} 
+       
+{/* ===== 配送信息 ===== */}
 <div className="ff-resumen-delivery">
-  <p className="ff-resumen-delivery-title">📦 {deliveryInfo.tipo === 'delivery' ? 'Delivery' : 'Recoger en tienda'}</p>
+  <p className="ff-resumen-delivery-title">📦 {deliveryInfo.tipo === 'delivery' ? 'A DOMICILIO' : 'RECOGER'}</p>
   <p>👤 {deliveryInfo.nombre}</p>
-  <p>📱 {deliveryInfo.telefono}</p>
-  {deliveryInfo.tipo === 'delivery' ? (
-    <p>📍 {deliveryInfo.direccion}</p>
-  ) : (
-    <p>📍 Calle Principal, La Entrada</p>
-  )}
+  {deliveryInfo.tipo === 'delivery' && <p>📍 {deliveryInfo.direccion}</p>}
+  {deliveryInfo.telefono && <p>📱 {deliveryInfo.telefono}</p>}
   {deliveryInfo.notas && <p>📝 {deliveryInfo.notas}</p>}
-  {deliveryInfo.tipo === 'delivery' ? (
-    <p style={{ color: '#C62828', fontWeight: 600, marginTop: '4px' }}>
-      🛵 Delivery - pagar al repartidor
-    </p>
-  ) : (
-    <p style={{ color: '#4CAF50', fontWeight: 600, marginTop: '4px' }}>
-      🏃 Recoger en tienda - gratis
-    </p>
-  )}
+  
 </div>
 
         <div className="ff-resumen-total">
@@ -497,7 +486,7 @@ const renderResumenStep = () => {
           rel="noreferrer"
           className="ff-btn-whatsapp"
         >
-          📱 Enviar Pedido
+          Enviar Pedido
         </a>
       </div>
 
@@ -519,7 +508,7 @@ const renderResumenStep = () => {
   <span className="ff-title-hong">HONG KONG</span>{' '}
   <span className="ff-title-express">EXPRESS</span>
 </h1>
-      <p className="ff-header-sub">Comida China Rápida · La Entrada, Copán</p>
+      <p className="ff-header-sub">COMIDA CHINA RÁPIDA </p>
     </div>
     <Link to="/" className="ff-header-close">
       ✕
@@ -603,8 +592,9 @@ const renderResumenStep = () => {
 }
 .ff-header-content {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  position: relative;
 }
 .ff-header-title {
   font-size: 20px;
@@ -626,15 +616,21 @@ const renderResumenStep = () => {
 }
 .ff-header-sub {
   font-size: 12px;
-  opacity: 0.85;
+  color: #FFFFFF;
   margin-top: 4px;
   font-weight: 400;
+  font-family: 'Montserrat', 'Segoe UI', sans-serif;
+  text-align: center;
+  letter-spacing: 1px;
 }
 .ff-header-close {
+  position: absolute;
+  right: -4px;
+  top: -4px;
   background: rgba(255,255,255,0.2);
-  padding: 6px 14px;
+  padding: 4px 10px;
   border-radius: 30px;
-  font-size: 14px;
+  font-size: 13px;
   color: white;
   text-decoration: none;
   transition: background 0.2s;
