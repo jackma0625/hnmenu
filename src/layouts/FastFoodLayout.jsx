@@ -971,7 +971,7 @@ const renderResumenStep = () => {
           margin-top: 16px;
         }
         .ff-footer-link {
-          color: #C62828;
+          color: #bbb;
           text-decoration: none;
           font-weight: 600;
         }
