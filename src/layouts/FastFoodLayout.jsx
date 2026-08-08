@@ -49,6 +49,7 @@ export default function FastFoodLayout({ restaurant }) {
     telefono: '',
     direccion: '',
     notas: '',
+    tipo: 'delivery', // 'delivery' 或 'recoger'
   });
   
 
@@ -58,6 +59,7 @@ export default function FastFoodLayout({ restaurant }) {
     setSelectedProteinas([]);
     setSelectedExtras([]);
     setSelectedBebida(null);
+    setDeliveryInfo({ nombre: '', telefono: '', direccion: '', notas: '', tipo: 'delivery' });
     setStep(1);
   };
 
@@ -120,14 +122,21 @@ export default function FastFoodLayout({ restaurant }) {
     if (selectedBebida) {
       msg += `   Bebida: ${selectedBebida.name} (+L.${selectedBebida.price})\n`;
     }
-    msg += `\n📦 *Información de Entrega*\n`;
+    msg += `\n📦 *Tipo de Entrega*\n`;
+    if (deliveryInfo.tipo === 'delivery') {
+      msg += `   🛵 Delivery (pagar al repartidor)\n`;
+      msg += `   📍 ${deliveryInfo.direccion}\n`;
+    } else {
+      msg += `   🏃 Recoger en tienda (gratis)\n`;
+      msg += `   📍 Calle Principal, La Entrada\n`;
+    }
     msg += `   👤 ${deliveryInfo.nombre}\n`;
     msg += `   📱 ${deliveryInfo.telefono}\n`;
-    msg += `   📍 ${deliveryInfo.direccion}\n`;
     if (deliveryInfo.notas) {
       msg += `   📝 ${deliveryInfo.notas}\n`;
     }
-    msg += `\n💰 *Total: L.${getTotal()}*`;
+    const total = getTotal();
+    msg += `\n💰 *Total: L.${total}*`;
     return encodeURIComponent(msg);
   };
 
@@ -294,9 +303,13 @@ const renderDeliveryStep = () => {
   };
 
   const isFormValid = () => {
-    return deliveryInfo.nombre.trim() !== '' &&
-           deliveryInfo.telefono.trim() !== '' &&
-           deliveryInfo.direccion.trim() !== '';
+    if (deliveryInfo.tipo === 'delivery') {
+      return deliveryInfo.nombre.trim() !== '' &&
+             deliveryInfo.telefono.trim() !== '' &&
+             deliveryInfo.direccion.trim() !== '';
+    }
+    // 自取模式：只需要名字，电话可选
+    return deliveryInfo.nombre.trim() !== '';
   };
 
   return (
@@ -306,7 +319,29 @@ const renderDeliveryStep = () => {
         <span className="ff-step-combo">{selectedCombo?.name}</span>
       </div>
       <h2 className="ff-title">📦 Información de Entrega</h2>
-      <p className="ff-subtitle">Completa tus datos para recibir tu pedido</p>
+      <p className="ff-subtitle">¿Cómo quieres recibir tu pedido?</p>
+
+      {/* ===== 自取 / 配送 选项 ===== */}
+      <div className="ff-tipo-entrega">
+      <button
+  className={`ff-tipo-btn ${deliveryInfo.tipo === 'recoger' ? 'ff-tipo-btn-active' : ''}`}
+  onClick={() => {
+    setDeliveryInfo(prev => ({ ...prev, tipo: 'recoger', direccion: '' }));
+  }}
+>
+  
+  <div className="ff-tipo-label">RECOGER</div>
+</button>
+<button
+  className={`ff-tipo-btn ${deliveryInfo.tipo === 'delivery' ? 'ff-tipo-btn-active' : ''}`}
+  onClick={() => {
+    setDeliveryInfo(prev => ({ ...prev, tipo: 'delivery' }));
+  }}
+>
+  
+  <div className="ff-tipo-label">A DOMICILIO</div>
+</button>
+      </div>
 
       <div className="ff-form">
         <div className="ff-form-group">
@@ -321,26 +356,30 @@ const renderDeliveryStep = () => {
         </div>
 
         <div className="ff-form-group">
-          <label className="ff-form-label">Teléfono *</label>
-          <input
-            type="tel"
-            className="ff-form-input"
-            placeholder="Ej: 504 9999 9999"
-            value={deliveryInfo.telefono}
-            onChange={(e) => handleChange('telefono', e.target.value)}
-          />
-        </div>
+  <label className="ff-form-label">
+    Teléfono {deliveryInfo.tipo === 'delivery' ? '*' : '(opcional)'}
+  </label>
+  <input
+    type="tel"
+    className="ff-form-input"
+    placeholder="Ej: 504 9999 9999"
+    value={deliveryInfo.telefono}
+    onChange={(e) => handleChange('telefono', e.target.value)}
+  />
+</div>
 
-        <div className="ff-form-group">
-          <label className="ff-form-label">Dirección *</label>
-          <input
-            type="text"
-            className="ff-form-input"
-            placeholder="Ej: Colonia Las Flores, casa #12"
-            value={deliveryInfo.direccion}
-            onChange={(e) => handleChange('direccion', e.target.value)}
-          />
-        </div>
+        {deliveryInfo.tipo === 'delivery' && (
+          <div className="ff-form-group">
+            <label className="ff-form-label">Dirección *</label>
+            <input
+              type="text"
+              className="ff-form-input"
+              placeholder="Ej: Colonia Las Flores, casa #12"
+              value={deliveryInfo.direccion}
+              onChange={(e) => handleChange('direccion', e.target.value)}
+            />
+          </div>
+        )}
 
         <div className="ff-form-group">
           <label className="ff-form-label">Notas (opcional)</label>
@@ -354,7 +393,7 @@ const renderDeliveryStep = () => {
         </div>
 
         {!isFormValid() && (
-          <p className="ff-form-error">⚠️ Por favor completa tu nombre, teléfono y dirección</p>
+          <p className="ff-form-error">⚠️ Por favor completa los campos obligatorios</p>
         )}
 
         <button
@@ -420,14 +459,27 @@ const renderResumenStep = () => {
           </div>
         )}
 
-        {/* ===== 配送信息 ===== */}
-        <div className="ff-resumen-delivery">
-          <p className="ff-resumen-delivery-title">📦 Entrega</p>
-          <p>👤 {deliveryInfo.nombre}</p>
-          <p>📱 {deliveryInfo.telefono}</p>
-          <p>📍 {deliveryInfo.direccion}</p>
-          {deliveryInfo.notas && <p>📝 {deliveryInfo.notas}</p>}
-        </div>
+        {/* ===== 配送信息 ===== */} 
+<div className="ff-resumen-delivery">
+  <p className="ff-resumen-delivery-title">📦 {deliveryInfo.tipo === 'delivery' ? 'Delivery' : 'Recoger en tienda'}</p>
+  <p>👤 {deliveryInfo.nombre}</p>
+  <p>📱 {deliveryInfo.telefono}</p>
+  {deliveryInfo.tipo === 'delivery' ? (
+    <p>📍 {deliveryInfo.direccion}</p>
+  ) : (
+    <p>📍 Calle Principal, La Entrada</p>
+  )}
+  {deliveryInfo.notas && <p>📝 {deliveryInfo.notas}</p>}
+  {deliveryInfo.tipo === 'delivery' ? (
+    <p style={{ color: '#C62828', fontWeight: 600, marginTop: '4px' }}>
+      🛵 Delivery - pagar al repartidor
+    </p>
+  ) : (
+    <p style={{ color: '#4CAF50', fontWeight: 600, marginTop: '4px' }}>
+      🏃 Recoger en tienda - gratis
+    </p>
+  )}
+</div>
 
         <div className="ff-resumen-total">
           <span className="ff-resumen-total-label">Total</span>
@@ -984,6 +1036,48 @@ const renderResumenStep = () => {
   font-size: 13px;
   color: #555;
   margin: 2px 0;
+}
+
+/* ===== TIPO DE ENTREGA ===== */
+.ff-tipo-entrega {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.ff-tipo-btn {
+  display: flex;
+  align-items: center;
+   justify-content: center;  /* 水平居中 */
+  gap: 10px;
+  padding: 12px 14px;
+  border: 2px solid #e0d6cc;
+  border-radius: 14px;
+  background: #faf8f6;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+  width: 100%;
+}
+.ff-tipo-btn:hover {
+  border-color: #C62828;
+}
+.ff-tipo-btn-active {
+  border-color: #C62828;
+  background: #fff5f3;
+  box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.15);
+}
+.ff-tipo-icon {
+  font-size: 24px;
+}
+.ff-tipo-label {
+  font-weight: 700;
+  font-size: 14px;
+  color: #1a1a1a;
+}
+.ff-tipo-desc {
+  font-size: 12px;
+  color: #888;
 }
 
         /* ===== RESPONSIVE ===== */
