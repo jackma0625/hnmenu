@@ -15,9 +15,9 @@ const bases = [
 ];
 
 const proteinas = [
-  { name: 'Pollo Agridulce', tag: '⭐ Más pedido' },
-  { name: 'Pollo con Vegetales', tag: '' },
-  { name: 'Res con Brócoli', tag: '🔥 Popular' },
+  { name: 'Pollo Agridulce', tag: '' },
+  { name: 'Pollo Vegetales', tag: '' },
+  { name: 'Res con Brócoli', tag: '' },
 ];
 
 // ===== Extras 更新 =====
