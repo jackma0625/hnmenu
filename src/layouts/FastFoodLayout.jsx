@@ -351,7 +351,7 @@ export default function FastFoodLayout({ restaurant }) {
   <span className="ff-title-hong">HONG KONG</span>{' '}
   <span className="ff-title-express">EXPRESS</span>
 </h1>
-      <p className="ff-header-sub">Comida china rápida · La Entrada, Copán</p>
+      <p className="ff-header-sub">Comida China Rápida · La Entrada, Copán</p>
     </div>
     <Link to="/" className="ff-header-close">
       ✕
@@ -425,7 +425,7 @@ export default function FastFoodLayout({ restaurant }) {
 
         /* ===== HEADER ===== */
 .ff-header {
-  background: #F40612;
+  background: #C62828;
   color: white;
   padding: 16px 20px;
   border-radius: 20px;
@@ -503,11 +503,11 @@ export default function FastFoodLayout({ restaurant }) {
           user-select: none;
         }
         .ff-progress-dot-done {
-          background: #F40612;
+          background: #C62828;
           color: white;
         }
         .ff-progress-dot-active {
-          background: #F40612;
+          background: #C62828;
           color: white;
           box-shadow: 0 0 0 4px rgba(244, 6, 18, 0.25);
         }
@@ -519,7 +519,7 @@ export default function FastFoodLayout({ restaurant }) {
           transition: background 0.3s;
         }
         .ff-progress-line-done {
-          background: #F40612;
+          background: #C62828;
         }
 
         /* ===== CONTENT ===== */
@@ -559,7 +559,7 @@ export default function FastFoodLayout({ restaurant }) {
           margin-bottom: 8px;
         }
         .ff-step-badge {
-          background: #F40612;
+          background: #C62828;
           color: white;
           font-size: 11px;
           font-weight: 700;
@@ -599,7 +599,7 @@ export default function FastFoodLayout({ restaurant }) {
           box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
         .ff-card-active {
-          border-color: #F40612;
+          border-color: #C62828;
           background: #fff5f3;
           box-shadow: 0 0 0 3px rgba(244, 6, 18, 0.15);
         }
@@ -625,13 +625,13 @@ export default function FastFoodLayout({ restaurant }) {
         .ff-card-price {
           font-size: 22px;
           font-weight: 900;
-          color: #F40612;
+          color: #C62828;
           margin-top: 8px;
         }
         .ff-card-price-sm {
           font-size: 15px;
           font-weight: 700;
-          color: #F40612;
+          color: #C62828;
           margin-top: 4px;
         }
         .ff-card-row {
@@ -644,7 +644,7 @@ export default function FastFoodLayout({ restaurant }) {
           margin-bottom: 4px;
         }
         .ff-check {
-          color: #F40612;
+          color: #C62828;
           font-size: 20px;
           font-weight: 700;
         }
@@ -669,7 +669,7 @@ export default function FastFoodLayout({ restaurant }) {
 
         /* ===== BUTTONS ===== */
         .ff-btn-primary {
-          background: #F40612;
+          background: #C62828;
           color: white;
           border: none;
           border-radius: 30px;
@@ -795,7 +795,7 @@ export default function FastFoodLayout({ restaurant }) {
         .ff-resumen-total-price {
           font-size: 22px;
           font-weight: 900;
-          color: #F40612;
+          color: #C62828;
         }
 
         /* ===== FOOTER ===== */
@@ -806,7 +806,7 @@ export default function FastFoodLayout({ restaurant }) {
           margin-top: 16px;
         }
         .ff-footer-link {
-          color: #F40612;
+          color: #C62828;
           text-decoration: none;
           font-weight: 600;
         }
