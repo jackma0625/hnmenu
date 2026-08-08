@@ -625,8 +625,8 @@ const renderResumenStep = () => {
 }
 .ff-header-close {
   position: absolute;
-  right: -4px;
-  top: -4px;
+  right: -12px;
+  top: -10px;
   background: rgba(255,255,255,0.2);
   padding: 4px 10px;
   border-radius: 30px;
