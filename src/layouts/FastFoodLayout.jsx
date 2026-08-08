@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+
 // ===== 菜单数据 =====
 const combos = [
   { id: 'combo1', name: 'Combo 1', desc: '1 Base + 1 Proteína + Vegetal Salteado', price: 129 },
@@ -43,6 +44,13 @@ export default function FastFoodLayout({ restaurant }) {
   const [selectedExtras, setSelectedExtras] = useState([]);
   const [selectedBebida, setSelectedBebida] = useState(null);
   const [step, setStep] = useState(1);
+  const [deliveryInfo, setDeliveryInfo] = useState({
+    nombre: '',
+    telefono: '',
+    direccion: '',
+    notas: '',
+  });
+  
 
   const resetOrder = () => {
     setSelectedCombo(null);
@@ -101,10 +109,10 @@ export default function FastFoodLayout({ restaurant }) {
   };
 
   const getWhatsAppMessage = () => {
-    let msg = 'Hola, quiero ordenar:\n\n';
-    msg += `🍽️ ${selectedCombo.name} - L.${selectedCombo.price}\n`;
-    msg += `   Vegetal Salteado (incluido)\n`;
+    let msg = '🆕 *NUEVO PEDIDO*\n\n';
+    msg += `🍽️ *${selectedCombo.name}* - L.${selectedCombo.price}\n`;
     msg += `   Base: ${selectedBase.name}\n`;
+    msg += `   Vegetal Salteado (incluido)\n`;
     msg += `   Proteínas: ${selectedProteinas.map(p => p.name).join(', ')}\n`;
     if (selectedExtras.length > 0) {
       msg += `   Extras: ${selectedExtras.map(e => `${e.name} (+L.${e.price})`).join(', ')}\n`;
@@ -112,7 +120,14 @@ export default function FastFoodLayout({ restaurant }) {
     if (selectedBebida) {
       msg += `   Bebida: ${selectedBebida.name} (+L.${selectedBebida.price})\n`;
     }
-    msg += `\nTotal: L.${getTotal()}`;
+    msg += `\n📦 *Información de Entrega*\n`;
+    msg += `   👤 ${deliveryInfo.nombre}\n`;
+    msg += `   📱 ${deliveryInfo.telefono}\n`;
+    msg += `   📍 ${deliveryInfo.direccion}\n`;
+    if (deliveryInfo.notas) {
+      msg += `   📝 ${deliveryInfo.notas}\n`;
+    }
+    msg += `\n💰 *Total: L.${getTotal()}*`;
     return encodeURIComponent(msg);
   };
 
@@ -272,73 +287,174 @@ export default function FastFoodLayout({ restaurant }) {
     </div>
   );
 
-  // ===== Step 6: Resumen =====
-  const renderResumenStep = () => {
-    const total = getTotal();
-    const whatsappNumber = restaurant.whatsapp || '504XXXXXXXX';
-    return (
-      <div>
-        <h2 className="ff-title text-center">📋 Tu Pedido</h2>
-        <div className="ff-resumen">
-            
-          <div className="ff-resumen-row">
-            <span className="ff-resumen-label">{selectedCombo.name}</span>
-            <span className="ff-resumen-price">L.{selectedCombo.price}</span>
-          </div>
-          <div className="ff-resumen-row">
-  <span className="ff-resumen-label">Vegetal Salteado</span>
-  <span className="ff-resumen-price" style={{ color: '#888', fontSize: '13px' }}>Incluido</span>
-</div>
-          <div className="ff-resumen-row">
-            <span className="ff-resumen-label">Base: {selectedBase.name}</span>
-            <span className="ff-resumen-price">L.0</span>
-          </div>
-          <div className="ff-resumen-row">
-            <span className="ff-resumen-label">Proteínas: {selectedProteinas.map(p => p.name).join(', ')}</span>
-            <span className="ff-resumen-price">L.0</span>
-          </div>
-          {selectedExtras.length > 0 && (
-            <div className="ff-resumen-extras">
-              {selectedExtras.map(e => (
-                <div key={e.name} className="ff-resumen-row ff-resumen-extra">
-                  <span className="ff-resumen-label">+ {e.name}</span>
-                  <span className="ff-resumen-price">+L.{e.price}</span>
-                </div>
-              ))}
-            </div>
-          )}
-          {selectedBebida && (
-            <div className="ff-resumen-row">
-              <span className="ff-resumen-label">+ {selectedBebida.name}</span>
-              <span className="ff-resumen-price">+L.{selectedBebida.price}</span>
-            </div>
-          )}
-          <div className="ff-resumen-total">
-            <span className="ff-resumen-total-label">Total</span>
-            <span className="ff-resumen-total-price">L.{total}</span>
-          </div>
+// ===== Step 6: 配送信息 =====
+const renderDeliveryStep = () => {
+  const handleChange = (field, value) => {
+    setDeliveryInfo(prev => ({ ...prev, [field]: value }));
+  };
+
+  const isFormValid = () => {
+    return deliveryInfo.nombre.trim() !== '' &&
+           deliveryInfo.telefono.trim() !== '' &&
+           deliveryInfo.direccion.trim() !== '';
+  };
+
+  return (
+    <div>
+      <div className="ff-step-label">
+        <span className="ff-step-badge">Paso 6/7</span>
+        <span className="ff-step-combo">{selectedCombo?.name}</span>
+      </div>
+      <h2 className="ff-title">📦 Información de Entrega</h2>
+      <p className="ff-subtitle">Completa tus datos para recibir tu pedido</p>
+
+      <div className="ff-form">
+        <div className="ff-form-group">
+          <label className="ff-form-label">Tu nombre *</label>
+          <input
+            type="text"
+            className="ff-form-input"
+            placeholder="Ej: Juan Pérez"
+            value={deliveryInfo.nombre}
+            onChange={(e) => handleChange('nombre', e.target.value)}
+          />
         </div>
 
-        <div className="ff-actions">
-          <button onClick={() => setStep(5)} className="ff-btn-secondary">
-            ← Atrás
-          </button>
-          <a
-            href={`https://wa.me/${whatsappNumber}?text=${getWhatsAppMessage()}`}
-            target="_blank"
-            rel="noreferrer"
-            className="ff-btn-whatsapp"
-          >
-            📱 Ordenar
-          </a>
+        <div className="ff-form-group">
+          <label className="ff-form-label">Teléfono *</label>
+          <input
+            type="tel"
+            className="ff-form-input"
+            placeholder="Ej: 504 9999 9999"
+            value={deliveryInfo.telefono}
+            onChange={(e) => handleChange('telefono', e.target.value)}
+          />
         </div>
 
-        <button onClick={resetOrder} className="ff-btn-reset">
-          Comenzar nuevo pedido
+        <div className="ff-form-group">
+          <label className="ff-form-label">Dirección *</label>
+          <input
+            type="text"
+            className="ff-form-input"
+            placeholder="Ej: Colonia Las Flores, casa #12"
+            value={deliveryInfo.direccion}
+            onChange={(e) => handleChange('direccion', e.target.value)}
+          />
+        </div>
+
+        <div className="ff-form-group">
+          <label className="ff-form-label">Notas (opcional)</label>
+          <input
+            type="text"
+            className="ff-form-input"
+            placeholder="Ej: Entrada por el parqueo, segundo nivel"
+            value={deliveryInfo.notas}
+            onChange={(e) => handleChange('notas', e.target.value)}
+          />
+        </div>
+
+        {!isFormValid() && (
+          <p className="ff-form-error">⚠️ Por favor completa tu nombre, teléfono y dirección</p>
+        )}
+
+        <button
+          onClick={() => setStep(7)}
+          className="ff-btn-primary"
+          disabled={!isFormValid()}
+          style={{
+            opacity: isFormValid() ? 1 : 0.5,
+            cursor: isFormValid() ? 'pointer' : 'not-allowed',
+          }}
+        >
+          Ver Resumen →
         </button>
       </div>
-    );
-  };
+    </div>
+  );
+};
+
+  // ===== Step 7: Resumen =====
+const renderResumenStep = () => {
+  const total = getTotal();
+  const whatsappNumber = restaurant.whatsapp || '504XXXXXXXX';
+  return (
+    <div>
+      <h2 className="ff-title text-center">📋 Tu Pedido</h2>
+      <div className="ff-resumen">
+        {/* ===== 菜品信息 ===== */}
+        <div className="ff-resumen-row" style={{ borderBottom: '2px solid #C62828', paddingBottom: '10px' }}>
+  <span className="ff-resumen-label" style={{ fontWeight: 900, color: '#C62828', fontSize: '16px' }}>
+    {selectedCombo.name}
+  </span>
+  <span className="ff-resumen-price" style={{ fontWeight: 900,  fontSize: '16px' }}>
+    L.{selectedCombo.price}
+  </span>
+</div>
+        <div className="ff-resumen-row">
+          <span className="ff-resumen-label">Vegetal Salteado</span>
+          
+        </div>
+        <div className="ff-resumen-row">
+          <span className="ff-resumen-label">Base: {selectedBase.name}</span>
+          
+        </div>
+        
+        <div className="ff-resumen-row">
+          <span className="ff-resumen-label">Proteínas: {selectedProteinas.map(p => p.name).join(', ')}</span>
+          
+        </div>
+        {selectedExtras.length > 0 && (
+          <div className="ff-resumen-extras">
+            {selectedExtras.map(e => (
+              <div key={e.name} className="ff-resumen-row ff-resumen-extra">
+                <span className="ff-resumen-label">+ {e.name}</span>
+                <span className="ff-resumen-price">+L.{e.price}</span>
+              </div>
+            ))}
+          </div>
+        )}
+        {selectedBebida && (
+          <div className="ff-resumen-row">
+            <span className="ff-resumen-label">+ {selectedBebida.name}</span>
+            <span className="ff-resumen-price">+L.{selectedBebida.price}</span>
+          </div>
+        )}
+
+        {/* ===== 配送信息 ===== */}
+        <div className="ff-resumen-delivery">
+          <p className="ff-resumen-delivery-title">📦 Entrega</p>
+          <p>👤 {deliveryInfo.nombre}</p>
+          <p>📱 {deliveryInfo.telefono}</p>
+          <p>📍 {deliveryInfo.direccion}</p>
+          {deliveryInfo.notas && <p>📝 {deliveryInfo.notas}</p>}
+        </div>
+
+        <div className="ff-resumen-total">
+          <span className="ff-resumen-total-label">Total</span>
+          <span className="ff-resumen-total-price">L.{total}</span>
+        </div>
+      </div>
+
+      <div className="ff-actions">
+        <button onClick={() => setStep(6)} className="ff-btn-secondary">
+          ← Atrás
+        </button>
+        <a
+          href={`https://wa.me/${whatsappNumber}?text=${getWhatsAppMessage()}`}
+          target="_blank"
+          rel="noreferrer"
+          className="ff-btn-whatsapp"
+        >
+          📱 Enviar Pedido
+        </a>
+      </div>
+
+      <button onClick={resetOrder} className="ff-btn-reset">
+        Comenzar nuevo pedido
+      </button>
+    </div>
+  );
+};
 
   // ===== Main Render =====
   return (
@@ -394,12 +510,13 @@ export default function FastFoodLayout({ restaurant }) {
 
       {/* Content */}
       <div className="ff-content">
-        {step === 1 && renderComboStep()}
-        {step === 2 && renderBaseStep()}
-        {step === 3 && renderProteinaStep()}
-        {step === 4 && renderExtrasStep()}
-        {step === 5 && renderBebidaStep()}
-        {step === 6 && renderResumenStep()}
+      {step === 1 && renderComboStep()}
+  {step === 2 && renderBaseStep()}
+  {step === 3 && renderProteinaStep()}
+  {step === 4 && renderExtrasStep()}
+  {step === 5 && renderBebidaStep()}
+  {step === 6 && renderDeliveryStep()}
+  {step === 7 && renderResumenStep()}
       </div>
 
       {/* Footer */}
@@ -813,6 +930,61 @@ export default function FastFoodLayout({ restaurant }) {
         .ff-footer-link:hover {
           text-decoration: underline;
         }
+
+        /* ===== FORM ===== */
+.ff-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 8px;
+}
+.ff-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ff-form-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+.ff-form-input {
+  padding: 12px 16px;
+  border: 2px solid #e0d6cc;
+  border-radius: 12px;
+  font-size: 15px;
+  transition: border-color 0.2s;
+  background: #faf8f6;
+}
+.ff-form-input:focus {
+  border-color: #C62828;
+  outline: none;
+}
+.ff-form-error {
+  color: #C62828;
+  font-size: 13px;
+  text-align: center;
+  margin-top: 4px;
+}
+
+/* ===== RESUMEN DELIVERY ===== */
+.ff-resumen-delivery {
+  background: #f0ebe5;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin: 12px 0;
+}
+.ff-resumen-delivery-title {
+  font-weight: 700;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 6px;
+}
+.ff-resumen-delivery p {
+  font-size: 13px;
+  color: #555;
+  margin: 2px 0;
+}
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 400px) {
