@@ -345,16 +345,19 @@ export default function FastFoodLayout({ restaurant }) {
     <div className="ff-container">
       {/* Header */}
       <div className="ff-header">
-        <div className="ff-header-content">
-          <div>
-            <h1 className="ff-header-title">🍜 Hong Kong Express</h1>
-            <p className="ff-header-sub">Comida china rápida · La Entrada, Copán</p>
-          </div>
-          <Link to="/" className="ff-header-close">
-            ✕
-          </Link>
-        </div>
-      </div>
+  <div className="ff-header-content">
+    <div>
+      <h1 className="ff-header-title">
+        <span className="ff-title-hong">HONG KONG</span>
+        <span className="ff-title-express">EXPRESS</span>
+      </h1>
+      <p className="ff-header-sub">Comida china rápida · La Entrada, Copán</p>
+    </div>
+    <Link to="/" className="ff-header-close">
+      ✕
+    </Link>
+  </div>
+</div>
 
       {/* Progress */}
       <div className="ff-progress">
@@ -408,6 +411,7 @@ export default function FastFoodLayout({ restaurant }) {
       </footer>
 
       {/* ===== CSS ===== */}
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&display=swap');
       <style>{`
         /* ===== CONTAINER ===== */
         .ff-container {
@@ -419,40 +423,54 @@ export default function FastFoodLayout({ restaurant }) {
         }
 
         /* ===== HEADER ===== */
-        .ff-header {
-          background: #c0392b;
-          color: white;
-          padding: 16px 20px;
-          border-radius: 20px;
-          margin-bottom: 20px;
-          box-shadow: 0 4px 20px rgba(192, 57, 43, 0.3);
-        }
-        .ff-header-content {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-        .ff-header-title {
-          font-size: 22px;
-          font-weight: 900;
-        }
-        .ff-header-sub {
-          font-size: 13px;
-          opacity: 0.85;
-          margin-top: 2px;
-        }
-        .ff-header-close {
-          background: rgba(255,255,255,0.2);
-          padding: 6px 14px;
-          border-radius: 30px;
-          font-size: 14px;
-          color: white;
-          text-decoration: none;
-          transition: background 0.2s;
-        }
-        .ff-header-close:hover {
-          background: rgba(255,255,255,0.3);
-        }
+.ff-header {
+  background: #F40612;
+  color: white;
+  padding: 16px 20px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(244, 6, 18, 0.35);
+}
+.ff-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ff-header-title {
+  font-size: 20px;
+  font-weight: 900;
+  font-family: 'Montserrat', 'Segoe UI', sans-serif;
+  line-height: 1.2;
+  display: flex;
+  flex-direction: column;
+}
+.ff-title-hong {
+  color: #FFFFFF;
+  letter-spacing: 2px;
+}
+.ff-title-express {
+  color: #FFB800;
+  letter-spacing: 1px;
+}
+.ff-header-sub {
+  font-size: 12px;
+  opacity: 0.85;
+  margin-top: 4px;
+  font-weight: 400;
+}
+.ff-header-close {
+  background: rgba(255,255,255,0.2);
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 14px;
+  color: white;
+  text-decoration: none;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.ff-header-close:hover {
+  background: rgba(255,255,255,0.3);
+}
 
         /* ===== PROGRESS ===== */
         .ff-progress {
@@ -482,13 +500,13 @@ export default function FastFoodLayout({ restaurant }) {
           user-select: none;
         }
         .ff-progress-dot-done {
-          background: #c0392b;
+          background: #F40612;
           color: white;
         }
         .ff-progress-dot-active {
-          background: #c0392b;
+          background: #F40612;
           color: white;
-          box-shadow: 0 0 0 4px rgba(192, 57, 43, 0.25);
+          box-shadow: 0 0 0 4px rgba(244, 6, 18, 0.25);
         }
         .ff-progress-line {
           flex: 1;
@@ -498,7 +516,7 @@ export default function FastFoodLayout({ restaurant }) {
           transition: background 0.3s;
         }
         .ff-progress-line-done {
-          background: #c0392b;
+          background: #F40612;
         }
 
         /* ===== CONTENT ===== */
@@ -538,7 +556,7 @@ export default function FastFoodLayout({ restaurant }) {
           margin-bottom: 8px;
         }
         .ff-step-badge {
-          background: #c0392b;
+          background: #F40612;
           color: white;
           font-size: 11px;
           font-weight: 700;
@@ -578,9 +596,9 @@ export default function FastFoodLayout({ restaurant }) {
           box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
         .ff-card-active {
-          border-color: #c0392b;
+          border-color: #F40612;
           background: #fff5f3;
-          box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.15);
+          box-shadow: 0 0 0 3px rgba(244, 6, 18, 0.15);
         }
         .ff-card-center {
           text-align: center;
@@ -604,13 +622,13 @@ export default function FastFoodLayout({ restaurant }) {
         .ff-card-price {
           font-size: 22px;
           font-weight: 900;
-          color: #c0392b;
+          color: #F40612;
           margin-top: 8px;
         }
         .ff-card-price-sm {
           font-size: 15px;
           font-weight: 700;
-          color: #c0392b;
+          color: #F40612;
           margin-top: 4px;
         }
         .ff-card-row {
@@ -623,7 +641,7 @@ export default function FastFoodLayout({ restaurant }) {
           margin-bottom: 4px;
         }
         .ff-check {
-          color: #c0392b;
+          color: #F40612;
           font-size: 20px;
           font-weight: 700;
         }
@@ -648,7 +666,7 @@ export default function FastFoodLayout({ restaurant }) {
 
         /* ===== BUTTONS ===== */
         .ff-btn-primary {
-          background: #c0392b;
+          background: #F40612;
           color: white;
           border: none;
           border-radius: 30px;
@@ -661,7 +679,7 @@ export default function FastFoodLayout({ restaurant }) {
           margin-top: 16px;
         }
         .ff-btn-primary:hover {
-          background: #a93226;
+          background: #cc0510;
         }
         .ff-btn-secondary {
           background: #e8e0d8;
@@ -774,7 +792,7 @@ export default function FastFoodLayout({ restaurant }) {
         .ff-resumen-total-price {
           font-size: 22px;
           font-weight: 900;
-          color: #c0392b;
+          color: #F40612;
         }
 
         /* ===== FOOTER ===== */
@@ -785,7 +803,7 @@ export default function FastFoodLayout({ restaurant }) {
           margin-top: 16px;
         }
         .ff-footer-link {
-          color: #c0392b;
+          color: #F40612;
           text-decoration: none;
           font-weight: 600;
         }
