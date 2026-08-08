@@ -8,7 +8,7 @@ export const restaurants = [
   {
     id: 1,
     slug: 'sushi-yamato',
-    name: 'Sushi Yamato',
+    name: 'SUSHI YAMATO',
     department: "Copán",
     city: "la-entrada",
     template: 'custom',
@@ -26,7 +26,7 @@ export const restaurants = [
   {
     id: 2,
     slug: 'hong-kong-palace',
-    name: 'Hong Kong Palace',
+    name: 'HONG KONG PALACE',
     department: "Copán",
     city: "la-entrada",
     template: 'premium',
@@ -45,7 +45,7 @@ export const restaurants = [
   {
     id: 3,
     slug: 'hong-kong-express',
-    name: 'Hong Kong Express',
+    name: 'HONG KONG EXPRESS',
     department: 'Copán',
     city: 'la-entrada',
     template: 'fastfood',
