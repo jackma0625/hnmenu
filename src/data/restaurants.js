@@ -44,6 +44,24 @@ export const restaurants = [
   
   {
     id: 3,
+    slug: 'hong-kong-express',
+    name: 'Hong Kong Express',
+    department: 'Copán',
+    city: 'la-entrada',
+    template: 'fastfood',
+    theme: basicTheme,
+    category: categories[0],
+    image: '/images/restaurants/la-entrada/hong-kong-express.webp',
+    location: 'La Entrada, Copán',
+    whatsapp: '50489075310', // 改成你的号码
+    maps: 'https://maps.google.com',
+    hours: '10AM - 9PM',
+    website: '',
+    menu: [],
+    menuImages: [],
+  },
+  {
+    id: 7,
     slug: 'cafeina',
     name: 'Cafeína',
     department: "Copán",
@@ -120,27 +138,7 @@ export const restaurants = [
     menuImages: ['/images/menus/la-entrada/las-marias1.webp'],
   },
 
-  /*
-  {
-    id: 7,
-    slug: 'le-fruitt-coffee-bistro',
-    name: 'Le Fruitt Coffee & Bistro',
-    department: "Copán",
-    city: "La Entrada",
-    template: 'basic',
-    theme: basicTheme,
-    category: categories[1],
-    image: '/images/restaurants/la-entrada/le-fruitt.webp',
-    location: 'La Entrada, Copán',
-    whatsapp: '50494481270',
-    maps: 'https://maps.google.com',
-    hours: '',
-    website: '',
-    menu: [],
-    menuImages: ['/images/menus/la-entrada/le-fruitt1.webp', '/images/menus/la-entrada/le-fruitt2.webp'],
-  },
-},
-*/
+ 
 
   {
     id: 8,

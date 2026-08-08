@@ -1,26 +1,17 @@
-import CustomLayout from '../layouts/CustomLayout'
-import PremiumLayout from '../layouts/PremiumLayout'
-import BasicLayout from '../layouts/BasicLayout'
-import { useParams } from 'react-router-dom'
-import { restaurants } from '../data/restaurants'
-import '../styles/Home.css'
+import CustomLayout from '../layouts/CustomLayout';
+import PremiumLayout from '../layouts/PremiumLayout';
+import BasicLayout from '../layouts/BasicLayout';
+import FastFoodLayout from '../layouts/FastFoodLayout';  // ← 新增
+import { useParams } from 'react-router-dom';
+import { restaurants } from '../data/restaurants';
+import '../styles/Home.css';
 
 export default function Restaurant() {
-  const { slug } = useParams()
-
- 
-
-const restaurant =
-  restaurants.find(
-    r => r.slug === slug
-  )
+  const { slug } = useParams();
+  const restaurant = restaurants.find(r => r.slug === slug);
 
   if (!restaurant) {
-    return (
-      <div style={{ padding: '40px' }}>
-        Restaurant not found
-      </div>
-    )
+    return <div style={{ padding: '40px' }}>Restaurant not found</div>;
   }
 
   return (
@@ -30,17 +21,10 @@ const restaurant =
         background: restaurant.theme?.colors?.background,
       }}
     >
-      {restaurant.template === 'basic' && (
-        <BasicLayout restaurant={restaurant} />
-      )}
-
-      {restaurant.template === 'premium' && (
-        <PremiumLayout restaurant={restaurant} />
-      )}
-
-      {restaurant.template === 'custom' && (
-        <CustomLayout restaurant={restaurant} />
-      )}
+      {restaurant.template === 'basic' && <BasicLayout restaurant={restaurant} />}
+      {restaurant.template === 'premium' && <PremiumLayout restaurant={restaurant} />}
+      {restaurant.template === 'custom' && <CustomLayout restaurant={restaurant} />}
+      {restaurant.template === 'fastfood' && <FastFoodLayout restaurant={restaurant} />}
     </div>
-  )
+  );
 }
