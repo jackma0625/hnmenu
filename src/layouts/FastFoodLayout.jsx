@@ -347,10 +347,10 @@ export default function FastFoodLayout({ restaurant }) {
       <div className="ff-header">
   <div className="ff-header-content">
     <div>
-      <h1 className="ff-header-title">
-        <span className="ff-title-hong">HONG KONG</span>
-        <span className="ff-title-express">EXPRESS</span>
-      </h1>
+    <h1 className="ff-header-title">
+  <span className="ff-title-hong">HONG KONG</span>{' '}
+  <span className="ff-title-express">EXPRESS</span>
+</h1>
       <p className="ff-header-sub">Comida china rápida · La Entrada, Copán</p>
     </div>
     <Link to="/" className="ff-header-close">
@@ -411,8 +411,9 @@ export default function FastFoodLayout({ restaurant }) {
       </footer>
 
       {/* ===== CSS ===== */}
-      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&display=swap');
+      
       <style>{`
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&display=swap');
         /* ===== CONTAINER ===== */
         .ff-container {
           min-height: 100vh;
@@ -442,7 +443,9 @@ export default function FastFoodLayout({ restaurant }) {
   font-family: 'Montserrat', 'Segoe UI', sans-serif;
   line-height: 1.2;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px;
 }
 .ff-title-hong {
   color: #FFFFFF;
