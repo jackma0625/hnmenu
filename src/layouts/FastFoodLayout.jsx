@@ -920,7 +920,7 @@ const renderResumenStep = () => {
           border-bottom: none;
         }
         .ff-resumen-label {
-          color: #555;
+          color: #1a1a1a;
           font-size: 14px;
         }
         .ff-resumen-price {
@@ -939,11 +939,11 @@ const renderResumenStep = () => {
         }
         .ff-resumen-extra .ff-resumen-label {
           font-size: 13px;
-          color: #888;
+          color: #1a1a1a;
         }
         .ff-resumen-extra .ff-resumen-price {
           font-size: 13px;
-          color: #888;
+          color: #1a1a1a;
         }
         .ff-resumen-total {
           display: flex;
@@ -960,7 +960,7 @@ const renderResumenStep = () => {
         .ff-resumen-total-price {
           font-size: 22px;
           font-weight: 900;
-          color: #C62828;
+          color: #1a1a1a;
         }
 
         /* ===== FOOTER ===== */
@@ -1030,7 +1030,7 @@ const renderResumenStep = () => {
 }
 .ff-resumen-delivery p {
   font-size: 13px;
-  color: #555;
+  color: #.ff-resumen-delivery p ;
   margin: 2px 0;
 }
 
