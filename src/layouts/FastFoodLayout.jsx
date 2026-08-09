@@ -484,7 +484,7 @@ const renderResumenStep = () => {
           rel="noreferrer"
           className="ff-btn-whatsapp"
         >
-          Enviar Pedido
+          Enviar Pedido por WhatsApp
         </a>
       </div>
 
