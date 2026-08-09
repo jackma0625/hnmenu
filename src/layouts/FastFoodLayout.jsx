@@ -165,7 +165,7 @@ export default function FastFoodLayout({ restaurant }) {
   const renderBaseStep = () => (
     <div>
       <div className="ff-step-label">
-        <span className="ff-step-badge">Paso 2/5</span>
+        <span className="ff-step-badge">Paso 2/6</span>
         <span className="ff-step-combo">{selectedCombo?.name}</span>
       </div>
       <h2 className="ff-title">Elige tu Base</h2>
@@ -190,7 +190,7 @@ export default function FastFoodLayout({ restaurant }) {
     return (
       <div>
         <div className="ff-step-label">
-          <span className="ff-step-badge">Paso 3/5</span>
+          <span className="ff-step-badge">Paso 3/6</span>
           <span className="ff-step-combo">{selectedCombo?.name}</span>
         </div>
         <h2 className="ff-title">Elige tu Proteína</h2>
@@ -231,7 +231,7 @@ export default function FastFoodLayout({ restaurant }) {
   const renderExtrasStep = () => (
     <div>
       <div className="ff-step-label">
-        <span className="ff-step-badge">Paso 4/5</span>
+        <span className="ff-step-badge">Paso 4/6</span>
         <span className="ff-step-combo">{selectedCombo?.name}</span>
       </div>
       <h2 className="ff-title">Extras (opcional)</h2>
@@ -264,7 +264,7 @@ export default function FastFoodLayout({ restaurant }) {
   const renderBebidaStep = () => (
     <div>
       <div className="ff-step-label">
-        <span className="ff-step-badge">Paso 5/5</span>
+        <span className="ff-step-badge">Paso 5/6</span>
         <span className="ff-step-combo">{selectedCombo?.name}</span>
       </div>
       <h2 className="ff-title">Elige tu Bebida (opcional)</h2>
@@ -313,7 +313,7 @@ const renderDeliveryStep = () => {
   return (
     <div>
       <div className="ff-step-label">
-        <span className="ff-step-badge">Paso 6/7</span>
+        <span className="ff-step-badge">Paso 6/6</span>
         <span className="ff-step-combo">{selectedCombo?.name}</span>
       </div>
       <h2 className="ff-title">📦 Información de Entrega</h2>
