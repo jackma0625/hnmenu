@@ -113,8 +113,8 @@ export default function FastFoodLayout({ restaurant }) {
   const getWhatsAppMessage = () => {
     let msg = '🆕 *NUEVO PEDIDO*\n\n';
     msg += `🍽️ *${selectedCombo.name}* - L.${selectedCombo.price}\n`;
-    msg += `   Base: ${selectedBase.name}\n`;
     msg += `   Vegetal Salteado (incluido)\n`;
+    msg += `   Base: ${selectedBase.name}\n`;
     msg += `   Proteínas: ${selectedProteinas.map(p => p.name).join(', ')}\n`;
     if (selectedExtras.length > 0) {
       msg += `   Extras: ${selectedExtras.map(e => `${e.name} (+L.${e.price})`).join(', ')}\n`;
@@ -360,7 +360,7 @@ const renderDeliveryStep = () => {
   <input
     type="tel"
     className="ff-form-input"
-    placeholder="Ej: 504 9999 9999"
+    placeholder="Ej:  9999-9999"
     value={deliveryInfo.telefono}
     onChange={(e) => handleChange('telefono', e.target.value)}
   />
