@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 
 // ===== 菜单数据 =====
 const combos = [
-  { id: 'combo1', name: 'Combo 1', desc: '1 Base + 1 Proteína + Vegetal Salteado', price: 129 },
-  { id: 'combo2', name: 'Combo 2', desc: '1 Base + 2 Proteínas + Vegetal Salteado', price: 169 },
+  { id: 'combo1', name: 'Combo UNO', desc: '1 Base + 1 Proteína + Vegetal Salteado', price: 129 },
+  { id: 'combo2', name: 'Combo DOS', desc: '1 Base + 2 Proteínas + Vegetal Salteado', price: 169 },
 ];
 
 const bases = [
