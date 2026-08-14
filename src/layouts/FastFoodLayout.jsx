@@ -31,9 +31,11 @@ const extras = [
 
 // ===== Bebidas 新增 =====
 const bebidas = [
-  { name: 'Pepsi 500ml', price: 25 },
-  { name: '7Up 500ml', price: 25 },
-  { name: 'Naranja 500ml', price: 25 },
+  { name: 'Pepsi', price: 25 },
+  { name: '7Up', price: 25 },
+  { name: 'Mirinda Naranja', price: 25 },
+  { name: 'Mirinda Uva', price: 25 },
+  { name: 'Té Lipton', price: 30 },
   { name: 'Agua 500ml', price: 25 },
 ];
 
