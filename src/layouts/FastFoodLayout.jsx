@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-// ===== 菜单数据 =====
+// ===== COMBO 数据 =====
 const combos = [
   { id: 'combo1', name: 'COMBO UNO', desc: '1 Base + 1 Proteína + Vegetal Salteado', price: 129 },
   { id: 'combo2', name: 'COMBO DOS', desc: '1 Base + 2 Proteínas + Vegetal Salteado', price: 169 },
@@ -20,11 +20,6 @@ const proteinas = [
   { name: 'Res con Brócoli' },
 ];
 
-const extras = [
-  { name: 'Wantan Frito (2 piezas)', price: 20 },
-  { name: 'Wantan Frito (4 piezas)', price: 35 },
-];
-
 const bebidas = [
   { name: 'Pepsi 500ml', price: 30 },
   { name: '7Up 500ml', price: 30 },
@@ -34,13 +29,53 @@ const bebidas = [
   { name: 'Agua 500ml', price: 25 },
 ];
 
+// ===== A LA CARTA 数据 =====
+const alaCarta = [
+  { id: 'ac1', name: 'Wantan Frito (18 unidades)', price: 160 },
+  { id: 'ac2', name: 'Papas Fritas', price: 110 },
+  { id: 'ac3', name: 'Camarón Empanizado', price: 250 },
+  { id: 'ac4', name: 'Camarón al Ajillo', price: 250 },
+  { id: 'ac5', name: 'Camarón a la Plancha', price: 250 },
+  { id: 'ac6', name: 'Pollo a la Plancha', price: 180 },
+  { id: 'ac7', name: 'Pollo Empanizado', price: 180 },
+  { id: 'ac8', name: 'Res a la Plancha', price: 230 },
+  { id: 'ac9', name: 'Chuleta Encebollada y Tomatada', price: 250 },
+  { id: 'ac10', name: 'Sopa Marinera', price: 250 },
+  { id: 'ac11', name: 'Sopa de Camarón', price: 200 },
+  { id: 'ac12', name: 'Sopa Wantan', price: 160 },
+  { id: 'ac13', name: 'Sopa de Pollo', price: 150 },
+  { id: 'ac14', name: 'Sopa de Res', price: 170 },
+  { id: 'ac15', name: 'Sopa Filete de Pescado', price: 220 },
+  // ===== 新增 Arroz con Pollo =====
+  { id: 'ac16', name: 'Arroz con Pollo (Personal)', price: 100 },
+  { id: 'ac17', name: 'Arroz con Pollo (Medio)', price: 170 },
+  { id: 'ac18', name: 'Arroz con Pollo (Normal)', price: 200 },
+  { id: 'ac19', name: 'Arroz con Pollo (Familia)', price: 250 },
+  { id: 'ac20', name: 'Arroz con Pollo (450)', price: 450 },
+  { id: 'ac21', name: 'Arroz con Pollo (550)', price: 550 },
+  { id: 'ac22', name: 'Arroz con Pollo (900)', price: 900 },
+  { id: 'ac23', name: 'Arroz con Pollo (1000)', price: 1000 },
+];
+
 export default function FastFoodLayout({ restaurant }) {
+  // ===== 页面模式 =====
+  const [mode, setMode] = useState(null); // null=首页, 'combo', 'alacarta'
+  const [step, setStep] = useState(1);
+
+  // ===== 购物车 =====
+  const [cart, setCart] = useState([]);
+  const [showCart, setShowCart] = useState(false);
+  const [showCheckout, setShowCheckout] = useState(false);
+
+  // ===== COMBO 选择状态 =====
   const [selectedCombo, setSelectedCombo] = useState(null);
   const [selectedBases, setSelectedBases] = useState([]);
   const [selectedProteinas, setSelectedProteinas] = useState([]);
-  const [selectedExtras, setSelectedExtras] = useState([]);
   const [selectedBebida, setSelectedBebida] = useState(null);
-  const [step, setStep] = useState(1);
+
+  
+
+  // ===== 配送信息 =====
   const [deliveryInfo, setDeliveryInfo] = useState({
     nombre: '',
     telefono: '',
@@ -49,16 +84,56 @@ export default function FastFoodLayout({ restaurant }) {
     tipo: 'delivery',
   });
 
-  const resetOrder = () => {
+  // ===== 购物车操作 =====
+  const addToCart = (item) => {
+    setCart((prev) => {
+      const existing = prev.find(i => i.cartId === item.cartId);
+      if (existing) {
+        return prev.map(i =>
+          i.cartId === item.cartId ? { ...i, qty: i.qty + 1 } : i
+        );
+      }
+      return [...prev, { ...item, qty: 1 }];
+    });
+  };
+
+  const increaseQty = (cartId) => {
+    setCart(prev => prev.map(i => i.cartId === cartId ? { ...i, qty: i.qty + 1 } : i));
+  };
+
+  const decreaseQty = (cartId) => {
+    setCart(prev =>
+      prev
+        .map(i => i.cartId === cartId ? { ...i, qty: i.qty - 1 } : i)
+        .filter(i => i.qty > 0)
+    );
+  };
+
+  const removeItem = (cartId) => {
+    setCart(prev => prev.filter(i => i.cartId !== cartId));
+  };
+
+  const cartTotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+  const cartCount = cart.reduce((sum, item) => sum + item.qty, 0);
+
+  // ===== 重置 =====
+  const resetCombo = () => {
     setSelectedCombo(null);
     setSelectedBases([]);
     setSelectedProteinas([]);
-    setSelectedExtras([]);
     setSelectedBebida(null);
-    setDeliveryInfo({ nombre: '', telefono: '', direccion: '', notas: '', tipo: 'delivery' });
     setStep(1);
   };
 
+  const resetAll = () => {
+    setCart([]);
+    resetCombo();
+    setDeliveryInfo({ nombre: '', telefono: '', direccion: '', notas: '', tipo: 'delivery' });
+    setMode(null);
+    setStep(1);
+  };
+
+  // ===== COMBO 操作 =====
   const selectCombo = (combo) => {
     setSelectedCombo(combo);
     setSelectedBases([]);
@@ -66,14 +141,11 @@ export default function FastFoodLayout({ restaurant }) {
     setStep(2);
   };
 
-  // ===== Base 选择（支持多个） =====
   const selectBase = (base) => {
     const maxBases = selectedCombo.id === 'combo3' ? 2 : 1;
     setSelectedBases((prev) => {
       const exists = prev.find(b => b.name === base.name);
-      if (exists) {
-        return prev.filter(b => b.name !== base.name);
-      }
+      if (exists) return prev.filter(b => b.name !== base.name);
       if (prev.length >= maxBases) {
         alert(`Combo ${selectedCombo.name} solo permite ${maxBases} base${maxBases > 1 ? 's' : ''}`);
         return prev;
@@ -82,14 +154,11 @@ export default function FastFoodLayout({ restaurant }) {
     });
   };
 
-  // ===== Proteína 选择 =====
   const toggleProteina = (proteina) => {
     const max = selectedCombo.id === 'combo2' ? 2 : 1;
     setSelectedProteinas((prev) => {
       const exists = prev.find(p => p.name === proteina.name);
-      if (exists) {
-        return prev.filter(p => p.name !== proteina.name);
-      }
+      if (exists) return prev.filter(p => p.name !== proteina.name);
       if (prev.length >= max) {
         alert(`Combo ${selectedCombo.name} solo permite ${max} proteína${max > 1 ? 's' : ''}`);
         return prev;
@@ -98,42 +167,43 @@ export default function FastFoodLayout({ restaurant }) {
     });
   };
 
-  const toggleExtra = (extra) => {
-    setSelectedExtras((prev) => {
-      const exists = prev.find(e => e.name === extra.name);
-      if (exists) {
-        return prev.filter(e => e.name !== extra.name);
-      }
-      return [...prev, extra];
+  const selectBebida = (bebida) => {
+    setSelectedBebida(bebida);
+    setStep(4);
+  };
+
+  // ===== 把 COMBO 加入购物车 =====
+  const addComboToCart = () => {
+    const details = `${selectedBases.map(b => b.name).join(' + ')} + ${selectedProteinas.map(p => p.name).join(' + ')}${selectedBebida ? ' + ' + selectedBebida.name : ''}`;
+    const basePrice = selectedCombo.price + (selectedBebida ? selectedBebida.price : 0);
+    
+    addToCart({
+      cartId: `combo-${Date.now()}`,
+      name: `${selectedCombo.name} (${details})`,
+      price: basePrice,
+      type: 'combo',
+    });
+    
+    resetCombo();
+    setMode(null);
+  };
+
+  // ===== 把 A LA CARTA 加入购物车 =====
+  const addAlaCartaToCart = (item) => {
+    addToCart({
+      cartId: `ac-${item.id}`,
+      name: item.name,
+      price: item.price,
+      type: 'alacarta',
     });
   };
 
-  const selectBebida = (bebida) => {
-    setSelectedBebida(bebida);
-    setStep(6);
-  };
-
-  const getTotal = () => {
-    let total = selectedCombo ? selectedCombo.price : 0;
-    selectedExtras.forEach(e => total += e.price);
-    if (selectedBebida) total += selectedBebida.price;
-    return total;
-  };
-
+  // ===== WhatsApp 消息 =====
   const getWhatsAppMessage = () => {
     let msg = '🆕 *NUEVO PEDIDO*\n\n';
-    msg += `🍽️ *${selectedCombo.name}* - L.${selectedCombo.price}\n`;
-    msg += `   Base: ${selectedBases.map(b => b.name).join(', ')}\n`;
-    if (selectedCombo.id !== 'combo3') {
-      msg += `   Vegetal Salteado (incluido)\n`;
-    }
-    msg += `   Proteínas: ${selectedProteinas.map(p => p.name).join(', ')}\n`;
-    if (selectedExtras.length > 0) {
-      msg += `   Extras: ${selectedExtras.map(e => `${e.name} (+L.${e.price})`).join(', ')}\n`;
-    }
-    if (selectedBebida) {
-      msg += `   Bebida: ${selectedBebida.name} (+L.${selectedBebida.price})\n`;
-    }
+    cart.forEach(item => {
+      msg += `▪️ ${item.qty}x ${item.name} — L.${item.price * item.qty}\n`;
+    });
     msg += `\n📦 *Tipo de Entrega*\n`;
     if (deliveryInfo.tipo === 'delivery') {
       msg += `   🛵 A domicilio\n`;
@@ -146,13 +216,44 @@ export default function FastFoodLayout({ restaurant }) {
     if (deliveryInfo.notas) {
       msg += `   📝 ${deliveryInfo.notas}\n`;
     }
-    msg += `\n💰 *Total: L.${getTotal()}*`;
+    msg += `\n💰 *Total: L.${cartTotal}*`;
     return encodeURIComponent(msg);
   };
 
-  // ===== Step 1: 选 Combo =====
+  // ============================================================
+  // ===== 首页：模式选择 =====
+  // ============================================================
+  const renderHome = () => (
+    <div>
+      <h2 className="ff-title text-center">¿Qué deseas ordenar?</h2>
+      <p className="ff-subtitle text-center">Elige cómo quieres pedir hoy</p>
+      <div className="ff-mode-grid">
+        <button
+          className="ff-mode-card"
+          onClick={() => { setMode('combo'); setStep(1); }}
+        >
+          <span className="ff-mode-emoji">🍱</span>
+          <span className="ff-mode-name">COMBO</span>
+          <span className="ff-mode-desc">Combos rápidos con base, proteína y más</span>
+        </button>
+        <button
+          className="ff-mode-card"
+          onClick={() => setMode('alacarta')}
+        >
+          <span className="ff-mode-emoji">🍜</span>
+          <span className="ff-mode-name">A LA CARTA</span>
+          <span className="ff-mode-desc">Elige tus platos favoritos uno por uno</span>
+        </button>
+      </div>
+    </div>
+  );
+
+  // ============================================================
+  // ===== COMBO 步骤 =====
+  // ============================================================
   const renderComboStep = () => (
     <div>
+      <button className="ff-back-link" onClick={() => setMode(null)}>← Volver</button>
       <h2 className="ff-title">🍽️ Elige tu Combo</h2>
       <p className="ff-subtitle">¿Qué combo prefieres hoy?</p>
       <div className="ff-grid-2">
@@ -171,13 +272,13 @@ export default function FastFoodLayout({ restaurant }) {
     </div>
   );
 
-  // ===== Step 2: 选 Base =====
   const renderBaseStep = () => {
     const maxBases = selectedCombo.id === 'combo3' ? 2 : 1;
     return (
       <div>
+        <button className="ff-back-link" onClick={() => setStep(1)}>← Atrás</button>
         <div className="ff-step-label">
-          <span className="ff-step-badge">Paso 2/6</span>
+          <span className="ff-step-badge">Paso 2/4</span>
           <span className="ff-step-combo">{selectedCombo?.name}</span>
         </div>
         <h2 className="ff-title">Elige tu Base</h2>
@@ -211,13 +312,13 @@ export default function FastFoodLayout({ restaurant }) {
     );
   };
 
-  // ===== Step 3: 选 Proteína =====
   const renderProteinaStep = () => {
     const max = selectedCombo.id === 'combo2' ? 2 : 1;
     return (
       <div>
+        <button className="ff-back-link" onClick={() => setStep(2)}>← Atrás</button>
         <div className="ff-step-label">
-          <span className="ff-step-badge">Paso 3/6</span>
+          <span className="ff-step-badge">Paso 3/4</span>
           <span className="ff-step-combo">{selectedCombo?.name}</span>
         </div>
         <h2 className="ff-title">Elige tu Proteína</h2>
@@ -253,44 +354,11 @@ export default function FastFoodLayout({ restaurant }) {
     );
   };
 
-  // ===== Step 4: 选 Extras =====
-  const renderExtrasStep = () => (
-    <div>
-      <div className="ff-step-label">
-        <span className="ff-step-badge">Paso 4/6</span>
-        <span className="ff-step-combo">{selectedCombo?.name}</span>
-      </div>
-      <h2 className="ff-title">Extras (opcional)</h2>
-      <p className="ff-subtitle">Agrega lo que quieras a tu pedido</p>
-      <div className="ff-grid-2">
-        {extras.map((extra) => {
-          const isSelected = selectedExtras.find(e => e.name === extra.name);
-          return (
-            <button
-              key={extra.name}
-              onClick={() => toggleExtra(extra)}
-              className={`ff-card ff-card-left ${isSelected ? 'ff-card-active' : ''}`}
-            >
-              <div className="ff-card-row">
-                <span className="ff-card-title">{extra.name}</span>
-                {isSelected && <span className="ff-check">✓</span>}
-              </div>
-              <p className="ff-card-price-sm">+L.{extra.price}</p>
-            </button>
-          );
-        })}
-      </div>
-      <button onClick={() => setStep(5)} className="ff-btn-primary">
-        Siguiente →
-      </button>
-    </div>
-  );
-
-  // ===== Step 5: 选 Bebida =====
   const renderBebidaStep = () => (
     <div>
+      <button className="ff-back-link" onClick={() => setStep(3)}>← Atrás</button>
       <div className="ff-step-label">
-        <span className="ff-step-badge">Paso 5/6</span>
+        <span className="ff-step-badge">Paso 4/4</span>
         <span className="ff-step-combo">{selectedCombo?.name}</span>
       </div>
       <h2 className="ff-title">Elige tu Bebida (opcional)</h2>
@@ -307,19 +375,62 @@ export default function FastFoodLayout({ restaurant }) {
           </button>
         ))}
         <button
-          onClick={() => setStep(6)}
+          onClick={() => {
+            setSelectedBebida(null);
+            setStep(4);
+          }}
           className="ff-card ff-card-center"
           style={{ borderStyle: 'dashed' }}
+          
         >
           <p className="ff-card-title">Sin bebida</p>
           <p className="ff-card-price-sm" style={{ color: '#1a1a1a' }}>L.0</p>
         </button>
       </div>
+      {selectedBebida && (
+        <button onClick={() => addComboToCart()} className="ff-btn-primary" style={{ marginTop: '16px' }}>
+          🛒 Agregar al carrito · L.{selectedCombo.price + selectedBebida.price}
+        </button>
+      )}
     </div>
   );
 
-  // ===== Step 6: 配送信息 =====
-  const renderDeliveryStep = () => {
+  // ============================================================
+  // ===== A LA CARTA =====
+  // ============================================================
+  const renderAlaCarta = () => (
+    <div>
+      <button className="ff-back-link" onClick={() => setMode(null)}>← Volver</button>
+      <h2 className="ff-title">🍜 A la Carta</h2>
+      <p className="ff-subtitle">Elige tus platos favoritos</p>
+  
+      {/* 菜品列表 */}
+      <div className="ff-alacarta-list">
+        {alaCarta.map(item => {
+          const inCart = cart.find(i => i.cartId === `ac-${item.id}`);
+          return (
+            <div key={item.id} className="ff-alacarta-item">
+              <div className="ff-alacarta-info">
+                <span className="ff-alacarta-name">{item.name}</span>
+                <span className="ff-alacarta-price">L.{item.price}</span>
+              </div>
+              <button
+                className={`ff-alacarta-add ${inCart ? 'ff-alacarta-add-active' : ''}`}
+                onClick={() => addAlaCartaToCart(item)}
+              >
+                {inCart ? `✓ ${inCart.qty}` : '+'}
+              </button>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+
+  // ============================================================
+  // ===== 结算页 =====
+  // ============================================================
+  const renderCheckout = () => {
     const handleChange = (field, value) => {
       setDeliveryInfo(prev => ({ ...prev, [field]: value }));
     };
@@ -333,29 +444,24 @@ export default function FastFoodLayout({ restaurant }) {
       return deliveryInfo.nombre.trim() !== '';
     };
 
+    const whatsappNumber = restaurant.whatsapp || '504XXXXXXXX';
+
     return (
       <div>
-        <div className="ff-step-label">
-          <span className="ff-step-badge">Paso 6/6</span>
-          <span className="ff-step-combo">{selectedCombo?.name}</span>
-        </div>
+        <button className="ff-back-link" onClick={() => setShowCheckout(false)}>← Volver al carrito</button>
         <h2 className="ff-title">📦 Información de Entrega</h2>
         <p className="ff-subtitle">¿Cómo quieres recibir tu pedido?</p>
 
         <div className="ff-tipo-entrega">
           <button
             className={`ff-tipo-btn ${deliveryInfo.tipo === 'recoger' ? 'ff-tipo-btn-active' : ''}`}
-            onClick={() => {
-              setDeliveryInfo(prev => ({ ...prev, tipo: 'recoger', direccion: '' }));
-            }}
+            onClick={() => setDeliveryInfo(prev => ({ ...prev, tipo: 'recoger', direccion: '' }))}
           >
             <span className="ff-tipo-label">RECOGER</span>
           </button>
           <button
             className={`ff-tipo-btn ${deliveryInfo.tipo === 'delivery' ? 'ff-tipo-btn-active' : ''}`}
-            onClick={() => {
-              setDeliveryInfo(prev => ({ ...prev, tipo: 'delivery' }));
-            }}
+            onClick={() => setDeliveryInfo(prev => ({ ...prev, tipo: 'delivery' }))}
           >
             <span className="ff-tipo-label">A DOMICILIO</span>
           </button>
@@ -404,7 +510,7 @@ export default function FastFoodLayout({ restaurant }) {
             <input
               type="text"
               className="ff-form-input"
-              placeholder="Ej: Entrada por el parqueo, segundo nivel"
+              placeholder="Ej: Entrada por el parqueo"
               value={deliveryInfo.notas}
               onChange={(e) => handleChange('notas', e.target.value)}
             />
@@ -414,104 +520,82 @@ export default function FastFoodLayout({ restaurant }) {
             <p className="ff-form-error">⚠️ Por favor completa los campos obligatorios</p>
           )}
 
-          <button
-            onClick={() => setStep(7)}
-            className="ff-btn-primary"
-            disabled={!isFormValid()}
-            style={{
-              opacity: isFormValid() ? 1 : 0.5,
-              cursor: isFormValid() ? 'pointer' : 'not-allowed',
-            }}
-          >
-            Ver Resumen →
-          </button>
-        </div>
-      </div>
-    );
-  };
-
-  // ===== Step 7: Resumen =====
-  const renderResumenStep = () => {
-    const total = getTotal();
-    const whatsappNumber = restaurant.whatsapp || '504XXXXXXXX';
-    return (
-      <div>
-        <h2 className="ff-title text-center">📋 Tu Pedido</h2>
-        <div className="ff-resumen">
-          {/* ===== 菜品信息 ===== */}
-          <div className="ff-resumen-row" style={{ borderBottom: '2px solid #C62828', paddingBottom: '10px' }}>
-            <span className="ff-resumen-label" style={{ fontWeight: 900, color: '#C62828', fontSize: '16px' }}>
-              {selectedCombo.name}
-            </span>
-            <span className="ff-resumen-price" style={{ fontWeight: 900, fontSize: '16px' }}>
-              L.{selectedCombo.price}
-            </span>
-          </div>
-          <div className="ff-resumen-row">
-            <span className="ff-resumen-label">Base: {selectedBases.map(b => b.name).join(', ')}</span>
-          </div>
-          {selectedCombo.id !== 'combo3' && (
-            <div className="ff-resumen-row">
-              <span className="ff-resumen-label">Vegetal Salteado</span>
-            </div>
-          )}
-          <div className="ff-resumen-row">
-            <span className="ff-resumen-label">Proteínas: {selectedProteinas.map(p => p.name).join(', ')}</span>
-          </div>
-          {selectedExtras.length > 0 && (
-            <div className="ff-resumen-extras">
-              {selectedExtras.map(e => (
-                <div key={e.name} className="ff-resumen-row ff-resumen-extra">
-                  <span className="ff-resumen-label">+ {e.name}</span>
-                  <span style={{ color: '#999', fontWeight: 500 }}>+L.{e.price}</span>
-                </div>
-              ))}
-            </div>
-          )}
-          {selectedBebida && (
-            <div className="ff-resumen-row">
-              <span className="ff-resumen-label">+ {selectedBebida.name}</span>
-              <span style={{ color: '#999', fontWeight: 500 }}>+L.{selectedBebida.price}</span>
-            </div>
-          )}
-
-          {/* ===== 配送信息 ===== */}
-          <div className="ff-resumen-delivery">
-            <p className="ff-resumen-delivery-title">📦 {deliveryInfo.tipo === 'delivery' ? 'A DOMICILIO' : 'RECOGER EN TIENDA'}</p>
-            <p>👤 {deliveryInfo.nombre}</p>
-            {deliveryInfo.tipo === 'delivery' && <p>📍 {deliveryInfo.direccion}</p>}
-            {deliveryInfo.telefono && <p>📱 {deliveryInfo.telefono}</p>}
-            {deliveryInfo.notas && <p>📝 {deliveryInfo.notas}</p>}
-          </div>
-
-          <div className="ff-resumen-total">
-            <span className="ff-resumen-total-label">Total</span>
-            <span className="ff-resumen-total-price">L.{total}</span>
-          </div>
-        </div>
-
-        <div className="ff-actions">
-          <button onClick={() => setStep(6)} className="ff-btn-secondary">
-            ← Atrás
-          </button>
           <a
             href={`https://wa.me/${whatsappNumber}?text=${getWhatsAppMessage()}`}
             target="_blank"
             rel="noreferrer"
-            className="ff-btn-whatsapp"
+            className="ff-btn-whatsapp-full"
+            style={{
+              opacity: isFormValid() ? 1 : 0.5,
+              pointerEvents: isFormValid() ? 'auto' : 'none',
+              display: 'block',
+              marginTop: '16px',
+            }}
           >
-            📱 Enviar Pedido por WhatsApp
+            📱 Enviar Pedido por WhatsApp · L.{cartTotal}
           </a>
         </div>
-
-        <button onClick={resetOrder} className="ff-btn-reset">
-          Comenzar nuevo pedido
-        </button>
       </div>
     );
   };
 
+  // ============================================================
+  // ===== 购物车弹窗 =====
+  // ============================================================
+  const renderCartModal = () => {
+    if (!showCart) return null;
+    return (
+      <div className="ff-cart-overlay" onClick={() => setShowCart(false)}>
+        <div className="ff-cart-modal" onClick={(e) => e.stopPropagation()}>
+          <div className="ff-cart-header">
+            <h3>🛒 Tu Pedido</h3>
+            <button className="ff-cart-close" onClick={() => setShowCart(false)}>✕</button>
+          </div>
+
+          {cart.length === 0 ? (
+            <p className="ff-cart-empty">Tu carrito está vacío</p>
+          ) : (
+            <>
+              <div className="ff-cart-items">
+                {cart.map(item => (
+                  <div key={item.cartId} className="ff-cart-item">
+                    <div className="ff-cart-item-info">
+                      <span className="ff-cart-item-name">{item.name}</span>
+                      <span className="ff-cart-item-price">L.{item.price * item.qty}</span>
+                    </div>
+                    <div className="ff-cart-item-controls">
+                      <button onClick={() => decreaseQty(item.cartId)}>−</button>
+                      <span>{item.qty}</span>
+                      <button onClick={() => increaseQty(item.cartId)}>+</button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="ff-cart-total">
+                <span>Total</span>
+                <span>L.{cartTotal}</span>
+              </div>
+
+              <button
+                className="ff-btn-primary"
+                onClick={() => {
+                  setShowCart(false);
+                  setShowCheckout(true);
+                }}
+              >
+                Continuar →
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  // ============================================================
   // ===== Main Render =====
+  // ============================================================
   return (
     <div className="ff-container">
       {/* Header */}
@@ -524,50 +608,62 @@ export default function FastFoodLayout({ restaurant }) {
             </h1>
             <p className="ff-header-sub">Comida China Rápida · La Entrada, Copán</p>
           </div>
-          <Link to="/" className="ff-header-close">
-            ✕
-          </Link>
+          <Link to="/" className="ff-header-close">✕</Link>
         </div>
       </div>
 
-      {/* Progress */}
-      <div className="ff-progress">
-        {[1, 2, 3, 4, 5, 6].map((s) => (
-          <div key={s} className="ff-progress-item">
-            <div
-              className={`ff-progress-dot ${
-                s < step ? 'ff-progress-dot-done' : s === step ? 'ff-progress-dot-active' : ''
-              }`}
-              onClick={() => {
-                if (s < step && s >= 1) {
-                  setStep(s);
-                }
-              }}
-              style={{
-                cursor: s < step ? 'pointer' : 'default',
-              }}
-            >
-              {s < step ? '✓' : s}
-            </div>
-            {s < 6 && (
+      {/* COMBO 进度条 */}
+      {mode === 'combo' && !showCheckout && (
+        <div className="ff-progress">
+          {[1, 2, 3, 4].map((s) => (
+            <div key={s} className="ff-progress-item">
               <div
-                className={`ff-progress-line ${s < step ? 'ff-progress-line-done' : ''}`}
-              />
-            )}
-          </div>
-        ))}
-      </div>
+                className={`ff-progress-dot ${
+                  s < step ? 'ff-progress-dot-done' : s === step ? 'ff-progress-dot-active' : ''
+                }`}
+                onClick={() => { if (s < step) setStep(s); }}
+                style={{ cursor: s < step ? 'pointer' : 'default' }}
+              >
+                {s < step ? '✓' : s}
+              </div>
+              {s < 4 && (
+                <div className={`ff-progress-line ${s < step ? 'ff-progress-line-done' : ''}`} />
+              )}
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Content */}
       <div className="ff-content">
-        {step === 1 && renderComboStep()}
-        {step === 2 && renderBaseStep()}
-        {step === 3 && renderProteinaStep()}
-        {step === 4 && renderExtrasStep()}
-        {step === 5 && renderBebidaStep()}
-        {step === 6 && renderDeliveryStep()}
-        {step === 7 && renderResumenStep()}
+        {showCheckout ? (
+          renderCheckout()
+        ) : (
+          <>
+            {mode === null && renderHome()}
+            {mode === 'combo' && (
+              <>
+                {step === 1 && renderComboStep()}
+                {step === 2 && renderBaseStep()}
+                {step === 3 && renderProteinaStep()}
+                {step === 4 && renderBebidaStep()}
+              </>
+            )}
+            {mode === 'alacarta' && renderAlaCarta()}
+          </>
+        )}
       </div>
+
+      {/* 购物车浮动条 */}
+      {cartCount > 0 && !showCheckout && (
+        <button className="ff-cart-bar" onClick={() => setShowCart(true)}>
+          <span>🛒 {cartCount} producto{cartCount > 1 ? 's' : ''}</span>
+          <span className="ff-cart-bar-total">L.{cartTotal}</span>
+        </button>
+      )}
+
+      {/* 购物车弹窗 */}
+      {renderCartModal()}
 
       {/* Footer */}
       <footer className="ff-footer">
@@ -587,6 +683,7 @@ export default function FastFoodLayout({ restaurant }) {
           padding: 16px;
           max-width: 480px;
           margin: 0 auto;
+          padding-bottom: 100px;
         }
 
         .ff-header {
@@ -614,14 +711,8 @@ export default function FastFoodLayout({ restaurant }) {
           justify-content: center;
           gap: 4px;
         }
-        .ff-title-hong {
-          color: #FFFFFF;
-          letter-spacing: 2px;
-        }
-        .ff-title-express {
-          color: #FFB800;
-          letter-spacing: 1px;
-        }
+        .ff-title-hong { color: #FFFFFF; letter-spacing: 2px; }
+        .ff-title-express { color: #FFB800; letter-spacing: 1px; }
         .ff-header-sub {
           font-size: 12px;
           color: #FFFFFF;
@@ -641,12 +732,8 @@ export default function FastFoodLayout({ restaurant }) {
           font-size: 13px;
           color: white;
           text-decoration: none;
-          transition: background 0.2s;
-          flex-shrink: 0;
         }
-        .ff-header-close:hover {
-          background: rgba(255,255,255,0.3);
-        }
+        .ff-header-close:hover { background: rgba(255,255,255,0.3); }
 
         .ff-progress {
           display: flex;
@@ -654,11 +741,7 @@ export default function FastFoodLayout({ restaurant }) {
           margin-bottom: 20px;
           padding: 0 4px;
         }
-        .ff-progress-item {
-          display: flex;
-          align-items: center;
-          flex: 1;
-        }
+        .ff-progress-item { display: flex; align-items: center; flex: 1; }
         .ff-progress-dot {
           width: 32px;
           height: 32px;
@@ -674,10 +757,7 @@ export default function FastFoodLayout({ restaurant }) {
           color: #aaa;
           user-select: none;
         }
-        .ff-progress-dot-done {
-          background: #C62828;
-          color: white;
-        }
+        .ff-progress-dot-done { background: #C62828; color: white; }
         .ff-progress-dot-active {
           background: #C62828;
           color: white;
@@ -688,11 +768,8 @@ export default function FastFoodLayout({ restaurant }) {
           height: 2px;
           background: #e0d6cc;
           margin: 0 4px;
-          transition: background 0.3s;
         }
-        .ff-progress-line-done {
-          background: #C62828;
-        }
+        .ff-progress-line-done { background: #C62828; }
 
         .ff-content {
           background: white;
@@ -701,6 +778,17 @@ export default function FastFoodLayout({ restaurant }) {
           min-height: 400px;
           box-shadow: 0 4px 20px rgba(0,0,0,0.06);
         }
+
+        .ff-back-link {
+          background: none;
+          border: none;
+          color: #888;
+          font-size: 14px;
+          cursor: pointer;
+          padding: 0;
+          margin-bottom: 12px;
+        }
+        .ff-back-link:hover { color: #C62828; }
 
         .ff-title {
           font-size: 22px;
@@ -713,13 +801,8 @@ export default function FastFoodLayout({ restaurant }) {
           font-size: 14px;
           margin-bottom: 20px;
         }
-        .ff-highlight {
-          color: #C62828;
-          font-weight: 700;
-        }
-        .text-center {
-          text-align: center;
-        }
+        .ff-highlight { color: #C62828; font-weight: 700; }
+        .text-center { text-align: center; }
 
         .ff-step-label {
           display: flex;
@@ -735,21 +818,10 @@ export default function FastFoodLayout({ restaurant }) {
           padding: 2px 12px;
           border-radius: 30px;
         }
-        .ff-step-combo {
-          color: #888;
-          font-size: 13px;
-        }
+        .ff-step-combo { color: #888; font-size: 13px; }
 
-        .ff-grid-2 {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 12px;
-        }
-        .ff-grid-3 {
-          display: grid;
-          grid-template-columns: 1fr 1fr 1fr;
-          gap: 12px;
-        }
+        .ff-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .ff-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
 
         .ff-card {
           background: #f8f5f2;
@@ -761,10 +833,7 @@ export default function FastFoodLayout({ restaurant }) {
           transition: all 0.2s;
           width: 100%;
         }
-        .ff-card:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
+        .ff-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
         .ff-card-active {
           border-color: #C62828;
           background: #fff5f3;
@@ -776,55 +845,13 @@ export default function FastFoodLayout({ restaurant }) {
           flex-direction: column;
           align-items: center;
         }
-        .ff-card-left {
-          text-align: left;
-        }
-        .ff-card-title {
-          font-weight: 700;
-          font-size: 15px;
-          color: #1a1a1a;
-        }
-        .ff-card-desc {
-          font-size: 12px;
-          color: #888;
-          margin-top: 4px;
-        }
-        .ff-card-price {
-          font-size: 22px;
-          font-weight: 900;
-          color: #C62828;
-          margin-top: 8px;
-        }
-        .ff-card-price-sm {
-          font-size: 15px;
-          font-weight: 600;
-          color: #999;
-          margin-top: 4px;
-        }
-        .ff-card-row {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-        .ff-emoji {
-          font-size: 28px;
-          margin-bottom: 4px;
-        }
-        .ff-check {
-          color: #C62828;
-          font-size: 20px;
-          font-weight: 700;
-        }
-        .ff-tag {
-          display: inline-block;
-          background: #fef3c7;
-          color: #b45309;
-          font-size: 10px;
-          font-weight: 600;
-          padding: 2px 10px;
-          border-radius: 30px;
-          margin-top: 6px;
-        }
+        .ff-card-left { text-align: left; }
+        .ff-card-title { font-weight: 700; font-size: 15px; color: #1a1a1a; }
+        .ff-card-desc { font-size: 12px; color: #888; margin-top: 4px; }
+        .ff-card-price { font-size: 22px; font-weight: 900; color: #C62828; margin-top: 8px; }
+        .ff-card-price-sm { font-size: 15px; font-weight: 600; color: #999; margin-top: 4px; }
+        .ff-card-row { display: flex; justify-content: space-between; align-items: center; }
+        .ff-check { color: #C62828; font-size: 20px; font-weight: 700; }
 
         .ff-selected-info {
           text-align: center;
@@ -843,159 +870,264 @@ export default function FastFoodLayout({ restaurant }) {
           font-weight: 700;
           width: 100%;
           cursor: pointer;
-          transition: background 0.2s;
           margin-top: 16px;
         }
-        .ff-btn-primary:hover {
-          background: #a52626;
-        }
-        .ff-btn-secondary {
-          background: #e8e0d8;
-          color: #1a1a1a;
-          border: none;
-          border-radius: 30px;
-          padding: 14px 24px;
-          font-size: 15px;
-          font-weight: 600;
-          cursor: pointer;
-          transition: background 0.2s;
-          flex: 1;
-        }
-        .ff-btn-secondary:hover {
-          background: #d5cdc5;
-        }
-        .ff-btn-whatsapp {
-          background: #25D366;
-          color: white;
-          border: none;
-          border-radius: 30px;
-          padding: 14px 24px;
-          font-size: 15px;
-          font-weight: 700;
-          cursor: pointer;
-          transition: background 0.2s;
-          text-decoration: none;
-          text-align: center;
-          flex: 2;
-        }
-        .ff-btn-whatsapp:hover {
-          background: #1da851;
-        }
-        .ff-btn-reset {
-          background: none;
-          border: none;
-          color: #bbb;
-          font-size: 13px;
-          text-decoration: underline;
-          cursor: pointer;
-          width: 100%;
-          margin-top: 16px;
-          transition: color 0.2s;
-        }
-        .ff-btn-reset:hover {
-          color: #888;
-        }
+        .ff-btn-primary:hover { background: #a52626; }
 
-        .ff-actions {
-          display: flex;
-          gap: 12px;
-          margin-top: 4px;
+        /* ===== MODE SELECTION ===== */
+        .ff-mode-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 16px;
+          margin-top: 24px;
         }
-
-        .ff-resumen {
+        .ff-mode-card {
           background: #f8f5f2;
-          border-radius: 16px;
-          padding: 16px;
-          margin: 16px 0;
-        }
-        .ff-resumen-row {
-          display: flex;
-          justify-content: space-between;
-          padding: 8px 0;
-          border-bottom: 1px solid #eee;
-        }
-        .ff-resumen-row:last-child {
-          border-bottom: none;
-        }
-        .ff-resumen-label {
-          color: #1a1a1a;
-          font-size: 14px;
-        }
-        .ff-resumen-price {
-          font-weight: 600;
-          font-size: 14px;
-          color: #1a1a1a;
-        }
-        .ff-resumen-extras {
-          border-top: 1px solid #eee;
-          margin-top: 4px;
-          padding-top: 4px;
-        }
-        .ff-resumen-extra {
-          padding: 4px 0;
-          border-bottom: none;
-        }
-        .ff-resumen-extra .ff-resumen-label {
-          font-size: 13px;
-          color: #888;
-        }
-        .ff-resumen-extra .ff-resumen-price {
-          font-size: 13px;
-          color: #888;
-        }
-        .ff-resumen-total {
-          display: flex;
-          justify-content: space-between;
-          padding: 12px 0 4px;
-          border-top: 2px solid #ddd;
-          margin-top: 4px;
-        }
-        .ff-resumen-total-label {
-          font-size: 18px;
-          font-weight: 900;
-          color: #1a1a1a;
-        }
-        .ff-resumen-total-price {
-          font-size: 22px;
-          font-weight: 900;
-          color: #1a1a1a;
-        }
-
-        .ff-form {
+          border: 2px solid transparent;
+          border-radius: 20px;
+          padding: 28px 20px;
+          text-align: center;
+          cursor: pointer;
+          transition: all 0.2s;
           display: flex;
           flex-direction: column;
-          gap: 16px;
-          margin-top: 8px;
+          align-items: center;
+          gap: 6px;
         }
-        .ff-form-group {
+        .ff-mode-card:hover {
+          border-color: #C62828;
+          background: #fff5f3;
+          transform: translateY(-3px);
+          box-shadow: 0 8px 20px rgba(198, 40, 40, 0.12);
+        }
+        .ff-mode-emoji { font-size: 42px; margin-bottom: 4px; }
+        .ff-mode-name {
+          font-size: 20px;
+          font-weight: 900;
+          color: #1a1a1a;
+          letter-spacing: 1px;
+          font-family: 'Montserrat', 'Segoe UI', sans-serif;
+        }
+        .ff-mode-desc { font-size: 13px; color: #888; margin-top: 2px; }
+
+        /* ===== A LA CARTA ===== */
+        .ff-cat-tabs {
+          display: flex;
+          gap: 8px;
+          overflow-x: auto;
+          padding-bottom: 12px;
+          margin-bottom: 16px;
+          scrollbar-width: none;
+        }
+        .ff-cat-tabs::-webkit-scrollbar { display: none; }
+        .ff-cat-tab {
+          background: #f8f5f2;
+          border: 2px solid transparent;
+          border-radius: 30px;
+          padding: 8px 18px;
+          font-size: 13px;
+          font-weight: 700;
+          white-space: nowrap;
+          cursor: pointer;
+          color: #888;
+          transition: all 0.2s;
+        }
+        .ff-cat-tab-active {
+          background: #C62828;
+          color: white;
+          border-color: #C62828;
+        }
+        .ff-alacarta-list {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+        .ff-alacarta-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 14px 16px;
+          background: #f8f5f2;
+          border-radius: 14px;
+        }
+        .ff-alacarta-info {
           display: flex;
           flex-direction: column;
           gap: 4px;
+          flex: 1;
+          min-width: 0;
         }
-        .ff-form-label {
+        .ff-alacarta-name {
+          font-weight: 700;
           font-size: 14px;
-          font-weight: 600;
-          color: #333;
+          color: #1a1a1a;
         }
-        .ff-form-input {
-          padding: 12px 16px;
-          border: 2px solid #e0d6cc;
-          border-radius: 12px;
-          font-size: 15px;
-          transition: border-color 0.2s;
-          background: #faf8f6;
+        .ff-alacarta-price {
+          font-size: 14px;
+          color: #888;
         }
-        .ff-form-input:focus {
-          border-color: #C62828;
-          outline: none;
+        .ff-alacarta-add {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          border: none;
+          background: #C62828;
+          color: white;
+          font-size: 20px;
+          font-weight: 700;
+          cursor: pointer;
+          flex-shrink: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.2s;
         }
-        .ff-form-error {
-          color: #C62828;
+        .ff-alacarta-add:active { transform: scale(0.9); }
+        .ff-alacarta-add-active {
+          background: #4CAF50;
           font-size: 13px;
-          text-align: center;
-          margin-top: 4px;
         }
 
+        /* ===== 购物车浮动条 ===== */
+        .ff-cart-bar {
+          position: fixed;
+          bottom: 16px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: calc(100% - 32px);
+          max-width: 448px;
+          background: #1a1a1a;
+          color: white;
+          border: none;
+          border-radius: 18px;
+          padding: 16px 20px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 15px;
+          font-weight: 700;
+          cursor: pointer;
+          z-index: 100;
+          box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+        }
+        .ff-cart-bar-total {
+          background: #C62828;
+          padding: 6px 14px;
+          border-radius: 30px;
+        }
+
+        /* ===== 购物车弹窗 ===== */
+        .ff-cart-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0,0,0,0.5);
+          z-index: 200;
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
+        }
+        .ff-cart-modal {
+          background: white;
+          border-radius: 24px 24px 0 0;
+          padding: 20px;
+          width: 100%;
+          max-width: 480px;
+          max-height: 80vh;
+          overflow-y: auto;
+        }
+        .ff-cart-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 16px;
+          padding-bottom: 12px;
+          border-bottom: 2px solid #C62828;
+        }
+        .ff-cart-header h3 {
+          font-size: 18px;
+          font-weight: 900;
+          color: #1a1a1a;
+          margin: 0;
+        }
+        .ff-cart-close {
+          background: #f0f0f0;
+          border: none;
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          font-size: 16px;
+          cursor: pointer;
+        }
+        .ff-cart-empty {
+          text-align: center;
+          color: #888;
+          padding: 40px 20px;
+        }
+        .ff-cart-items {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          margin-bottom: 16px;
+        }
+        .ff-cart-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding-bottom: 12px;
+          border-bottom: 1px solid #eee;
+        }
+        .ff-cart-item-info {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+          flex: 1;
+          min-width: 0;
+          padding-right: 12px;
+        }
+        .ff-cart-item-name {
+          font-size: 13px;
+          font-weight: 600;
+          color: #1a1a1a;
+        }
+        .ff-cart-item-price {
+          font-size: 13px;
+          color: #888;
+        }
+        .ff-cart-item-controls {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          background: #f5f5f5;
+          padding: 4px 8px;
+          border-radius: 30px;
+        }
+        .ff-cart-item-controls button {
+          width: 28px;
+          height: 28px;
+          border: none;
+          border-radius: 50%;
+          background: #C62828;
+          color: white;
+          font-size: 16px;
+          cursor: pointer;
+        }
+        .ff-cart-item-controls span {
+          min-width: 20px;
+          text-align: center;
+          font-weight: 700;
+          font-size: 14px;
+        }
+        .ff-cart-total {
+          display: flex;
+          justify-content: space-between;
+          font-size: 18px;
+          font-weight: 900;
+          padding: 12px 0;
+          border-top: 2px solid #ddd;
+          color: #1a1a1a;
+        }
+
+        /* ===== 结算表单 ===== */
         .ff-tipo-entrega {
           display: grid;
           grid-template-columns: 1fr 1fr;
@@ -1011,13 +1143,11 @@ export default function FastFoodLayout({ restaurant }) {
           border-radius: 14px;
           background: #faf8f6;
           cursor: pointer;
-          transition: all 0.2s;
           text-align: center;
           width: 100%;
+          transition: all 0.2s;
         }
-        .ff-tipo-btn:hover {
-          border-color: #C62828;
-        }
+        .ff-tipo-btn:hover { border-color: #C62828; }
         .ff-tipo-btn-active {
           border-color: #C62828;
           background: #fff5f3;
@@ -1030,23 +1160,39 @@ export default function FastFoodLayout({ restaurant }) {
           width: 100%;
         }
 
-        .ff-resumen-delivery {
-          background: #f0ebe5;
-          border-radius: 12px;
+        .ff-form {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          margin-top: 8px;
+        }
+        .ff-form-group { display: flex; flex-direction: column; gap: 4px; }
+        .ff-form-label { font-size: 14px; font-weight: 600; color: #333; }
+        .ff-form-input {
           padding: 12px 16px;
-          margin: 12px 0;
+          border: 2px solid #e0d6cc;
+          border-radius: 12px;
+          font-size: 15px;
+          background: #faf8f6;
         }
-        .ff-resumen-delivery-title {
-          font-weight: 700;
-          font-size: 14px;
-          color: #1a1a1a;
-          margin-bottom: 6px;
-        }
-        .ff-resumen-delivery p {
+        .ff-form-input:focus { border-color: #C62828; outline: none; }
+        .ff-form-error {
+          color: #C62828;
           font-size: 13px;
-          color: #1a1a1a;
-          margin: 2px 0;
+          text-align: center;
         }
+        .ff-btn-whatsapp-full {
+          background: #25D366;
+          color: white;
+          border: none;
+          border-radius: 30px;
+          padding: 16px;
+          font-size: 15px;
+          font-weight: 700;
+          text-align: center;
+          text-decoration: none;
+        }
+        .ff-btn-whatsapp-full:hover { background: #1da851; }
 
         .ff-footer {
           text-align: center;
@@ -1054,41 +1200,17 @@ export default function FastFoodLayout({ restaurant }) {
           font-size: 11px;
           margin-top: 16px;
         }
-        .ff-footer-link {
-          color: #bbb;
-          text-decoration: none;
-          font-weight: 600;
-        }
-        .ff-footer-link:hover {
-          text-decoration: underline;
-        }
+        .ff-footer-link { color: #bbb; text-decoration: none; font-weight: 600; }
+        .ff-footer-link:hover { text-decoration: underline; }
 
         @media (max-width: 400px) {
-          .ff-grid-2 {
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-          }
-          .ff-grid-3 {
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 8px;
-          }
-          .ff-card {
-            padding: 12px;
-          }
-          .ff-content {
-            padding: 16px;
-          }
-          .ff-title {
-            font-size: 19px;
-          }
-          .ff-header-title {
-            font-size: 19px;
-          }
-          .ff-progress-dot {
-            width: 28px;
-            height: 28px;
-            font-size: 10px;
-          }
+          .ff-grid-2 { gap: 8px; }
+          .ff-grid-3 { gap: 8px; }
+          .ff-card { padding: 12px; }
+          .ff-content { padding: 16px; }
+          .ff-title { font-size: 19px; }
+          .ff-header-title { font-size: 19px; }
+          .ff-progress-dot { width: 28px; height: 28px; font-size: 10px; }
         }
       `}</style>
     </div>
