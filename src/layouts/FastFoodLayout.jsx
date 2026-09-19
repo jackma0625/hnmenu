@@ -20,6 +20,11 @@ const proteinas = [
   { name: 'Res con Brócoli' },
 ];
 
+const extras = [
+  { name: 'Wantan Frito (2 piezas)', price: 20 },
+  { name: 'Wantan Frito (4 piezas)', price: 35 },
+];
+
 const bebidas = [
   { name: 'Pepsi 500ml', price: 30 },
   { name: '7Up 500ml', price: 30 },
@@ -46,7 +51,6 @@ const alaCarta = [
   { id: 'ac13', name: 'Sopa de Pollo', price: 150 },
   { id: 'ac14', name: 'Sopa de Res', price: 170 },
   { id: 'ac15', name: 'Sopa Filete de Pescado', price: 220 },
-  // ===== 新增 Arroz con Pollo =====
   { id: 'ac16', name: 'Arroz con Pollo (Personal)', price: 100 },
   { id: 'ac17', name: 'Arroz con Pollo (Medio)', price: 170 },
   { id: 'ac18', name: 'Arroz con Pollo (Normal)', price: 200 },
@@ -71,9 +75,8 @@ export default function FastFoodLayout({ restaurant }) {
   const [selectedCombo, setSelectedCombo] = useState(null);
   const [selectedBases, setSelectedBases] = useState([]);
   const [selectedProteinas, setSelectedProteinas] = useState([]);
+  const [selectedExtras, setSelectedExtras] = useState([]);
   const [selectedBebida, setSelectedBebida] = useState(null);
-
-  
 
   // ===== 配送信息 =====
   const [deliveryInfo, setDeliveryInfo] = useState({
@@ -109,10 +112,6 @@ export default function FastFoodLayout({ restaurant }) {
     );
   };
 
-  const removeItem = (cartId) => {
-    setCart(prev => prev.filter(i => i.cartId !== cartId));
-  };
-
   const cartTotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
   const cartCount = cart.reduce((sum, item) => sum + item.qty, 0);
 
@@ -121,15 +120,8 @@ export default function FastFoodLayout({ restaurant }) {
     setSelectedCombo(null);
     setSelectedBases([]);
     setSelectedProteinas([]);
+    setSelectedExtras([]);
     setSelectedBebida(null);
-    setStep(1);
-  };
-
-  const resetAll = () => {
-    setCart([]);
-    resetCombo();
-    setDeliveryInfo({ nombre: '', telefono: '', direccion: '', notas: '', tipo: 'delivery' });
-    setMode(null);
     setStep(1);
   };
 
@@ -138,6 +130,8 @@ export default function FastFoodLayout({ restaurant }) {
     setSelectedCombo(combo);
     setSelectedBases([]);
     setSelectedProteinas([]);
+    setSelectedExtras([]);
+    setSelectedBebida(null);
     setStep(2);
   };
 
@@ -167,23 +161,37 @@ export default function FastFoodLayout({ restaurant }) {
     });
   };
 
+  const toggleExtra = (extra) => {
+    setSelectedExtras((prev) => {
+      const exists = prev.find(e => e.name === extra.name);
+      if (exists) return prev.filter(e => e.name !== extra.name);
+      return [...prev, extra];
+    });
+  };
+
   const selectBebida = (bebida) => {
     setSelectedBebida(bebida);
-    setStep(4);
+    setStep(6);
   };
 
   // ===== 把 COMBO 加入购物车 =====
-  const addComboToCart = () => {
-    const details = `${selectedBases.map(b => b.name).join(' + ')} + ${selectedProteinas.map(p => p.name).join(' + ')}${selectedBebida ? ' + ' + selectedBebida.name : ''}`;
-    const basePrice = selectedCombo.price + (selectedBebida ? selectedBebida.price : 0);
-    
+  const addComboToCart = (bebidaOverride) => {
+    const bebida = bebidaOverride !== undefined ? bebidaOverride : selectedBebida;
+    const extrasText = selectedExtras.length > 0
+      ? ` + ${selectedExtras.map(e => e.name).join(' + ')}`
+      : '';
+    const bebidaText = bebida ? ` + ${bebida.name}` : '';
+    const details = `${selectedBases.map(b => b.name).join(' + ')} + ${selectedProteinas.map(p => p.name).join(' + ')}${bebidaText}${extrasText}`;
+    const extrasPrice = selectedExtras.reduce((sum, e) => sum + e.price, 0);
+    const basePrice = selectedCombo.price + (bebida ? bebida.price : 0) + extrasPrice;
+
     addToCart({
       cartId: `combo-${Date.now()}`,
       name: `${selectedCombo.name} (${details})`,
       price: basePrice,
       type: 'combo',
     });
-    
+
     resetCombo();
     setMode(null);
   };
@@ -232,7 +240,6 @@ export default function FastFoodLayout({ restaurant }) {
           className="ff-mode-card"
           onClick={() => { setMode('combo'); setStep(1); }}
         >
-          <span className="ff-mode-emoji">🍱</span>
           <span className="ff-mode-name">COMBO</span>
           <span className="ff-mode-desc">Combos rápidos con base, proteína y más</span>
         </button>
@@ -240,7 +247,6 @@ export default function FastFoodLayout({ restaurant }) {
           className="ff-mode-card"
           onClick={() => setMode('alacarta')}
         >
-          <span className="ff-mode-emoji">🍜</span>
           <span className="ff-mode-name">A LA CARTA</span>
           <span className="ff-mode-desc">Elige tus platos favoritos uno por uno</span>
         </button>
@@ -278,7 +284,7 @@ export default function FastFoodLayout({ restaurant }) {
       <div>
         <button className="ff-back-link" onClick={() => setStep(1)}>← Atrás</button>
         <div className="ff-step-label">
-          <span className="ff-step-badge">Paso 2/4</span>
+          <span className="ff-step-badge">Paso 2/5</span>
           <span className="ff-step-combo">{selectedCombo?.name}</span>
         </div>
         <h2 className="ff-title">Elige tu Base</h2>
@@ -318,7 +324,7 @@ export default function FastFoodLayout({ restaurant }) {
       <div>
         <button className="ff-back-link" onClick={() => setStep(2)}>← Atrás</button>
         <div className="ff-step-label">
-          <span className="ff-step-badge">Paso 3/4</span>
+          <span className="ff-step-badge">Paso 3/5</span>
           <span className="ff-step-combo">{selectedCombo?.name}</span>
         </div>
         <h2 className="ff-title">Elige tu Proteína</h2>
@@ -354,11 +360,44 @@ export default function FastFoodLayout({ restaurant }) {
     );
   };
 
-  const renderBebidaStep = () => (
+  const renderExtrasStep = () => (
     <div>
       <button className="ff-back-link" onClick={() => setStep(3)}>← Atrás</button>
       <div className="ff-step-label">
-        <span className="ff-step-badge">Paso 4/4</span>
+        <span className="ff-step-badge">Paso 4/5</span>
+        <span className="ff-step-combo">{selectedCombo?.name}</span>
+      </div>
+      <h2 className="ff-title">Extras (opcional)</h2>
+      <p className="ff-subtitle">¿Quieres agregar Wantan Frito?</p>
+      <div className="ff-grid-2">
+        {extras.map((extra) => {
+          const isSelected = selectedExtras.find(e => e.name === extra.name);
+          return (
+            <button
+              key={extra.name}
+              onClick={() => toggleExtra(extra)}
+              className={`ff-card ff-card-left ${isSelected ? 'ff-card-active' : ''}`}
+            >
+              <div className="ff-card-row">
+                <span className="ff-card-title">{extra.name}</span>
+                {isSelected && <span className="ff-check">✓</span>}
+              </div>
+              <p className="ff-card-price-sm">+L.{extra.price}</p>
+            </button>
+          );
+        })}
+      </div>
+      <button onClick={() => setStep(5)} className="ff-btn-primary">
+        Siguiente →
+      </button>
+    </div>
+  );
+
+  const renderBebidaStep = () => (
+    <div>
+      <button className="ff-back-link" onClick={() => setStep(4)}>← Atrás</button>
+      <div className="ff-step-label">
+        <span className="ff-step-badge">Paso 5/5</span>
         <span className="ff-step-combo">{selectedCombo?.name}</span>
       </div>
       <h2 className="ff-title">Elige tu Bebida (opcional)</h2>
@@ -377,19 +416,22 @@ export default function FastFoodLayout({ restaurant }) {
         <button
           onClick={() => {
             setSelectedBebida(null);
-            setStep(4);
+            addComboToCart(null);
           }}
           className="ff-card ff-card-center"
           style={{ borderStyle: 'dashed' }}
-          
         >
           <p className="ff-card-title">Sin bebida</p>
           <p className="ff-card-price-sm" style={{ color: '#1a1a1a' }}>L.0</p>
         </button>
       </div>
       {selectedBebida && (
-        <button onClick={() => addComboToCart()} className="ff-btn-primary" style={{ marginTop: '16px' }}>
-          🛒 Agregar al carrito · L.{selectedCombo.price + selectedBebida.price}
+        <button
+          onClick={() => addComboToCart(selectedBebida)}
+          className="ff-btn-primary"
+          style={{ marginTop: '16px' }}
+        >
+          🛒 Agregar al carrito · L.{selectedCombo.price + selectedBebida.price + selectedExtras.reduce((s, e) => s + e.price, 0)}
         </button>
       )}
     </div>
@@ -403,8 +445,7 @@ export default function FastFoodLayout({ restaurant }) {
       <button className="ff-back-link" onClick={() => setMode(null)}>← Volver</button>
       <h2 className="ff-title">🍜 A la Carta</h2>
       <p className="ff-subtitle">Elige tus platos favoritos</p>
-  
-      {/* 菜品列表 */}
+
       <div className="ff-alacarta-list">
         {alaCarta.map(item => {
           const inCart = cart.find(i => i.cartId === `ac-${item.id}`);
@@ -615,7 +656,7 @@ export default function FastFoodLayout({ restaurant }) {
       {/* COMBO 进度条 */}
       {mode === 'combo' && !showCheckout && (
         <div className="ff-progress">
-          {[1, 2, 3, 4].map((s) => (
+          {[1, 2, 3, 4, 5].map((s) => (
             <div key={s} className="ff-progress-item">
               <div
                 className={`ff-progress-dot ${
@@ -626,7 +667,7 @@ export default function FastFoodLayout({ restaurant }) {
               >
                 {s < step ? '✓' : s}
               </div>
-              {s < 4 && (
+              {s < 5 && (
                 <div className={`ff-progress-line ${s < step ? 'ff-progress-line-done' : ''}`} />
               )}
             </div>
@@ -646,7 +687,8 @@ export default function FastFoodLayout({ restaurant }) {
                 {step === 1 && renderComboStep()}
                 {step === 2 && renderBaseStep()}
                 {step === 3 && renderProteinaStep()}
-                {step === 4 && renderBebidaStep()}
+                {step === 4 && renderExtrasStep()}
+                {step === 5 && renderBebidaStep()}
               </>
             )}
             {mode === 'alacarta' && renderAlaCarta()}
@@ -885,7 +927,7 @@ export default function FastFoodLayout({ restaurant }) {
           background: #f8f5f2;
           border: 2px solid transparent;
           border-radius: 20px;
-          padding: 28px 20px;
+          padding: 36px 20px;
           text-align: center;
           cursor: pointer;
           transition: all 0.2s;
@@ -900,7 +942,6 @@ export default function FastFoodLayout({ restaurant }) {
           transform: translateY(-3px);
           box-shadow: 0 8px 20px rgba(198, 40, 40, 0.12);
         }
-        .ff-mode-emoji { font-size: 42px; margin-bottom: 4px; }
         .ff-mode-name {
           font-size: 20px;
           font-weight: 900;
@@ -911,32 +952,6 @@ export default function FastFoodLayout({ restaurant }) {
         .ff-mode-desc { font-size: 13px; color: #888; margin-top: 2px; }
 
         /* ===== A LA CARTA ===== */
-        .ff-cat-tabs {
-          display: flex;
-          gap: 8px;
-          overflow-x: auto;
-          padding-bottom: 12px;
-          margin-bottom: 16px;
-          scrollbar-width: none;
-        }
-        .ff-cat-tabs::-webkit-scrollbar { display: none; }
-        .ff-cat-tab {
-          background: #f8f5f2;
-          border: 2px solid transparent;
-          border-radius: 30px;
-          padding: 8px 18px;
-          font-size: 13px;
-          font-weight: 700;
-          white-space: nowrap;
-          cursor: pointer;
-          color: #888;
-          transition: all 0.2s;
-        }
-        .ff-cat-tab-active {
-          background: #C62828;
-          color: white;
-          border-color: #C62828;
-        }
         .ff-alacarta-list {
           display: flex;
           flex-direction: column;
