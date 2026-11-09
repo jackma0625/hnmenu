@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 // ===== COMBO 数据 =====
 const combos = [
-  { id: 'combo1', name: 'COMBO UNO', desc: '1 Base + 1 Proteína + 1 Pan', price: 129 },
-  { id: 'combo2', name: 'COMBO DOS', desc: '1 Base + 2 Proteínas + 1 Pan', price: 169 },
-  { id: 'combo3', name: 'COMBO MIXTO', desc: '2 Bases + 1 Proteína', price: 149 },
+  { id: 'combo1', name: 'COMBO UNO', desc: '1 Base + 1 Proteína + 1 Pan', price: 139 },
+  { id: 'combo2', name: 'COMBO DOS', desc: '1 Base + 2 Proteínas + 1 Pan', price: 179 },
+  { id: 'combo3', name: 'COMBO MIXTO', desc: '2 Bases + 1 Proteína', price: 169 },
 ];
 
 const bases = [
@@ -41,7 +41,7 @@ const alaCarta = [
   { id: 'ac3', name: 'Camarón Empanizado', price: 250 },
   { id: 'ac4', name: 'Camarón al Ajillo', price: 250 },
   { id: 'ac5', name: 'Camarón a la Plancha', price: 250 },
-  { id: 'ac6', name: 'Pollo a la Plancha', price: 180 },
+  { id: 'ac6', name: 'Pollo a la Plancha', price: 190 },
   { id: 'ac7', name: 'Pollo Empanizado', price: 180 },
   { id: 'ac8', name: 'Res a la Plancha', price: 230 },
   { id: 'ac9', name: 'Chuleta Encebollada y Tomatada', price: 250 },
