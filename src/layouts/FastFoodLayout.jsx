@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 // ===== COMBO 数据 =====
 const combos = [
   { id: 'combo1', name: 'COMBO UNO', desc: '1 Base + 1 Proteína + 1 Pan', price: 139 },
-  { id: 'combo2', name: 'COMBO DOS', desc: '1 Base + 2 Proteínas + 1 Pan', price: 179 },
-  { id: 'combo3', name: 'COMBO MIXTO', desc: '2 Bases + 1 Proteína', price: 169 },
+  { id: 'combo2', name: 'COMBO DOS', desc: '1 Base + 2 Proteínas + 1 Pan', price: 189 },
+  { id: 'combo3', name: 'COMBO MIXTO', desc: '2 Bases + 1 Proteína', price: 179 },
 ];
 
 const bases = [
