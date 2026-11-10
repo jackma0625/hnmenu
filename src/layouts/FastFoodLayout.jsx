@@ -42,7 +42,7 @@ const alaCarta = [
   { id: 'ac4', name: 'Camarón al Ajillo', price: 250 },
   { id: 'ac5', name: 'Camarón a la Plancha', price: 250 },
   { id: 'ac6', name: 'Pollo a la Plancha', price: 190 },
-  { id: 'ac7', name: 'Pollo Empanizado', price: 180 },
+  { id: 'ac7', name: 'Pollo Empanizado', price: 190 },
   { id: 'ac8', name: 'Res a la Plancha', price: 230 },
   { id: 'ac9', name: 'Chuleta Encebollada y Tomatada', price: 250 },
   { id: 'ac10', name: 'Sopa Marinera', price: 250 },
